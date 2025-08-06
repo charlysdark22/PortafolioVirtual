@@ -2,10 +2,12 @@
 const mobileMenu = document.getElementById('mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 
-mobileMenu.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+if (mobileMenu && navMenu) {
+    mobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+}
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(link => {
@@ -19,7 +21,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
         if (target) {
             const headerOffset = 70;
             const elementPosition = target.getBoundingClientRect().top;
@@ -62,8 +65,10 @@ const observer = new IntersectionObserver((entries) => {
 // Add reveal class to elements that should animate
 const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item');
 revealElements.forEach(el => {
-    el.classList.add('reveal');
-    observer.observe(el);
+    if (el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+    }
 });
 
 // Animate skill bars when they come into view
@@ -83,40 +88,60 @@ const skillObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 skillBars.forEach(bar => {
-    skillObserver.observe(bar);
+    if (bar) {
+        skillObserver.observe(bar);
+    }
 });
 
 // Form handling
 const contactForm = document.querySelector('.contact-form');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Simulate form submission
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-    submitBtn.disabled = true;
-    
-    setTimeout(() => {
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> ¡Mensaje Enviado!';
-        submitBtn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+        
+        // Validate form data
+        const requiredFields = ['nombre', 'email', 'asunto', 'mensaje'];
+        const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+        
+        if (missingFields.length > 0) {
+            alert('Por favor, completa todos los campos requeridos.');
+            return;
+        }
+        
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            alert('Por favor, introduce un email válido.');
+            return;
+        }
+        
+        // Simulate form submission
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
         
         setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            submitBtn.style.background = 'linear-gradient(45deg, #f093fb, #f5576c)';
-            contactForm.reset();
-        }, 2000);
-    }, 1500);
-    
-    // Here you would typically send the data to your server
-    console.log('Form submitted:', data);
-});
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> ¡Mensaje Enviado!';
+            submitBtn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.background = 'linear-gradient(45deg, #f093fb, #f5576c)';
+                contactForm.reset();
+            }, 2000);
+        }, 1500);
+        
+        // Here you would typically send the data to your server
+        console.log('Form submitted:', data);
+    });
+}
 
 // Floating animation for hero card
 const floatingCard = document.querySelector('.floating-card');
@@ -125,6 +150,7 @@ if (floatingCard) {
     let mouseY = 0;
     let cardX = 0;
     let cardY = 0;
+    let animationId = null;
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
@@ -138,24 +164,35 @@ if (floatingCard) {
         cardX += distX * 0.1;
         cardY += distY * 0.1;
         
-        if (floatingCard.getBoundingClientRect().top < window.innerHeight && 
-            floatingCard.getBoundingClientRect().bottom > 0) {
+        const rect = floatingCard.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
             floatingCard.style.transform = `translate(${distX * 0.01}px, ${distY * 0.01}px)`;
         }
         
-        requestAnimationFrame(animateCard);
+        animationId = requestAnimationFrame(animateCard);
     }
     
     animateCard();
+    
+    // Clean up animation when page is hidden
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+        } else {
+            animateCard();
+        }
+    });
 }
 
 // Parallax effect for hero section
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
-    const parallax = scrolled * 0.5;
     
-    if (hero) {
+    if (hero && scrolled < window.innerHeight) {
+        const parallax = scrolled * 0.5;
         hero.style.transform = `translateY(${parallax}px)`;
     }
 });
@@ -197,15 +234,19 @@ window.addEventListener('load', () => {
         heroImage.style.transform = 'translateY(30px)';
         
         setTimeout(() => {
-            heroContent.style.transition = 'all 0.8s ease-out';
-            heroContent.style.opacity = '1';
-            heroContent.style.transform = 'translateY(0)';
+            if (heroContent) {
+                heroContent.style.transition = 'all 0.8s ease-out';
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+            }
         }, 300);
         
         setTimeout(() => {
-            heroImage.style.transition = 'all 0.8s ease-out';
-            heroImage.style.opacity = '1';
-            heroImage.style.transform = 'translateY(0)';
+            if (heroImage) {
+                heroImage.style.transition = 'all 0.8s ease-out';
+                heroImage.style.opacity = '1';
+                heroImage.style.transform = 'translateY(0)';
+            }
         }, 600);
     }
 });
@@ -229,7 +270,7 @@ function typeWriter(element, text, speed = 100) {
 // Initialize typing effect
 window.addEventListener('load', () => {
     const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
+    if (heroTitle && heroTitle.textContent.trim()) {
         const originalText = heroTitle.textContent;
         setTimeout(() => {
             typeWriter(heroTitle, originalText, 50);
@@ -240,18 +281,21 @@ window.addEventListener('load', () => {
 // Add ripple effect to buttons
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
         let ripple = document.createElement('span');
         ripple.classList.add('ripple');
         this.appendChild(ripple);
         
-        let x = e.clientX - e.target.offsetLeft;
-        let y = e.clientY - e.target.offsetTop;
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
         
         ripple.style.left = `${x}px`;
         ripple.style.top = `${y}px`;
         
         setTimeout(() => {
-            ripple.remove();
+            if (ripple.parentNode) {
+                ripple.remove();
+            }
         }, 600);
     });
 });
@@ -299,18 +343,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add fade-in effect to page elements
     const elements = document.querySelectorAll('.hero-content, .hero-image, .section-header, .service-card, .about-content, .contact-content');
     elements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            el.style.transition = 'all 0.6s ease-out';
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-        }, index * 100);
+        if (el) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                if (el) {
+                    el.style.transition = 'all 0.6s ease-out';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            }, index * 100);
+        }
     });
 });
 
-// Add cursor trail effect
+// Add cursor trail effect (disabled by default for better performance)
+// Uncomment the following code if you want to enable the cursor trail effect
+/*
 const cursorTrail = [];
 const trailLength = 20;
 
@@ -356,3 +406,4 @@ function animateCursorTrail() {
 }
 
 animateCursorTrail();
+*/

@@ -243,6 +243,8 @@ html {
     color: white;
     animation: float 6s ease-in-out infinite;
     box-shadow: var(--shadow-xl);
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .floating-card i {
@@ -727,6 +729,7 @@ html {
         transition: var(--transition);
         box-shadow: var(--shadow-lg);
         padding: 2rem 0;
+        z-index: 999;
     }
     
     .nav-menu.active {
