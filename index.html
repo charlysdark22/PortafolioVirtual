@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web Moderna</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                <span>MiWeb</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#servicios" class="nav-link">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Bienvenido a Mi 
+                    <span class="gradient-text">Página Web</span>
+                </h1>
+                <p class="hero-description">
+                    Creando experiencias digitales increíbles con diseño moderno y tecnología de vanguardia.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary">
+                        Explorar Servicios
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contacto" class="btn btn-secondary">
+                        Contactar
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Desarrollo Web</h3>
+                    <p>Sitios web modernos y responsivos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mis Servicios</h2>
+                <p class="section-subtitle">Soluciones digitales que impulsan tu negocio</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Diseño UI/UX</h3>
+                    <p>Interfaces intuitivas y experiencias de usuario excepcionales que conectan con tu audiencia.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Diseño responsivo</li>
+                        <li><i class="fas fa-check"></i> Prototipado interactivo</li>
+                        <li><i class="fas fa-check"></i> Investigación UX</li>
+                    </ul>
+                </div>
+                <div class="service-card featured">
+                    <div class="service-badge">Popular</div>
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Desarrollo Frontend</h3>
+                    <p>Aplicaciones web modernas usando las últimas tecnologías y mejores prácticas de desarrollo.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> React & Vue.js</li>
+                        <li><i class="fas fa-check"></i> TypeScript</li>
+                        <li><i class="fas fa-check"></i> Optimización SEO</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Desarrollo Mobile</h3>
+                    <p>Aplicaciones móviles nativas y híbridas para iOS y Android con rendimiento óptimo.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> React Native</li>
+                        <li><i class="fas fa-check"></i> Flutter</li>
+                        <li><i class="fas fa-check"></i> App Store Deploy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre-mi" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Sobre Mí</h2>
+                    <p class="about-description">
+                        Soy un desarrollador web apasionado por crear soluciones digitales innovadoras. 
+                        Con más de 5 años de experiencia en el desarrollo frontend y backend, 
+                        me especializo en transformar ideas en realidades digitales.
+                    </p>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>JavaScript / TypeScript</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>React / Vue.js</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>CSS / Sass</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Node.js / Python</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Proyectos Completados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Clientes Satisfechos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Soporte Técnico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Hablemos</h2>
+                <p class="section-subtitle">¿Tienes un proyecto en mente? Estoy aquí para ayudarte</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>hola@miweb.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Teléfono</h4>
+                            <p>+34 123 456 789</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Ubicación</h4>
+                            <p>Madrid, España</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        <label for="nombre">Nombre</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="asunto" name="asunto" placeholder="Asunto del mensaje" required>
+                        <label for="asunto">Asunto</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mensaje" name="mensaje" placeholder="Describe tu proyecto..." required></textarea>
+                        <label for="mensaje">Mensaje</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Enviar Mensaje
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-code"></i>
+                        <span>MiWeb</span>
+                    </div>
+                    <p>Creando el futuro digital, un proyecto a la vez.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Servicios</h4>
+                        <ul>
+                            <li><a href="#servicios">Diseño UI/UX</a></li>
+                            <li><a href="#servicios">Desarrollo Web</a></li>
+                            <li><a href="#servicios">Desarrollo Mobile</a></li>
+                            <li><a href="#servicios">Consultoría</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Empresa</h4>
+                        <ul>
+                            <li><a href="#sobre-mi">Sobre Nosotros</a></li>
+                            <li><a href="#contacto">Contacto</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Portafolio</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacidad</a></li>
+                            <li><a href="#">Términos</a></li>
+                            <li><a href="#">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MiWeb. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
