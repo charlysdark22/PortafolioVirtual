@@ -254,8 +254,8 @@ const articlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    setFilters: (state, action: PayloadAction<SearchFilters>) => {
-      state.filters = action.payload;
+    setFilters: (state, action: PayloadAction<Partial<SearchFilters>>) => {
+      state.filters = { ...state.filters, ...action.payload };
     },
     clearFilters: (state) => {
       state.filters = {};
@@ -405,13 +405,13 @@ const articlesSlice = createSlice({
   },
 });
 
-export const {
-  setFilters,
-  clearFilters,
-  setCurrentArticle,
-  clearError,
-  incrementViews,
-  incrementDownloads,
+export const { 
+  setFilters, 
+  clearFilters, 
+  setCurrentArticle, 
+  clearError, 
+  incrementViews, 
+  incrementDownloads 
 } = articlesSlice.actions;
 
 export default articlesSlice.reducer;

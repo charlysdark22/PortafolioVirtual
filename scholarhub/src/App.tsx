@@ -1,25 +1,31 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { useAuth } from './hooks';
 
-// Components
+// Layout Components
 import Layout from './components/Layout/Layout';
 import AuthLayout from './components/Layout/AuthLayout';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import NotificationContainer from './components/UI/NotificationContainer';
 
-// Pages
+// Public Pages
 import Home from './pages/Home';
+
+// Auth Pages
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+
+// Protected Pages
 import Dashboard from './pages/Dashboard';
 import Articles from './pages/Articles';
 import ArticleView from './pages/Articles/ArticleView';
 import ArticleEditor from './pages/Articles/ArticleEditor';
 import Search from './pages/Search';
 import Profile from './pages/Profile';
+
+// Admin Pages
 import AdminDashboard from './pages/Admin/AdminDashboard';
 
 // Import Quill styles
@@ -37,67 +43,69 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="search" element={<Search />} />
-            <Route path="articles/:id" element={<ArticleView />} />
-          </Route>
-
-          {/* Auth Routes */}
-          <Route path="/auth" element={<AuthLayout />}>
-            <Route 
-              path="login" 
-              element={
-                isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
-              } 
-            />
-            <Route 
-              path="register" 
-              element={
-                isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />
-              } 
-            />
-          </Route>
-
-          {/* Protected Routes */}
+    <div className="min-h-screen bg-gray-50">
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        
+        {/* Public Article View */}
+        <Route path="/articles/:id" element={<ArticleView />} />
+        
+        {/* Auth Routes */}
+        <Route path="/auth" element={<AuthLayout />}>
           <Route 
-            path="/dashboard" 
+            path="login" 
             element={
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Dashboard />} />
-            <Route path="articles" element={<Articles />} />
-            <Route path="articles/new" element={<ArticleEditor />} />
-            <Route path="articles/edit/:id" element={<ArticleEditor />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
+              isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
+            } 
+          />
+          <Route 
+            path="register" 
+            element={
+              isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />
+            } 
+          />
+        </Route>
 
+        {/* Protected Routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          {/* Dashboard Routes */}
+          <Route index element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="search" element={<Search />} />
+          
+          {/* Article Routes */}
+          <Route path="articles" element={<Articles />} />
+          <Route path="articles/new" element={<ArticleEditor />} />
+          <Route path="articles/edit/:id" element={<ArticleEditor />} />
+          
           {/* Admin Routes */}
           <Route 
-            path="/admin" 
+            path="admin" 
             element={
               <ProtectedRoute requireAdmin>
-                <Layout />
+                <AdminDashboard />
               </ProtectedRoute>
-            }
-          >
-            <Route index element={<AdminDashboard />} />
-          </Route>
+            } 
+          />
+        </Route>
 
-          {/* Catch all route */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        {/* Search Route (can be both public and protected) */}
+        <Route path="/search" element={<Search />} />
 
-        <NotificationContainer />
-      </div>
-    </Router>
+        {/* Fallback Route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      
+      <NotificationContainer />
+    </div>
   );
 };
 
