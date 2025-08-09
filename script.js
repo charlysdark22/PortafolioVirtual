@@ -109,37 +109,76 @@ skillBars.forEach(bar => {
     skillObserver.observe(bar);
 });
 
-// Form handling
-const contactForm = document.querySelector('.contact-form');
-contactForm.addEventListener('submit', (e) => {
+// Enhanced Form handling with API integration
+const supportForm = document.getElementById('support-form');
+const formStatus = document.getElementById('form-status');
+const submitBtn = document.getElementById('submit-btn');
+
+supportForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     // Get form data
-    const formData = new FormData(contactForm);
+    const formData = new FormData(supportForm);
     const data = Object.fromEntries(formData);
     
-    // Simulate form submission
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
+    // Validate form
+    if (!data.name || !data.email || !data.subject || !data.message) {
+        showFormStatus('Por favor, completa todos los campos', 'error');
+        return;
+    }
     
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-    submitBtn.disabled = true;
+    // Show loading state
+    setFormLoading(true);
     
-    setTimeout(() => {
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> ¡Mensaje Enviado!';
-        submitBtn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
+    try {
+        const response = await fetch('/api/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
         
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            submitBtn.style.background = 'linear-gradient(45deg, #f093fb, #f5576c)';
-            contactForm.reset();
-        }, 2000);
-    }, 1500);
-    
-    // Here you would typically send the data to your server
-    console.log('Form submitted:', data);
+        const result = await response.json();
+        
+        if (result.success) {
+            showFormStatus(`¡Ticket creado exitosamente! ID: #${result.ticket_id}. Te contactaremos pronto.`, 'success');
+            supportForm.reset();
+        } else {
+            showFormStatus(result.message || 'Error al enviar el mensaje', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showFormStatus('Error de conexión. Por favor, intenta de nuevo.', 'error');
+    } finally {
+        setFormLoading(false);
+    }
 });
+
+function showFormStatus(message, type) {
+    formStatus.textContent = message;
+    formStatus.className = `form-status ${type}`;
+    formStatus.style.display = 'block';
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+        formStatus.style.display = 'none';
+    }, 5000);
+}
+
+function setFormLoading(loading) {
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnIcon = submitBtn.querySelector('i');
+    
+    if (loading) {
+        btnText.textContent = 'Enviando...';
+        btnIcon.className = 'fas fa-spinner fa-spin';
+        submitBtn.disabled = true;
+    } else {
+        btnText.textContent = 'Crear Ticket de Soporte';
+        btnIcon.className = 'fas fa-headset';
+        submitBtn.disabled = false;
+}
 
 // Floating animation for hero card
 const floatingCard = document.querySelector('.floating-card');
