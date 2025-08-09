@@ -702,6 +702,96 @@ function createDarkModeToggle() {
             border-color: #4a5568;
             color: #f7fafc;
         }
+        
+        .dark-theme .hero {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .dark-theme .services {
+            background: #1a202c;
+        }
+        
+        .dark-theme .about {
+            background: #2d3748;
+        }
+        
+        .dark-theme .contact {
+            background: #1a202c;
+        }
+        
+        .dark-theme .footer {
+            background: #1a202c;
+        }
+        
+        .dark-theme .testimonials {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .dark-theme .testimonial-content {
+            background: rgba(45, 55, 72, 0.8);
+            border-color: rgba(74, 85, 104, 0.3);
+        }
+        
+        .dark-theme .floating-card {
+            background: rgba(45, 55, 72, 0.8);
+            border-color: rgba(74, 85, 104, 0.3);
+        }
+        
+        .dark-theme .section-title {
+            color: #f7fafc;
+        }
+        
+        .dark-theme .section-subtitle {
+            color: #a0aec0;
+        }
+        
+        .dark-theme .about-description {
+            color: #a0aec0;
+        }
+        
+        .dark-theme .skill-name span {
+            color: #f7fafc;
+        }
+        
+        .dark-theme .stat-label {
+            color: #a0aec0;
+        }
+        
+        .dark-theme .contact-details h4 {
+            color: #f7fafc;
+        }
+        
+        .dark-theme .contact-details p {
+            color: #a0aec0;
+        }
+        
+        .dark-theme .footer-section a {
+            color: #a0aec0;
+        }
+        
+        .dark-theme .footer-section a:hover {
+            color: var(--accent-color);
+        }
+        
+        .dark-theme .footer-bottom {
+            color: #a0aec0;
+        }
+        
+        .dark-theme .nav-link {
+            color: #f7fafc;
+        }
+        
+        .dark-theme .nav-link:hover {
+            color: var(--accent-color);
+        }
+        
+        .dark-theme .bar {
+            background: #f7fafc;
+        }
+        
+        .dark-theme .nav-logo {
+            color: var(--accent-color);
+        }
     `;
     document.head.appendChild(toggleStyles);
     

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Carlos Aguiar Portfolio</title>
+    <meta name="description" content="Regístrate para acceder a contenido exclusivo y recibir actualizaciones sobre proyectos de desarrollo web.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>Carlos Aguiar</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#inicio" class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#servicios" class="nav-link">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#sobre-mi" class="nav-link">Sobre Mí</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#portafolio" class="nav-link">Portafolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contacto" class="nav-link">Contacto</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Section -->
+    <section class="registration-section">
+        <div class="container">
+            <div class="registration-container">
+                <div class="registration-header">
+                    <h1>Únete a mi Comunidad</h1>
+                    <p>Regístrate para recibir contenido exclusivo, actualizaciones de proyectos y ofertas especiales</p>
+                </div>
+                
+                <div class="registration-forms">
+                    <!-- Login Form -->
+                    <div class="form-container" id="login-form">
+                        <h2>Iniciar Sesión</h2>
+                        <form class="auth-form" id="loginForm">
+                            <div class="form-group">
+                                <input type="email" id="login-email" name="email" placeholder="tu@email.com" required>
+                                <label for="login-email">Email</label>
+                                <div class="form-error" id="login-email-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="password" id="login-password" name="password" placeholder="Tu contraseña" required>
+                                <label for="login-password">Contraseña</label>
+                                <div class="password-toggle" onclick="togglePassword('login-password')">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="form-error" id="login-password-error"></div>
+                            </div>
+                            
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="remember-me" name="remember">
+                                    <span class="checkmark"></span>
+                                    Recordarme
+                                </label>
+                                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-text">Iniciar Sesión</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Iniciando...
+                                </span>
+                            </button>
+                        </form>
+                        
+                        <div class="social-login">
+                            <p>O inicia sesión con</p>
+                            <div class="social-buttons">
+                                <button class="social-btn google-btn">
+                                    <i class="fab fa-google"></i>
+                                    Google
+                                </button>
+                                <button class="social-btn github-btn">
+                                    <i class="fab fa-github"></i>
+                                    GitHub
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-switch">
+                            <p>¿No tienes cuenta? <a href="#" onclick="switchForm('register')">Regístrate aquí</a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <div class="form-container" id="register-form" style="display: none;">
+                        <h2>Crear Cuenta</h2>
+                        <form class="auth-form" id="registerForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="register-firstname" name="firstname" placeholder="Tu nombre" required>
+                                    <label for="register-firstname">Nombre</label>
+                                    <div class="form-error" id="register-firstname-error"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="text" id="register-lastname" name="lastname" placeholder="Tu apellido" required>
+                                    <label for="register-lastname">Apellido</label>
+                                    <div class="form-error" id="register-lastname-error"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" id="register-email" name="email" placeholder="tu@email.com" required>
+                                <label for="register-email">Email</label>
+                                <div class="form-error" id="register-email-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="password" id="register-password" name="password" placeholder="Crea una contraseña" required>
+                                <label for="register-password">Contraseña</label>
+                                <div class="password-toggle" onclick="togglePassword('register-password')">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="password-strength" id="password-strength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill" id="strength-fill"></div>
+                                    </div>
+                                    <span class="strength-text" id="strength-text">Fuerza de la contraseña</span>
+                                </div>
+                                <div class="form-error" id="register-password-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="password" id="register-confirm-password" name="confirmPassword" placeholder="Confirma tu contraseña" required>
+                                <label for="register-confirm-password">Confirmar Contraseña</label>
+                                <div class="password-toggle" onclick="togglePassword('register-confirm-password')">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="form-error" id="register-confirm-password-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select id="register-role" name="role" required>
+                                    <option value="">Selecciona tu rol</option>
+                                    <option value="developer">Desarrollador</option>
+                                    <option value="designer">Diseñador</option>
+                                    <option value="entrepreneur">Emprendedor</option>
+                                    <option value="student">Estudiante</option>
+                                    <option value="other">Otro</option>
+                                </select>
+                                <label for="register-role">Rol Profesional</label>
+                                <div class="form-error" id="register-role-error"></div>
+                            </div>
+                            
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="terms" name="terms" required>
+                                    <span class="checkmark"></span>
+                                    Acepto los <a href="#" target="_blank">Términos y Condiciones</a>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <span class="checkmark"></span>
+                                    Recibir newsletter con contenido exclusivo
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <span class="btn-text">Crear Cuenta</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Creando cuenta...
+                                </span>
+                            </button>
+                        </form>
+                        
+                        <div class="social-login">
+                            <p>O regístrate con</p>
+                            <div class="social-buttons">
+                                <button class="social-btn google-btn">
+                                    <i class="fab fa-google"></i>
+                                    Google
+                                </button>
+                                <button class="social-btn github-btn">
+                                    <i class="fab fa-github"></i>
+                                    GitHub
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-switch">
+                            <p>¿Ya tienes cuenta? <a href="#" onclick="switchForm('login')">Inicia sesión aquí</a></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="registration-benefits">
+                    <h3>Beneficios de Registrarte</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Proyectos Exclusivos</h4>
+                            <p>Acceso a código fuente y tutoriales avanzados</p>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h4>Notificaciones</h4>
+                            <p>Recibe alertas sobre nuevos proyectos y oportunidades</p>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Comunidad</h4>
+                            <p>Únete a una comunidad de desarrolladores</p>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <h4>Ofertas Especiales</h4>
+                            <p>Descuentos exclusivos en servicios y cursos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-code"></i>
+                        <span>Carlos Aguiar</span>
+                    </div>
+                    <p>Desarrollador Full Stack comprometido con la excelencia técnica y la satisfacción del cliente.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Servicios</h4>
+                        <ul>
+                            <li><a href="index.html#servicios">Diseño UI/UX</a></li>
+                            <li><a href="index.html#servicios">Desarrollo Web</a></li>
+                            <li><a href="index.html#servicios">Desarrollo Mobile</a></li>
+                            <li><a href="index.html#servicios">Consultoría</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Empresa</h4>
+                        <ul>
+                            <li><a href="index.html#sobre-mi">Sobre Nosotros</a></li>
+                            <li><a href="index.html#contacto">Contacto</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="index.html#portafolio">Portafolio</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Privacidad</a></li>
+                            <li><a href="#">Términos</a></li>
+                            <li><a href="#">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Carlos Aguiar. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

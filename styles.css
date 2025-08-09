@@ -1255,3 +1255,290 @@ html {
     white-space: nowrap;
     border: 0;
 }
+
+/* Registration Section Styles */
+.registration-section {
+    min-height: 100vh;
+    padding: 8rem 0 4rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.registration-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="reg-grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23reg-grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.registration-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.registration-header {
+    color: white;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.registration-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.registration-header p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.registration-forms {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-xl);
+    padding: 3rem;
+    box-shadow: var(--shadow-xl);
+}
+
+.form-container h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.form-group input::placeholder,
+.form-group select {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.form-group label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group select:focus + label,
+.form-group select:not([value=""]) + label {
+    top: -0.5rem;
+    left: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--accent-color);
+    background: rgba(102, 126, 234, 0.9);
+    padding: 0 0.25rem;
+    border-radius: var(--radius-sm);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.registration-benefits {
+    color: white;
+}
+
+.registration-benefits h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.benefit-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-lg);
+}
+
+.benefit-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--accent-color), #f5576c);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.benefit-item h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.benefit-item p {
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Dark theme adjustments for registration */
+.dark-theme .registration-section {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+.dark-theme .registration-forms {
+    background: rgba(45, 55, 72, 0.8);
+    border-color: rgba(74, 85, 104, 0.3);
+}
+
+.dark-theme .form-group input,
+.dark-theme .form-group select {
+    background: rgba(45, 55, 72, 0.6);
+    border-color: rgba(74, 85, 104, 0.4);
+    color: #f7fafc;
+}
+
+.dark-theme .form-group input:focus,
+.dark-theme .form-group select:focus {
+    background: rgba(45, 55, 72, 0.8);
+    border-color: var(--accent-color);
+}
+
+.dark-theme .benefit-item {
+    background: rgba(45, 55, 72, 0.6);
+    border-color: rgba(74, 85, 104, 0.3);
+}
+
+.dark-theme .benefit-item:hover {
+    background: rgba(45, 55, 72, 0.8);
+}
+
+/* Responsive adjustments for registration */
+@media (max-width: 1024px) {
+    .registration-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .registration-header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .registration-section {
+        padding: 6rem 0 3rem;
+    }
+    
+    .registration-forms {
+        padding: 2rem;
+    }
+    
+    .registration-header h1 {
+        font-size: 2rem;
+    }
+    
+    .registration-header p {
+        font-size: 1.125rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.75rem;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-forms {
+        padding: 1.5rem;
+    }
+    
+    .registration-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+    
+    .benefit-item {
+        padding: 1.5rem;
+    }
+}
