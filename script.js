@@ -669,8 +669,24 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     logout();
 });
 
+// Event listeners para el menú de usuario
+document.getElementById('dashboard-btn').addEventListener('click', () => {
+    showDashboard();
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
 document.getElementById('my-projects-btn').addEventListener('click', () => {
     showMyProjects();
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('my-profile-btn').addEventListener('click', () => {
+    showProfile();
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('notifications-btn').addEventListener('click', () => {
+    showNotifications();
     document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
 });
 
@@ -681,6 +697,29 @@ document.getElementById('new-project-btn').addEventListener('click', () => {
 
 document.getElementById('new-project-btn-main').addEventListener('click', () => {
     showProjectForm();
+});
+
+// Event listeners para el dashboard
+document.getElementById('edit-profile-btn').addEventListener('click', () => {
+    showProfile();
+});
+
+// Event listeners para el perfil
+document.getElementById('save-profile-btn').addEventListener('click', () => {
+    saveProfile();
+});
+
+document.getElementById('avatar-input').addEventListener('change', (e) => {
+    handleAvatarUpload(e);
+});
+
+document.querySelector('.avatar-container').addEventListener('click', () => {
+    document.getElementById('avatar-input').click();
+});
+
+// Event listeners para notificaciones
+document.getElementById('mark-all-read-btn').addEventListener('click', () => {
+    markAllNotificationsAsRead();
 });
 
 // Utility functions
@@ -695,7 +734,8 @@ function updateUserInterface() {
         document.getElementById('user-name').textContent = currentUser.name;
         document.getElementById('user-email').textContent = currentUser.email;
         
-        showProjectForm();
+        // Mostrar dashboard por defecto cuando el usuario está logueado
+        showDashboard();
     } else {
         userActions.classList.remove('hidden');
         userMenu.classList.add('hidden');
@@ -705,23 +745,52 @@ function updateUserInterface() {
 }
 
 function showAuthSection() {
+    hideAllSections();
     document.getElementById('auth-section').classList.remove('hidden');
-    document.getElementById('project-form-section').classList.add('hidden');
-    document.getElementById('my-projects-section').classList.add('hidden');
 }
 
 function showProjectForm() {
-    document.getElementById('auth-section').classList.add('hidden');
+    hideAllSections();
     document.getElementById('project-form-section').classList.remove('hidden');
-    document.getElementById('my-projects-section').classList.add('hidden');
+}
+
+async function showDashboard() {
+    hideAllSections();
+    document.getElementById('user-dashboard-section').classList.remove('hidden');
+    await loadDashboardData();
+}
+
+async function showProfile() {
+    hideAllSections();
+    document.getElementById('user-profile-section').classList.remove('hidden');
+    await loadUserProfile();
+}
+
+async function showNotifications() {
+    hideAllSections();
+    document.getElementById('notifications-section').classList.remove('hidden');
+    await loadNotifications();
 }
 
 async function showMyProjects() {
-    document.getElementById('auth-section').classList.add('hidden');
-    document.getElementById('project-form-section').classList.add('hidden');
+    hideAllSections();
     document.getElementById('my-projects-section').classList.remove('hidden');
-    
     await loadUserProjects();
+}
+
+function hideAllSections() {
+    const sections = [
+        'auth-section',
+        'project-form-section',
+        'user-dashboard-section',
+        'user-profile-section',
+        'notifications-section',
+        'my-projects-section'
+    ];
+    
+    sections.forEach(sectionId => {
+        document.getElementById(sectionId).classList.add('hidden');
+    });
 }
 
 async function loadUserProjects() {
@@ -740,6 +809,219 @@ async function loadUserProjects() {
         console.error('Error loading projects:', error);
     } finally {
         document.getElementById('projects-loading').style.display = 'none';
+    }
+}
+
+// Dashboard functions
+async function loadDashboardData() {
+    try {
+        const response = await fetch('/api/user-dashboard', {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        const data = await response.json();
+        
+        document.getElementById('total-projects').textContent = data.total;
+        document.getElementById('pending-projects').textContent = data.pending;
+        document.getElementById('completed-projects').textContent = data.completed;
+        document.getElementById('unread-notifications').textContent = data.unread;
+        
+        // Actualizar badge de notificaciones en el menú
+        const notificationBadge = document.getElementById('notification-count');
+        if (data.unread > 0) {
+            notificationBadge.textContent = data.unread;
+            notificationBadge.style.display = 'flex';
+        } else {
+            notificationBadge.style.display = 'none';
+        }
+        
+        // Cargar actividad reciente
+        await loadUserActivity();
+        
+    } catch (error) {
+        console.error('Error loading dashboard data:', error);
+    }
+}
+
+async function loadUserActivity() {
+    try {
+        const response = await fetch('/api/user-activity', {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        const activity = await response.json();
+        const activityList = document.getElementById('activity-list');
+        
+        if (activity.length === 0) {
+            activityList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 1rem;">No hay actividad reciente</p>';
+            return;
+        }
+        
+        activityList.innerHTML = activity.map(item => {
+            const timeAgo = getTimeAgo(new Date(item.created_at));
+            const icon = item.type === 'request' ? 'fas fa-project-diagram' : 'fas fa-bell';
+            const color = item.type === 'request' ? 'var(--primary-color)' : 'var(--accent-color)';
+            
+            return `
+                <div class="activity-item">
+                    <div class="activity-icon" style="color: ${color}">
+                        <i class="${icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${item.activity_title}</div>
+                        <div class="activity-time">${timeAgo}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Error loading user activity:', error);
+    }
+}
+
+// Profile functions
+async function loadUserProfile() {
+    try {
+        const response = await fetch('/api/user-profile', {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        const profile = await response.json();
+        
+        // Llenar formulario con datos del perfil
+        document.getElementById('profile-name').value = profile.name || '';
+        document.getElementById('profile-email').value = profile.email || '';
+        document.getElementById('profile-phone').value = profile.phone || '';
+        document.getElementById('profile-company').value = profile.company || '';
+        document.getElementById('profile-position').value = profile.position || '';
+        document.getElementById('profile-website').value = profile.website || '';
+        document.getElementById('profile-country').value = profile.country || '';
+        document.getElementById('profile-city').value = profile.city || '';
+        document.getElementById('profile-bio').value = profile.bio || '';
+        
+        // Actualizar avatar si existe
+        if (profile.avatar_url) {
+            document.getElementById('user-avatar').src = profile.avatar_url;
+            document.getElementById('user-avatar-small').src = profile.avatar_url;
+        }
+        
+    } catch (error) {
+        console.error('Error loading user profile:', error);
+    }
+}
+
+async function saveProfile() {
+    try {
+        const formData = new FormData(document.getElementById('profile-form'));
+        const profileData = Object.fromEntries(formData.entries());
+        
+        const response = await fetch('/api/user-profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`
+            },
+            body: JSON.stringify(profileData)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            showFormStatus('Perfil actualizado correctamente', 'success');
+            // Actualizar datos del usuario en la interfaz
+            if (currentUser) {
+                currentUser.name = profileData.name;
+                document.getElementById('user-name').textContent = profileData.name;
+            }
+        } else {
+            showFormStatus(result.error || 'Error al actualizar perfil', 'error');
+        }
+        
+    } catch (error) {
+        console.error('Error saving profile:', error);
+        showFormStatus('Error al guardar perfil', 'error');
+    }
+}
+
+function handleAvatarUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        // Aquí podrías implementar la subida de archivos
+        // Por ahora, solo mostramos un mensaje
+        showFormStatus('Funcionalidad de avatar en desarrollo', 'info');
+    }
+}
+
+// Notifications functions
+async function loadNotifications() {
+    try {
+        const response = await fetch('/api/notifications', {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        const notifications = await response.json();
+        const notificationsList = document.getElementById('notifications-list');
+        
+        if (notifications.length === 0) {
+            notificationsList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No tienes notificaciones</p>';
+            return;
+        }
+        
+        notificationsList.innerHTML = notifications.map(notification => {
+            const timeAgo = getTimeAgo(new Date(notification.created_at));
+            const unreadClass = notification.is_read ? '' : 'unread';
+            
+            return `
+                <div class="notification-item ${unreadClass}" onclick="markNotificationAsRead(${notification.id})">
+                    <div class="notification-header">
+                        <div>
+                            <div class="notification-title">${notification.title}</div>
+                            <div class="notification-time">${timeAgo}</div>
+                        </div>
+                    </div>
+                    <div class="notification-message">${notification.message}</div>
+                    <span class="notification-type ${notification.type}">${notification.type}</span>
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Error loading notifications:', error);
+    }
+}
+
+async function markNotificationAsRead(notificationId) {
+    try {
+        await fetch(`/api/notifications/${notificationId}/read`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        // Recargar notificaciones
+        await loadNotifications();
+        // Actualizar dashboard
+        await loadDashboardData();
+        
+    } catch (error) {
+        console.error('Error marking notification as read:', error);
+    }
+}
+
+async function markAllNotificationsAsRead() {
+    try {
+        await fetch('/api/notifications/mark-all-read', {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        // Recargar notificaciones
+        await loadNotifications();
+        // Actualizar dashboard
+        await loadDashboardData();
+        
+    } catch (error) {
+        console.error('Error marking all notifications as read:', error);
     }
 }
 
@@ -851,4 +1133,42 @@ function logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('userToken');
     updateUserInterface();
+}
+
+// Utility function for time ago
+function getTimeAgo(date) {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
+    
+    if (diffInSeconds < 60) {
+        return 'Hace un momento';
+    }
+    
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
+        return `Hace ${diffInMinutes} minuto${diffInMinutes > 1 ? 's' : ''}`;
+    }
+    
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
+        return `Hace ${diffInHours} hora${diffInHours > 1 ? 's' : ''}`;
+    }
+    
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) {
+        return `Hace ${diffInDays} día${diffInDays > 1 ? 's' : ''}`;
+    }
+    
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks < 4) {
+        return `Hace ${diffInWeeks} semana${diffInWeeks > 1 ? 's' : ''}`;
+    }
+    
+    const diffInMonths = Math.floor(diffInDays / 30);
+    if (diffInMonths < 12) {
+        return `Hace ${diffInMonths} mes${diffInMonths > 1 ? 'es' : ''}`;
+    }
+    
+    const diffInYears = Math.floor(diffInDays / 365);
+    return `Hace ${diffInYears} año${diffInYears > 1 ? 's' : ''}`;
 }

@@ -49,18 +49,37 @@
                 </div>
                 <div class="user-menu hidden" id="user-menu">
                     <div class="user-info">
-                        <span id="user-name">Carlos Aguiar</span>
-                        <small id="user-email">email@ejemplo.com</small>
+                        <div class="user-avatar-small">
+                            <img id="user-avatar-small" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Avatar">
+                        </div>
+                        <div class="user-details">
+                            <span id="user-name">Carlos Aguiar</span>
+                            <small id="user-email">email@ejemplo.com</small>
+                        </div>
                     </div>
                     <div class="user-menu-actions">
+                        <button class="user-menu-btn" id="dashboard-btn">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </button>
                         <button class="user-menu-btn" id="my-projects-btn">
                             <i class="fas fa-project-diagram"></i>
                             Mis Proyectos
+                        </button>
+                        <button class="user-menu-btn" id="my-profile-btn">
+                            <i class="fas fa-user"></i>
+                            Mi Perfil
+                        </button>
+                        <button class="user-menu-btn" id="notifications-btn">
+                            <i class="fas fa-bell"></i>
+                            Notificaciones
+                            <span class="notification-badge" id="notification-count" style="display: none;">0</span>
                         </button>
                         <button class="user-menu-btn" id="new-project-btn">
                             <i class="fas fa-plus"></i>
                             Nuevo Proyecto
                         </button>
+                        <hr class="menu-divider">
                         <button class="user-menu-btn" id="logout-btn">
                             <i class="fas fa-sign-out-alt"></i>
                             Cerrar Sesión
@@ -531,26 +550,83 @@
                     <div class="form-row">
                         <div class="form-group">
                             <input type="text" name="name" placeholder="Tu nombre completo" required>
-                            <label>Nombre</label>
+                            <label>Nombre Completo *</label>
                         </div>
                         <div class="form-group">
                             <input type="email" name="email" placeholder="tu@email.com" required>
-                            <label>Email</label>
+                            <label>Email *</label>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <input type="tel" name="phone" placeholder="+53 12345678">
-                            <label>Teléfono (opcional)</label>
+                            <label>Teléfono</label>
                         </div>
                         <div class="form-group">
                             <input type="text" name="company" placeholder="Nombre de tu empresa">
-                            <label>Empresa (opcional)</label>
+                            <label>Empresa</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="position" placeholder="Tu cargo o posición">
+                            <label>Cargo</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="url" name="website" placeholder="https://tuempresa.com">
+                            <label>Sitio Web</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select name="country">
+                                <option value="">Selecciona tu país</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="España">España</option>
+                                <option value="México">México</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Perú">Perú</option>
+                                <option value="Venezuela">Venezuela</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                                <option value="Canadá">Canadá</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <label>País</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="city" placeholder="Tu ciudad">
+                            <label>Ciudad</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" placeholder="••••••••" required>
-                        <label>Contraseña</label>
+                        <textarea name="bio" placeholder="Cuéntame brevemente sobre ti o tu empresa..." rows="3"></textarea>
+                        <label>Biografía</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="password" name="password" placeholder="••••••••" required minlength="8">
+                            <label>Contraseña * (mín. 8 caracteres)</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="confirm_password" placeholder="••••••••" required>
+                            <label>Confirmar Contraseña *</label>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span class="checkmark"></span>
+                            Acepto los <a href="#" target="_blank">términos y condiciones</a> *
+                        </label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter">
+                            <span class="checkmark"></span>
+                            Quiero recibir noticias y actualizaciones
+                        </label>
                     </div>
                     <div class="form-status" id="register-status" style="display: none;"></div>
                     <button type="submit" class="btn btn-primary">
@@ -610,6 +686,186 @@
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
+            </div>
+
+            <!-- User Dashboard Section -->
+            <div class="user-dashboard-section hidden" id="user-dashboard-section">
+                <div class="dashboard-header">
+                    <h3>Mi Dashboard</h3>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-secondary" id="edit-profile-btn">
+                            <i class="fas fa-edit"></i>
+                            Editar Perfil
+                        </button>
+                        <button class="btn btn-primary" id="new-project-btn-main">
+                            <i class="fas fa-plus"></i>
+                            Nuevo Proyecto
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="total-projects">0</div>
+                            <div class="stat-label">Proyectos Totales</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="pending-projects">0</div>
+                            <div class="stat-label">Pendientes</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="completed-projects">0</div>
+                            <div class="stat-label">Completados</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="unread-notifications">0</div>
+                            <div class="stat-label">Notificaciones</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-content">
+                    <div class="dashboard-section">
+                        <h4>Actividad Reciente</h4>
+                        <div class="activity-list" id="activity-list">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Cargando actividad...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-section">
+                        <h4>Proyectos Recientes</h4>
+                        <div class="projects-list" id="projects-list">
+                            <div class="loading" id="projects-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Cargando proyectos...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="user-profile-section hidden" id="user-profile-section">
+                <div class="profile-header">
+                    <h3>Mi Perfil</h3>
+                    <button class="btn btn-primary" id="save-profile-btn">
+                        <i class="fas fa-save"></i>
+                        Guardar Cambios
+                    </button>
+                </div>
+                
+                <form class="profile-form" id="profile-form">
+                    <div class="profile-avatar">
+                        <div class="avatar-container">
+                            <img id="user-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Avatar">
+                            <div class="avatar-overlay">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="profile-fields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="name" id="profile-name" required>
+                                <label>Nombre Completo</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="profile-email" required>
+                                <label>Email</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="tel" name="phone" id="profile-phone">
+                                <label>Teléfono</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="company" id="profile-company">
+                                <label>Empresa</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="position" id="profile-position">
+                                <label>Cargo</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="url" name="website" id="profile-website">
+                                <label>Sitio Web</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <select name="country" id="profile-country">
+                                    <option value="">Selecciona tu país</option>
+                                    <option value="Cuba">Cuba</option>
+                                    <option value="España">España</option>
+                                    <option value="México">México</option>
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Colombia">Colombia</option>
+                                    <option value="Chile">Chile</option>
+                                    <option value="Perú">Perú</option>
+                                    <option value="Venezuela">Venezuela</option>
+                                    <option value="Estados Unidos">Estados Unidos</option>
+                                    <option value="Canadá">Canadá</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                                <label>País</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="city" id="profile-city">
+                                <label>Ciudad</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="bio" id="profile-bio" rows="4"></textarea>
+                            <label>Biografía</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="notifications-section hidden" id="notifications-section">
+                <div class="notifications-header">
+                    <h3>Notificaciones</h3>
+                    <button class="btn btn-secondary" id="mark-all-read-btn">
+                        <i class="fas fa-check-double"></i>
+                        Marcar Todo como Leído
+                    </button>
+                </div>
+                <div class="notifications-list" id="notifications-list">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        Cargando notificaciones...
+                    </div>
+                </div>
             </div>
 
             <!-- My Projects Section -->

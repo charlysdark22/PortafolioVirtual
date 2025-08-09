@@ -42,7 +42,7 @@ function initializeDatabase() {
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
-    // Tabla de usuarios registrados
+    // Tabla de usuarios registrados (expandida)
     db.run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
@@ -50,7 +50,22 @@ function initializeDatabase() {
         password TEXT NOT NULL,
         phone TEXT,
         company TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        position TEXT,
+        website TEXT,
+        country TEXT,
+        city TEXT,
+        address TEXT,
+        avatar_url TEXT,
+        bio TEXT,
+        preferences TEXT,
+        is_verified BOOLEAN DEFAULT 0,
+        verification_token TEXT,
+        reset_token TEXT,
+        reset_expires DATETIME,
+        last_login DATETIME,
+        status TEXT DEFAULT 'active',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
     // Tabla de solicitudes de trabajo
@@ -64,8 +79,54 @@ function initializeDatabase() {
         deadline TEXT,
         priority TEXT DEFAULT 'medium',
         status TEXT DEFAULT 'pending',
+        admin_notes TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    )`);
+
+    // Tabla de notificaciones
+    db.run(`CREATE TABLE IF NOT EXISTS notifications (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        title TEXT NOT NULL,
+        message TEXT NOT NULL,
+        type TEXT DEFAULT 'info',
+        is_read BOOLEAN DEFAULT 0,
+        related_id INTEGER,
+        related_type TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    )`);
+
+    // Tabla de historial de servicios
+    db.run(`CREATE TABLE IF NOT EXISTS service_history (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        service_type TEXT NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        status TEXT DEFAULT 'completed',
+        start_date DATETIME,
+        end_date DATETIME,
+        amount DECIMAL(10,2),
+        notes TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    )`);
+
+    // Tabla de archivos adjuntos
+    db.run(`CREATE TABLE IF NOT EXISTS attachments (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        request_id INTEGER,
+        request_type TEXT,
+        filename TEXT NOT NULL,
+        original_name TEXT NOT NULL,
+        file_size INTEGER,
+        mime_type TEXT,
+        file_path TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users (id)
     )`);
 
@@ -116,20 +177,80 @@ function authenticateToken(req, res, next) {
 
 // Registro de usuarios
 app.post('/api/register', async (req, res) => {
-    const { name, email, password, phone, company } = req.body;
+    const { 
+        name, 
+        email, 
+        password, 
+        confirm_password,
+        phone, 
+        company, 
+        position, 
+        website, 
+        country, 
+        city, 
+        bio,
+        terms,
+        newsletter 
+    } = req.body;
 
-    if (!name || !email || !password) {
+    // Validar campos requeridos
+    if (!name || !email || !password || !confirm_password || !terms) {
         return res.status(400).json({ 
             success: false, 
-            message: 'Nombre, email y contraseña son obligatorios' 
+            message: 'Todos los campos marcados con * son obligatorios' 
+        });
+    }
+
+    // Validar que las contraseñas coincidan
+    if (password !== confirm_password) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Las contraseñas no coinciden' 
+        });
+    }
+
+    // Validar longitud de contraseña
+    if (password.length < 8) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'La contraseña debe tener al menos 8 caracteres' 
+        });
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Formato de email inválido' 
         });
     }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         
-        const stmt = db.prepare(`INSERT INTO users (name, email, password, phone, company) VALUES (?, ?, ?, ?, ?)`);
-        stmt.run([name, email, hashedPassword, phone || null, company || null], function(err) {
+        // Crear token de verificación
+        const verificationToken = require('crypto').randomBytes(32).toString('hex');
+        
+        // Preparar preferencias
+        const preferences = JSON.stringify({
+            newsletter: newsletter === 'on' || newsletter === true,
+            notifications: true,
+            theme: 'light'
+        });
+        
+        const stmt = db.prepare(`
+            INSERT INTO users (
+                name, email, password, phone, company, position, website, 
+                country, city, bio, preferences, verification_token
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        
+        stmt.run([
+            name, email, hashedPassword, phone || null, company || null,
+            position || null, website || null, country || null, city || null,
+            bio || null, preferences, verificationToken
+        ], function(err) {
             if (err) {
                 if (err.message.includes('UNIQUE constraint failed')) {
                     return res.status(409).json({ 
@@ -144,11 +265,33 @@ app.post('/api/register', async (req, res) => {
                 });
             }
 
+            // Crear notificación de bienvenida
+            db.run(
+                'INSERT INTO notifications (user_id, title, message, type) VALUES (?, ?, ?, ?)',
+                [
+                    this.lastID,
+                    '¡Bienvenido a TechSupport Pro!',
+                    'Tu cuenta ha sido creada exitosamente. Ya puedes comenzar a solicitar proyectos.',
+                    'success'
+                ]
+            );
+
             const token = jwt.sign({ id: this.lastID, email, name }, JWT_SECRET);
             res.json({ 
                 success: true, 
                 message: 'Usuario registrado correctamente',
-                user: { id: this.lastID, name, email, phone, company },
+                user: { 
+                    id: this.lastID, 
+                    name, 
+                    email, 
+                    phone, 
+                    company,
+                    position,
+                    website,
+                    country,
+                    city,
+                    bio
+                },
                 token
             });
         });
@@ -260,6 +403,165 @@ app.get('/api/my-requests', authenticateUser, (req, res) => {
             return res.status(500).json({ success: false, message: 'Error del servidor' });
         }
         res.json({ success: true, requests: rows });
+    });
+});
+
+// Obtener estadísticas del dashboard del usuario
+app.get('/api/user-dashboard', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    
+    db.get('SELECT COUNT(*) as total FROM job_requests WHERE user_id = ?', [user_id], (err, totalResult) => {
+        if (err) {
+            console.error('Error fetching total requests:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        
+        db.get('SELECT COUNT(*) as pending FROM job_requests WHERE user_id = ? AND status = "pending"', [user_id], (err, pendingResult) => {
+            if (err) {
+                console.error('Error fetching pending requests:', err);
+                return res.status(500).json({ error: 'Error interno del servidor' });
+            }
+            
+            db.get('SELECT COUNT(*) as completed FROM job_requests WHERE user_id = ? AND status = "completed"', [user_id], (err, completedResult) => {
+                if (err) {
+                    console.error('Error fetching completed requests:', err);
+                    return res.status(500).json({ error: 'Error interno del servidor' });
+                }
+                
+                db.get('SELECT COUNT(*) as unread FROM notifications WHERE user_id = ? AND is_read = 0', [user_id], (err, unreadResult) => {
+                    if (err) {
+                        console.error('Error fetching unread notifications:', err);
+                        return res.status(500).json({ error: 'Error interno del servidor' });
+                    }
+                    
+                    res.json({
+                        total: totalResult.total,
+                        pending: pendingResult.pending,
+                        completed: completedResult.completed,
+                        unread: unreadResult.unread
+                    });
+                });
+            });
+        });
+    });
+});
+
+// Obtener perfil del usuario
+app.get('/api/user-profile', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    
+    db.get('SELECT id, name, email, phone, company, position, website, country, city, bio, avatar_url, preferences FROM users WHERE id = ?', [user_id], (err, user) => {
+        if (err) {
+            console.error('Error fetching user profile:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        
+        if (!user) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        
+        // Parsear preferencias
+        if (user.preferences) {
+            user.preferences = JSON.parse(user.preferences);
+        }
+        
+        res.json(user);
+    });
+});
+
+// Actualizar perfil del usuario
+app.put('/api/user-profile', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    const { name, phone, company, position, website, country, city, bio } = req.body;
+    
+    db.run(`
+        UPDATE users 
+        SET name = ?, phone = ?, company = ?, position = ?, website = ?, 
+            country = ?, city = ?, bio = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+    `, [name, phone, company, position, website, country, city, bio, user_id], function(err) {
+        if (err) {
+            console.error('Error updating user profile:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        
+        res.json({ message: 'Perfil actualizado correctamente' });
+    });
+});
+
+// Obtener notificaciones del usuario
+app.get('/api/notifications', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    
+    db.all('SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC LIMIT 50', [user_id], (err, notifications) => {
+        if (err) {
+            console.error('Error fetching notifications:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.json(notifications);
+    });
+});
+
+// Marcar notificación como leída
+app.put('/api/notifications/:id/read', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    const notification_id = req.params.id;
+    
+    db.run('UPDATE notifications SET is_read = 1 WHERE id = ? AND user_id = ?', [notification_id, user_id], function(err) {
+        if (err) {
+            console.error('Error marking notification as read:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        
+        res.json({ message: 'Notificación marcada como leída' });
+    });
+});
+
+// Marcar todas las notificaciones como leídas
+app.put('/api/notifications/mark-all-read', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    
+    db.run('UPDATE notifications SET is_read = 1 WHERE user_id = ?', [user_id], function(err) {
+        if (err) {
+            console.error('Error marking all notifications as read:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        
+        res.json({ message: 'Todas las notificaciones marcadas como leídas' });
+    });
+});
+
+// Obtener actividad reciente del usuario
+app.get('/api/user-activity', authenticateUser, (req, res) => {
+    const user_id = req.user.id;
+    
+    // Combinar actividad de solicitudes y notificaciones
+    db.all(`
+        SELECT 
+            'request' as type,
+            id,
+            title as activity_title,
+            created_at,
+            status
+        FROM job_requests 
+        WHERE user_id = ?
+        UNION ALL
+        SELECT 
+            'notification' as type,
+            id,
+            title as activity_title,
+            created_at,
+            type as status
+        FROM notifications 
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+        LIMIT 10
+    `, [user_id, user_id], (err, activity) => {
+        if (err) {
+            console.error('Error fetching user activity:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.json(activity);
     });
 });
 
