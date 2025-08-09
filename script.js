@@ -59,10 +59,33 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Add reveal class to elements that should animate
-const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item');
-revealElements.forEach(el => {
+// Add reveal classes to elements that should animate with staggered timing
+const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item, .portfolio-item, .testimonial-card');
+revealElements.forEach((el, index) => {
     el.classList.add('reveal');
+    if (index % 4 === 0) el.classList.add('stagger-1');
+    else if (index % 4 === 1) el.classList.add('stagger-2');
+    else if (index % 4 === 2) el.classList.add('stagger-3');
+    else el.classList.add('stagger-4');
+    observer.observe(el);
+});
+
+// Enhanced animations for different elements
+const leftRevealElements = document.querySelectorAll('.about-text');
+leftRevealElements.forEach(el => {
+    el.classList.add('reveal-left');
+    observer.observe(el);
+});
+
+const rightRevealElements = document.querySelectorAll('.about-stats');
+rightRevealElements.forEach(el => {
+    el.classList.add('reveal-right');
+    observer.observe(el);
+});
+
+const scaleRevealElements = document.querySelectorAll('.section-header');
+scaleRevealElements.forEach(el => {
+    el.classList.add('reveal-scale');
     observer.observe(el);
 });
 
@@ -86,37 +109,76 @@ skillBars.forEach(bar => {
     skillObserver.observe(bar);
 });
 
-// Form handling
-const contactForm = document.querySelector('.contact-form');
-contactForm.addEventListener('submit', (e) => {
+// Enhanced Form handling with API integration
+const supportForm = document.getElementById('support-form');
+const formStatus = document.getElementById('form-status');
+const submitBtn = document.getElementById('submit-btn');
+
+supportForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     // Get form data
-    const formData = new FormData(contactForm);
+    const formData = new FormData(supportForm);
     const data = Object.fromEntries(formData);
     
-    // Simulate form submission
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
+    // Validate form
+    if (!data.name || !data.email || !data.subject || !data.message) {
+        showFormStatus('Por favor, completa todos los campos', 'error');
+        return;
+    }
     
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-    submitBtn.disabled = true;
+    // Show loading state
+    setFormLoading(true);
     
-    setTimeout(() => {
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> ¡Mensaje Enviado!';
-        submitBtn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
+    try {
+        const response = await fetch('/api/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
         
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            submitBtn.style.background = 'linear-gradient(45deg, #f093fb, #f5576c)';
-            contactForm.reset();
-        }, 2000);
-    }, 1500);
-    
-    // Here you would typically send the data to your server
-    console.log('Form submitted:', data);
+        const result = await response.json();
+        
+        if (result.success) {
+            showFormStatus(`¡Ticket creado exitosamente! ID: #${result.ticket_id}. Te contactaremos pronto.`, 'success');
+            supportForm.reset();
+        } else {
+            showFormStatus(result.message || 'Error al enviar el mensaje', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showFormStatus('Error de conexión. Por favor, intenta de nuevo.', 'error');
+    } finally {
+        setFormLoading(false);
+    }
 });
+
+function showFormStatus(message, type) {
+    formStatus.textContent = message;
+    formStatus.className = `form-status ${type}`;
+    formStatus.style.display = 'block';
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+        formStatus.style.display = 'none';
+    }, 5000);
+}
+
+function setFormLoading(loading) {
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnIcon = submitBtn.querySelector('i');
+    
+    if (loading) {
+        btnText.textContent = 'Enviando...';
+        btnIcon.className = 'fas fa-spinner fa-spin';
+        submitBtn.disabled = true;
+    } else {
+        btnText.textContent = 'Crear Ticket de Soporte';
+        btnIcon.className = 'fas fa-headset';
+        submitBtn.disabled = false;
+}
 
 // Floating animation for hero card
 const floatingCard = document.querySelector('.floating-card');
@@ -356,3 +418,103 @@ function animateCursorTrail() {
 }
 
 animateCursorTrail();
+
+// Dark Mode Toggle
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or default to light mode
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+// Update icon based on current theme
+function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+    }
+}
+
+// Initialize icon
+updateThemeIcon(savedTheme);
+
+// Theme toggle functionality
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+    
+    // Add a nice animation effect
+    themeToggle.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        themeToggle.style.transform = 'scale(1)';
+    }, 150);
+});
+
+// Lazy Loading for Images
+const lazyImages = document.querySelectorAll('img[data-src]');
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+lazyImages.forEach(img => imageObserver.observe(img));
+
+// Performance optimizations
+// Debounce scroll events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimize scroll listener
+const debouncedScrollHandler = debounce(() => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = 'none';
+    }
+}, 10);
+
+// Replace the existing scroll listener
+window.removeEventListener('scroll', () => {});
+window.addEventListener('scroll', debouncedScrollHandler, { passive: true });
+
+// Preload critical resources
+function preloadCriticalResources() {
+    const criticalImages = [
+        'https://images.unsplash.com/photo-1460925895917-afdab827c52f',
+        'https://images.unsplash.com/photo-1551650975-87deedd944c3'
+    ];
+    
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+}
+
+// Initialize performance optimizations
+preloadCriticalResources();

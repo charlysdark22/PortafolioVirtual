@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web Moderna</title>
+    <title>TechSupport Pro - Gestor de Ayuda Informática</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -13,8 +13,8 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-code"></i>
-                <span>MiWeb</span>
+                <i class="fas fa-headset"></i>
+                <span>TechSupport Pro</span>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -24,16 +24,24 @@
                     <a href="#servicios" class="nav-link">Servicios</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#portafolio" class="nav-link">Portafolio</a>
+                </li>
+                <li class="nav-item">
                     <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contacto" class="nav-link">Contacto</a>
                 </li>
             </ul>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
         </div>
     </nav>
@@ -43,28 +51,28 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Bienvenido a Mi 
-                    <span class="gradient-text">Página Web</span>
+                    Soporte Técnico 
+                    <span class="gradient-text">Profesional</span>
                 </h1>
                 <p class="hero-description">
-                    Creando experiencias digitales increíbles con diseño moderno y tecnología de vanguardia.
+                    Resolvemos tus problemas informáticos con rapidez y eficiencia. Gestión integral de soporte técnico para empresas y particulares.
                 </p>
                 <div class="hero-buttons">
                     <a href="#servicios" class="btn btn-primary">
-                        Explorar Servicios
-                        <i class="fas fa-arrow-right"></i>
+                        Ver Servicios
+                        <i class="fas fa-tools"></i>
                     </a>
                     <a href="#contacto" class="btn btn-secondary">
-                        Contactar
-                        <i class="fas fa-envelope"></i>
+                        Solicitar Ayuda
+                        <i class="fas fa-life-ring"></i>
                     </a>
                 </div>
             </div>
             <div class="hero-image">
-                <div class="floating-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Desarrollo Web</h3>
-                    <p>Sitios web modernos y responsivos</p>
+                <div class="floating-card float-animation">
+                    <i class="fas fa-desktop pulse-animation"></i>
+                    <h3>Soporte 24/7</h3>
+                    <p>Asistencia técnica cuando la necesites</p>
                 </div>
             </div>
         </div>
@@ -74,46 +82,154 @@
     <section id="servicios" class="services">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Mis Servicios</h2>
-                <p class="section-subtitle">Soluciones digitales que impulsan tu negocio</p>
+                <h2 class="section-title">Nuestros Servicios</h2>
+                <p class="section-subtitle">Soporte técnico integral para todas tus necesidades informáticas</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-palette"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <h3>Diseño UI/UX</h3>
-                    <p>Interfaces intuitivas y experiencias de usuario excepcionales que conectan con tu audiencia.</p>
+                    <h3>Reparación Hardware</h3>
+                    <p>Diagnóstico y reparación de equipos informáticos, desde PCs hasta servidores empresariales.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Diseño responsivo</li>
-                        <li><i class="fas fa-check"></i> Prototipado interactivo</li>
-                        <li><i class="fas fa-check"></i> Investigación UX</li>
+                        <li><i class="fas fa-check"></i> Diagnóstico completo</li>
+                        <li><i class="fas fa-check"></i> Reparación en sitio</li>
+                        <li><i class="fas fa-check"></i> Mantenimiento preventivo</li>
                     </ul>
                 </div>
                 <div class="service-card featured">
                     <div class="service-badge">Popular</div>
                     <div class="service-icon">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Desarrollo Frontend</h3>
-                    <p>Aplicaciones web modernas usando las últimas tecnologías y mejores prácticas de desarrollo.</p>
+                    <h3>Soporte Remoto</h3>
+                    <p>Asistencia técnica remota inmediata para resolver problemas de software y configuración.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> React & Vue.js</li>
-                        <li><i class="fas fa-check"></i> TypeScript</li>
-                        <li><i class="fas fa-check"></i> Optimización SEO</li>
+                        <li><i class="fas fa-check"></i> Acceso remoto seguro</li>
+                        <li><i class="fas fa-check"></i> Resolución inmediata</li>
+                        <li><i class="fas fa-check"></i> Soporte 24/7</li>
                     </ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-network-wired"></i>
                     </div>
-                    <h3>Desarrollo Mobile</h3>
-                    <p>Aplicaciones móviles nativas y híbridas para iOS y Android con rendimiento óptimo.</p>
+                    <h3>Redes & Conectividad</h3>
+                    <p>Configuración y mantenimiento de redes, WiFi, servidores y sistemas de conectividad.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> React Native</li>
-                        <li><i class="fas fa-check"></i> Flutter</li>
-                        <li><i class="fas fa-check"></i> App Store Deploy</li>
+                        <li><i class="fas fa-check"></i> Configuración WiFi</li>
+                        <li><i class="fas fa-check"></i> Seguridad de red</li>
+                        <li><i class="fas fa-check"></i> Servidores</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mi Portafolio</h2>
+                <p class="section-subtitle">Algunos proyectos destacados que he desarrollado</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80" alt="E-commerce Platform">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-actions">
+                                <a href="#" class="portfolio-btn" title="Ver proyecto">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Plataforma E-commerce</h3>
+                        <p>Tienda online completa con carrito de compras, sistema de pagos y panel administrativo.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="Dashboard Analytics">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-actions">
+                                <a href="#" class="portfolio-btn" title="Ver proyecto">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Dashboard Analytics</h3>
+                        <p>Panel de control interactivo con gráficos dinámicos y análisis de datos en tiempo real.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">Express</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="App Móvil">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-actions">
+                                <a href="#" class="portfolio-btn" title="Ver proyecto">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>App de Gestión</h3>
+                        <p>Aplicación móvil para gestión de tareas y proyectos con sincronización en la nube.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Redux</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Website Corporativo">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-actions">
+                                <a href="#" class="portfolio-btn" title="Ver proyecto">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Website Corporativo</h3>
+                        <p>Sitio web empresarial con CMS personalizado y optimización SEO avanzada.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">Strapi</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -191,12 +307,87 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo que dicen mis clientes</h2>
+                <p class="section-subtitle">Testimonios de empresas que han confiado en mi trabajo</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Carlos desarrolló nuestra plataforma e-commerce desde cero. Su atención al detalle y conocimiento técnico superaron nuestras expectativas. Entregó el proyecto a tiempo y el resultado fue excepcional."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="María González">
+                        </div>
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <span>CEO, TechStart Solutions</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Trabajar con Carlos fue una experiencia increíble. Su comunicación es excelente y siempre estuvo disponible para resolver dudas. El dashboard que desarrolló para nosotros es intuitivo y potente."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="David Rodriguez">
+                        </div>
+                        <div class="author-info">
+                            <h4>David Rodriguez</h4>
+                            <span>CTO, DataFlow Inc</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Carlos transformó completamente nuestro sitio web. El diseño es moderno, la velocidad de carga mejoró significativamente y nuestros clientes están encantados con la nueva experiencia."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Ana Martínez">
+                        </div>
+                        <div class="author-info">
+                            <h4>Ana Martínez</h4>
+                            <span>Directora Marketing, Creative Agency</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contacto" class="contact">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Hablemos</h2>
-                <p class="section-subtitle">¿Tienes un proyecto en mente? Estoy aquí para ayudarte</p>
+                <h2 class="section-title">Solicita Ayuda Técnica</h2>
+                <p class="section-subtitle">Describe tu problema y te ayudaremos a resolverlo rápidamente</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
@@ -206,7 +397,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p>hola@miweb.com</p>
+                            <p>soporte@techsupport.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -215,7 +406,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Teléfono</h4>
-                            <p>+34 123 456 789</p>
+                            <p>+53 53932292</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -224,7 +415,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Ubicación</h4>
-                            <p>Madrid, España</p>
+                            <p>Cuba</p>
                         </div>
                     </div>
                     <div class="social-links">
@@ -242,9 +433,9 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" id="support-form">
                     <div class="form-group">
-                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        <input type="text" id="nombre" name="name" placeholder="Tu nombre completo" required>
                         <label for="nombre">Nombre</label>
                     </div>
                     <div class="form-group">
@@ -252,16 +443,33 @@
                         <label for="email">Email</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="asunto" name="asunto" placeholder="Asunto del mensaje" required>
-                        <label for="asunto">Asunto</label>
+                        <select id="tipo-problema" name="subject" required>
+                            <option value="">Selecciona el tipo de problema</option>
+                            <option value="Hardware - PC no enciende">Hardware - PC no enciende</option>
+                            <option value="Hardware - Pantalla no funciona">Hardware - Pantalla no funciona</option>
+                            <option value="Hardware - Problemas de teclado/mouse">Hardware - Problemas de teclado/mouse</option>
+                            <option value="Software - Windows no inicia">Software - Windows no inicia</option>
+                            <option value="Software - Programas lentos">Software - Programas lentos</option>
+                            <option value="Software - Virus/Malware">Software - Virus/Malware</option>
+                            <option value="Red - No hay internet">Red - No hay internet</option>
+                            <option value="Red - WiFi no conecta">Red - WiFi no conecta</option>
+                            <option value="Red - Velocidad lenta">Red - Velocidad lenta</option>
+                            <option value="Email - No recibo emails">Email - No recibo emails</option>
+                            <option value="Email - No puedo enviar">Email - No puedo enviar</option>
+                            <option value="Impresora - No imprime">Impresora - No imprime</option>
+                            <option value="Backup - Pérdida de datos">Backup - Pérdida de datos</option>
+                            <option value="Otros - Problema no listado">Otros - Problema no listado</option>
+                        </select>
+                        <label for="tipo-problema">Tipo de Problema</label>
                     </div>
                     <div class="form-group">
-                        <textarea id="mensaje" name="mensaje" placeholder="Describe tu proyecto..." required></textarea>
-                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="message" placeholder="Describe detalladamente tu problema técnico..." required rows="6"></textarea>
+                        <label for="mensaje">Descripción del Problema</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">
-                        Enviar Mensaje
-                        <i class="fas fa-paper-plane"></i>
+                    <div class="form-status" id="form-status" style="display: none;"></div>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <span class="btn-text">Crear Ticket de Soporte</span>
+                        <i class="fas fa-headset"></i>
                     </button>
                 </form>
             </div>
