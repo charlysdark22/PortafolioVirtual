@@ -60,7 +60,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Add reveal class to elements that should animate
-const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item');
+const revealElements = document.querySelectorAll('.service-card, .portfolio-item, .skill-item, .stat-item, .testimonial-card, .contact-item');
 revealElements.forEach(el => {
     el.classList.add('reveal');
     observer.observe(el);
@@ -297,7 +297,7 @@ document.head.appendChild(style);
 // Smooth page transitions
 document.addEventListener('DOMContentLoaded', () => {
     // Add fade-in effect to page elements
-    const elements = document.querySelectorAll('.hero-content, .hero-image, .section-header, .service-card, .about-content, .contact-content');
+    const elements = document.querySelectorAll('.hero-content, .hero-image, .section-header, .service-card, .portfolio-item, .about-content, .testimonial-card, .contact-content');
     elements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';

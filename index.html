@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web Moderna</title>
+    <title>Carlos Aguiar - Desarrollador Web Full Stack | Soluciones Digitales Personalizadas</title>
+    <meta name="description" content="Carlos Aguiar, Desarrollador Web Full Stack especializado en React, Node.js, HTML5, CSS3. Creando soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
+    <meta name="keywords" content="desarrollador web, full stack, react, nodejs, html5, css3, javascript, portfolio, carlos aguiar, cuba">
+    <meta name="author" content="Carlos Aguiar">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
+    <meta property="og:description" content="Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/charlysdark22/Charlys-Repocitorie.git">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
+    <meta name="twitter:description" content="Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <i class="fas fa-code"></i>
-                <span>MiWeb</span>
+                <span>Carlos Aguiar</span>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -24,13 +41,16 @@
                     <a href="#servicios" class="nav-link">Servicios</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#portafolio" class="nav-link">Portafolio</a>
+                </li>
+                <li class="nav-item">
                     <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contacto" class="nav-link">Contacto</a>
                 </li>
             </ul>
-            <div class="nav-toggle" id="mobile-menu">
+            <div class="nav-toggle" id="mobile-menu" aria-label="Menú móvil" role="button" tabindex="0">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -39,15 +59,16 @@
     </nav>
 
     <!-- Hero Section -->
+    <main id="main-content">
     <section id="inicio" class="hero">
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Bienvenido a Mi 
-                    <span class="gradient-text">Página Web</span>
+                    Soy Carlos Aguiar
+                    <span class="gradient-text">Desarrollador Full Stack</span>
                 </h1>
                 <p class="hero-description">
-                    Creando experiencias digitales increíbles con diseño moderno y tecnología de vanguardia.
+                    🚀 Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas. Comprometido con la excelencia técnica y la satisfacción del cliente.
                 </p>
                 <div class="hero-buttons">
                     <a href="#servicios" class="btn btn-primary">
@@ -119,6 +140,80 @@
         </div>
     </section>
 
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mi Portafolio</h2>
+                <p class="section-subtitle">Algunos de mis proyectos más destacados</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Tienda Online</h3>
+                        <p>E-commerce completo con React y Node.js, integración de pagos y gestión de inventario.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Plataforma Educativa</h3>
+                        <p>Sistema de gestión de aprendizaje con videoconferencias y seguimiento de progreso.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">WebRTC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Dashboard Analytics</h3>
+                        <p>Panel de control interactivo con visualizaciones de datos en tiempo real.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">Socket.io</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>App Móvil</h3>
+                        <p>Aplicación híbrida para iOS y Android con funcionalidades offline.</p>
+                        <div class="portfolio-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-footer">
+                <a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i>
+                    Ver más en GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="sobre-mi" class="about">
         <div class="container">
@@ -126,9 +221,9 @@
                 <div class="about-text">
                     <h2 class="section-title">Sobre Mí</h2>
                     <p class="about-description">
-                        Soy un desarrollador web apasionado por crear soluciones digitales innovadoras. 
-                        Con más de 5 años de experiencia en el desarrollo frontend y backend, 
-                        me especializo en transformar ideas en realidades digitales.
+                        Soy Carlos Aguiar, desarrollador web especializado en crear soluciones digitales personalizadas, 
+                        optimizadas y visualmente atractivas. Comprometido con la excelencia técnica, la experiencia del usuario 
+                        y la satisfacción del cliente. Dominio de tecnologías modernas para construir sitios rápidos, seguros y escalables.
                     </p>
                     <div class="skills">
                         <div class="skill-item">
@@ -171,20 +266,74 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Proyectos Completados</div>
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Sitios Web Creados</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Clientes Satisfechos</div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Optimización SEO</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Años de Experiencia</div>
+                        <div class="stat-number">React</div>
+                        <div class="stat-label">Especialización</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">24/7</div>
                         <div class="stat-label">Soporte Técnico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo que dicen mis clientes</h2>
+                <p class="section-subtitle">Testimonios reales de proyectos exitosos</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"Carlos desarrolló nuestra tienda online completa. El resultado superó nuestras expectativas. Excelente comunicación y entrega puntual."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>María González</h4>
+                                <p>CEO, TiendaOnline.cu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"Profesional, creativo y muy técnico. Nuestro sitio web ahora es más rápido y atractivo. Definitivamente recomendado."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Roberto Martínez</h4>
+                                <p>Director, Empresa Digital</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"La plataforma educativa que nos desarrolló es increíble. Los estudiantes están encantados con la experiencia de usuario."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Ana Rodríguez</h4>
+                                <p>Coordinadora, Centro Educativo</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -206,7 +355,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p>hola@miweb.com</p>
+                            <p>carlosaguilardark22@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -215,7 +364,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Teléfono</h4>
-                            <p>+34 123 456 789</p>
+                            <p>+53 53932292</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -224,49 +373,50 @@
                         </div>
                         <div class="contact-details">
                             <h4>Ubicación</h4>
-                            <p>Madrid, España</p>
+                            <p>Cuba</p>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="social-link">
+                        <a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" target="_blank" class="social-link" title="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-twitter"></i>
+                        <a href="mailto:carlosaguilardark22@gmail.com" class="social-link" title="Email">
+                            <i class="fas fa-envelope"></i>
                         </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-instagram"></i>
+                        <a href="tel:+5353932292" class="social-link" title="Teléfono">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                        <a href="#" class="social-link" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" aria-label="Formulario de contacto">
                     <div class="form-group">
-                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required aria-describedby="nombre-help">
                         <label for="nombre">Nombre</label>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                        <input type="email" id="email" name="email" placeholder="tu@email.com" required aria-describedby="email-help">
                         <label for="email">Email</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="asunto" name="asunto" placeholder="Asunto del mensaje" required>
+                        <input type="text" id="asunto" name="asunto" placeholder="Asunto del mensaje" required aria-describedby="asunto-help">
                         <label for="asunto">Asunto</label>
                     </div>
                     <div class="form-group">
-                        <textarea id="mensaje" name="mensaje" placeholder="Describe tu proyecto..." required></textarea>
+                        <textarea id="mensaje" name="mensaje" placeholder="Describe tu proyecto..." required aria-describedby="mensaje-help"></textarea>
                         <label for="mensaje">Mensaje</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de contacto">
                         Enviar Mensaje
-                        <i class="fas fa-paper-plane"></i>
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i>
                     </button>
                 </form>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -275,27 +425,27 @@
                 <div class="footer-brand">
                     <div class="footer-logo">
                         <i class="fas fa-code"></i>
-                        <span>MiWeb</span>
+                        <span>Carlos Aguiar</span>
                     </div>
-                    <p>Creando el futuro digital, un proyecto a la vez.</p>
+                    <p>Desarrollador Full Stack comprometido con la excelencia técnica y la satisfacción del cliente.</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-section">
                         <h4>Servicios</h4>
                         <ul>
                             <li><a href="#servicios">Diseño UI/UX</a></li>
-                            <li><a href="#servicios">Desarrollo Web</a></li>
+                            <li><a href="#servicios">Desarrollo Frontend</a></li>
                             <li><a href="#servicios">Desarrollo Mobile</a></li>
-                            <li><a href="#servicios">Consultoría</a></li>
+                            <li><a href="#servicios">Optimización SEO</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
                         <h4>Empresa</h4>
                         <ul>
-                            <li><a href="#sobre-mi">Sobre Nosotros</a></li>
+                            <li><a href="#sobre-mi">Sobre Mí</a></li>
+                            <li><a href="#portafolio">Portafolio</a></li>
                             <li><a href="#contacto">Contacto</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Portafolio</a></li>
+                            <li><a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" target="_blank">GitHub</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
@@ -309,7 +459,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 MiWeb. Todos los derechos reservados.</p>
+                <p>&copy; 2024 Carlos Aguiar. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
