@@ -24,16 +24,49 @@
                     <a href="#servicios" class="nav-link">Servicios</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#portafolio" class="nav-link">Portafolio</a>
+                    <a href="#curriculum" class="nav-link">Currículum</a>
                 </li>
                 <li class="nav-item">
                     <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#solicitar-trabajo" class="nav-link">Solicitar Trabajo</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contacto" class="nav-link">Contacto</a>
                 </li>
             </ul>
             <div class="nav-actions">
+                <div class="user-actions" id="user-actions">
+                    <button class="btn-auth" id="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Iniciar Sesión
+                    </button>
+                    <button class="btn-auth btn-primary" id="register-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Registrarse
+                    </button>
+                </div>
+                <div class="user-menu hidden" id="user-menu">
+                    <div class="user-info">
+                        <span id="user-name">Carlos Aguiar</span>
+                        <small id="user-email">email@ejemplo.com</small>
+                    </div>
+                    <div class="user-menu-actions">
+                        <button class="user-menu-btn" id="my-projects-btn">
+                            <i class="fas fa-project-diagram"></i>
+                            Mis Proyectos
+                        </button>
+                        <button class="user-menu-btn" id="new-project-btn">
+                            <i class="fas fa-plus"></i>
+                            Nuevo Proyecto
+                        </button>
+                        <button class="user-menu-btn" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Cerrar Sesión
+                        </button>
+                    </div>
+                </div>
                 <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -127,109 +160,188 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portafolio" class="portfolio">
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="curriculum">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Mi Portafolio</h2>
-                <p class="section-subtitle">Algunos proyectos destacados que he desarrollado</p>
+                <h2 class="section-title">Mi Currículum</h2>
+                <p class="section-subtitle">Experiencia profesional y proyectos destacados</p>
             </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80" alt="E-commerce Platform">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-actions">
-                                <a href="#" class="portfolio-btn" title="Ver proyecto">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
+            
+            <div class="curriculum-content">
+                <!-- Personal Info -->
+                <div class="cv-section">
+                    <div class="cv-header">
+                        <div class="cv-photo">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Carlos Aguiar">
                         </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Plataforma E-commerce</h3>
-                        <p>Tienda online completa con carrito de compras, sistema de pagos y panel administrativo.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
+                        <div class="cv-info">
+                            <h3>Carlos Aguiar</h3>
+                            <p class="cv-title">Desarrollador Web Full Stack & Técnico en Sistemas</p>
+                            <div class="cv-contact">
+                                <span><i class="fas fa-envelope"></i> carlosaguilardark22@gmail.com</span>
+                                <span><i class="fas fa-phone"></i> +53 53932292</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Cuba</span>
+                                <span><i class="fab fa-github"></i> github.com/charlysdark22</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="Dashboard Analytics">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-actions">
-                                <a href="#" class="portfolio-btn" title="Ver proyecto">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
-                                    <i class="fab fa-github"></i>
-                                </a>
+
+                <!-- Experience -->
+                <div class="cv-section">
+                    <h4 class="cv-section-title">
+                        <i class="fas fa-briefcase"></i>
+                        Experiencia Profesional
+                    </h4>
+                    <div class="cv-timeline">
+                        <div class="cv-item">
+                            <div class="cv-year">2022 - Presente</div>
+                            <div class="cv-content">
+                                <h5>Desarrollador Web Freelance</h5>
+                                <p class="cv-company">Trabajo Independiente</p>
+                                <ul class="cv-achievements">
+                                    <li>Desarrollo de +15 sitios web personalizados</li>
+                                    <li>Optimización SEO y velocidad en 100% de proyectos</li>
+                                    <li>Colaboración directa con clientes internacionales</li>
+                                    <li>Mantenimiento y soporte técnico continuo</li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Dashboard Analytics</h3>
-                        <p>Panel de control interactivo con gráficos dinámicos y análisis de datos en tiempo real.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Chart.js</span>
-                            <span class="tech-tag">Express</span>
+                        <div class="cv-item">
+                            <div class="cv-year">2020 - 2022</div>
+                            <div class="cv-content">
+                                <h5>Técnico en Soporte Informático</h5>
+                                <p class="cv-company">Empresa Local de Tecnología</p>
+                                <ul class="cv-achievements">
+                                    <li>Reparación y mantenimiento de equipos</li>
+                                    <li>Configuración de redes y sistemas</li>
+                                    <li>Soporte técnico a usuarios finales</li>
+                                    <li>Implementación de soluciones de backup</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="App Móvil">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-actions">
-                                <a href="#" class="portfolio-btn" title="Ver proyecto">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
-                                    <i class="fab fa-github"></i>
+
+                <!-- Projects -->
+                <div class="cv-section">
+                    <h4 class="cv-section-title">
+                        <i class="fas fa-code"></i>
+                        Proyectos Destacados
+                    </h4>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h5>E-commerce Platform</h5>
+                            <p>Tienda online completa con carrito de compras, sistema de pagos y panel administrativo.</p>
+                            <div class="project-tech">
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/charlysdark22" target="_blank">
+                                    <i class="fab fa-github"></i> Código
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>App de Gestión</h3>
-                        <p>Aplicación móvil para gestión de tareas y proyectos con sincronización en la nube.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Redux</span>
+                        
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h5>Sistema de Gestión</h5>
+                            <p>Panel de control para gestión de tickets de soporte técnico con base de datos.</p>
+                            <div class="project-tech">
+                                <span>Express</span>
+                                <span>SQLite</span>
+                                <span>JWT</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/charlysdark22" target="_blank">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h5>App Responsiva</h5>
+                            <p>Aplicación web responsiva con diseño moderno y funcionalidad avanzada.</p>
+                            <div class="project-tech">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/charlysdark22" target="_blank">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Website Corporativo">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-actions">
-                                <a href="#" class="portfolio-btn" title="Ver proyecto">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="https://github.com/charlysdark22" class="portfolio-btn" title="Ver código">
-                                    <i class="fab fa-github"></i>
-                                </a>
+
+                <!-- Skills -->
+                <div class="cv-section">
+                    <h4 class="cv-section-title">
+                        <i class="fas fa-tools"></i>
+                        Habilidades Técnicas
+                    </h4>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h5>Frontend</h5>
+                            <div class="skill-tags">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JavaScript</span>
+                                <span>React</span>
+                                <span>Vue.js</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h5>Backend</h5>
+                            <div class="skill-tags">
+                                <span>Node.js</span>
+                                <span>Express</span>
+                                <span>Python</span>
+                                <span>PHP</span>
+                                <span>APIs REST</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h5>Bases de Datos</h5>
+                            <div class="skill-tags">
+                                <span>MySQL</span>
+                                <span>MongoDB</span>
+                                <span>SQLite</span>
+                                <span>PostgreSQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h5>Herramientas</h5>
+                            <div class="skill-tags">
+                                <span>Git</span>
+                                <span>GitHub</span>
+                                <span>Docker</span>
+                                <span>Linux</span>
+                                <span>Figma</span>
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-content">
-                        <h3>Website Corporativo</h3>
-                        <p>Sitio web empresarial con CMS personalizado y optimización SEO avanzada.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Strapi</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                    </div>
+                </div>
+
+                <!-- Download CV -->
+                <div class="cv-download">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Descargar CV Completo
+                    </button>
                 </div>
             </div>
         </div>
@@ -382,6 +494,143 @@
         </div>
     </section>
 
+    <!-- Project Request Section -->
+    <section id="solicitar-trabajo" class="project-request">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Solicitar Trabajo</h2>
+                <p class="section-subtitle">¿Tienes un proyecto en mente? Cuéntame los detalles y trabajemos juntos</p>
+            </div>
+            
+            <!-- Login/Register Forms -->
+            <div class="auth-section" id="auth-section">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+                    <button class="auth-tab" data-tab="register">Registrarse</button>
+                </div>
+                
+                <!-- Login Form -->
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="tu@email.com" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="••••••••" required>
+                        <label>Contraseña</label>
+                    </div>
+                    <div class="form-status" id="login-status" style="display: none;"></div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Iniciar Sesión</span>
+                        <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </form>
+                
+                <!-- Register Form -->
+                <form class="auth-form hidden" id="register-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Tu nombre completo" required>
+                            <label>Nombre</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="tu@email.com" required>
+                            <label>Email</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="+53 12345678">
+                            <label>Teléfono (opcional)</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="company" placeholder="Nombre de tu empresa">
+                            <label>Empresa (opcional)</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="••••••••" required>
+                        <label>Contraseña</label>
+                    </div>
+                    <div class="form-status" id="register-status" style="display: none;"></div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Crear Cuenta</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Project Request Form (shown after login) -->
+            <div class="project-form-section hidden" id="project-form-section">
+                <form class="project-form" id="project-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select name="project_type" required>
+                                <option value="">Selecciona el tipo de proyecto</option>
+                                <option value="website">Sitio Web</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="webapp">Aplicación Web</option>
+                                <option value="mobile">App Móvil</option>
+                                <option value="desktop">Software de Escritorio</option>
+                                <option value="api">API/Backend</option>
+                                <option value="maintenance">Mantenimiento/Actualizaciones</option>
+                                <option value="consultation">Consultoría Técnica</option>
+                                <option value="other">Otro</option>
+                            </select>
+                            <label>Tipo de Proyecto</label>
+                        </div>
+                        <div class="form-group">
+                            <select name="budget_range">
+                                <option value="">Presupuesto estimado</option>
+                                <option value="under-500">Menos de $500</option>
+                                <option value="500-1000">$500 - $1,000</option>
+                                <option value="1000-2500">$1,000 - $2,500</option>
+                                <option value="2500-5000">$2,500 - $5,000</option>
+                                <option value="over-5000">Más de $5,000</option>
+                                <option value="to-discuss">A discutir</option>
+                            </select>
+                            <label>Presupuesto</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="title" placeholder="Ej: Sitio web para mi restaurante" required>
+                        <label>Título del Proyecto</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="description" placeholder="Describe detalladamente qué necesitas, funcionalidades específicas, diseño preferido, etc." required rows="6"></textarea>
+                        <label>Descripción del Proyecto</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="deadline">
+                        <label>Fecha límite deseada (opcional)</label>
+                    </div>
+                    <div class="form-status" id="project-status" style="display: none;"></div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Enviar Solicitud</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- My Projects Section -->
+            <div class="my-projects-section hidden" id="my-projects-section">
+                <div class="projects-header">
+                    <h3>Mis Proyectos</h3>
+                    <button class="btn btn-primary" id="new-project-btn-main">
+                        <i class="fas fa-plus"></i>
+                        Nuevo Proyecto
+                    </button>
+                </div>
+                <div class="projects-list" id="projects-list">
+                    <div class="loading" id="projects-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        Cargando proyectos...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contacto" class="contact">
         <div class="container">
@@ -397,7 +646,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p>soporte@techsupport.com</p>
+                            <p>carlosaguilardark22@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">

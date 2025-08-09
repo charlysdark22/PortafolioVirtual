@@ -518,3 +518,337 @@ function preloadCriticalResources() {
 
 // Initialize performance optimizations
 preloadCriticalResources();
+
+// User Authentication System
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+let userToken = localStorage.getItem('userToken');
+
+// Initialize user interface
+updateUserInterface();
+
+// Auth tab switching
+document.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        const tabType = tab.dataset.tab;
+        switchAuthTab(tabType);
+    });
+});
+
+function switchAuthTab(tabType) {
+    // Update active tab
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.tab === tabType);
+    });
+    
+    // Show/hide forms
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    
+    if (tabType === 'login') {
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+    } else {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+    }
+}
+
+// User authentication handlers
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const credentials = Object.fromEntries(formData);
+    
+    try {
+        setFormLoading('login', true);
+        const response = await fetch('/api/user-login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(credentials)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            currentUser = result.user;
+            userToken = result.token;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('userToken', userToken);
+            
+            showFormStatus('login-status', '¡Bienvenido! Redirigiendo...', 'success');
+            updateUserInterface();
+            setTimeout(() => showProjectForm(), 1000);
+        } else {
+            showFormStatus('login-status', result.message, 'error');
+        }
+    } catch (error) {
+        showFormStatus('login-status', 'Error de conexión', 'error');
+    } finally {
+        setFormLoading('login', false);
+    }
+});
+
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const userData = Object.fromEntries(formData);
+    
+    try {
+        setFormLoading('register', true);
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            currentUser = result.user;
+            userToken = result.token;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('userToken', userToken);
+            
+            showFormStatus('register-status', '¡Cuenta creada! Bienvenido...', 'success');
+            updateUserInterface();
+            setTimeout(() => showProjectForm(), 1000);
+        } else {
+            showFormStatus('register-status', result.message, 'error');
+        }
+    } catch (error) {
+        showFormStatus('register-status', 'Error de conexión', 'error');
+    } finally {
+        setFormLoading('register', false);
+    }
+});
+
+// Project form handler
+document.getElementById('project-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const projectData = Object.fromEntries(formData);
+    
+    try {
+        setFormLoading('project', true);
+        const response = await fetch('/api/job-requests', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`
+            },
+            body: JSON.stringify(projectData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showFormStatus('project-status', `¡Solicitud enviada! ID: #${result.request_id}`, 'success');
+            document.getElementById('project-form').reset();
+            setTimeout(() => showMyProjects(), 2000);
+        } else {
+            showFormStatus('project-status', result.message, 'error');
+        }
+    } catch (error) {
+        showFormStatus('project-status', 'Error de conexión', 'error');
+    } finally {
+        setFormLoading('project', false);
+    }
+});
+
+// Navigation event handlers
+document.getElementById('login-btn').addEventListener('click', () => {
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('register-btn').addEventListener('click', () => {
+    switchAuthTab('register');
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+    logout();
+});
+
+document.getElementById('my-projects-btn').addEventListener('click', () => {
+    showMyProjects();
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('new-project-btn').addEventListener('click', () => {
+    showProjectForm();
+    document.getElementById('solicitar-trabajo').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('new-project-btn-main').addEventListener('click', () => {
+    showProjectForm();
+});
+
+// Utility functions
+function updateUserInterface() {
+    const userActions = document.getElementById('user-actions');
+    const userMenu = document.getElementById('user-menu');
+    
+    if (currentUser) {
+        userActions.classList.add('hidden');
+        userMenu.classList.remove('hidden');
+        
+        document.getElementById('user-name').textContent = currentUser.name;
+        document.getElementById('user-email').textContent = currentUser.email;
+        
+        showProjectForm();
+    } else {
+        userActions.classList.remove('hidden');
+        userMenu.classList.add('hidden');
+        
+        showAuthSection();
+    }
+}
+
+function showAuthSection() {
+    document.getElementById('auth-section').classList.remove('hidden');
+    document.getElementById('project-form-section').classList.add('hidden');
+    document.getElementById('my-projects-section').classList.add('hidden');
+}
+
+function showProjectForm() {
+    document.getElementById('auth-section').classList.add('hidden');
+    document.getElementById('project-form-section').classList.remove('hidden');
+    document.getElementById('my-projects-section').classList.add('hidden');
+}
+
+async function showMyProjects() {
+    document.getElementById('auth-section').classList.add('hidden');
+    document.getElementById('project-form-section').classList.add('hidden');
+    document.getElementById('my-projects-section').classList.remove('hidden');
+    
+    await loadUserProjects();
+}
+
+async function loadUserProjects() {
+    try {
+        document.getElementById('projects-loading').style.display = 'flex';
+        const response = await fetch('/api/my-requests', {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayUserProjects(result.requests);
+        }
+    } catch (error) {
+        console.error('Error loading projects:', error);
+    } finally {
+        document.getElementById('projects-loading').style.display = 'none';
+    }
+}
+
+function displayUserProjects(projects) {
+    const projectsList = document.getElementById('projects-list');
+    const loading = document.getElementById('projects-loading');
+    
+    if (projects.length === 0) {
+        projectsList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No tienes proyectos aún. ¡Crea tu primer proyecto!</p>';
+        return;
+    }
+    
+    projectsList.innerHTML = projects.map(project => {
+        const createdAt = new Date(project.created_at).toLocaleDateString('es-ES');
+        const deadline = project.deadline ? new Date(project.deadline).toLocaleDateString('es-ES') : 'No especificada';
+        
+        return `
+            <div class="project-card-user">
+                <div class="project-header">
+                    <div>
+                        <div class="project-title">${project.title}</div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <span class="project-type">${getProjectTypeText(project.project_type)}</span>
+                            <span class="project-status ${project.status}">${getStatusText(project.status)}</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="project-description">${project.description}</p>
+                <div class="project-meta">
+                    <span><i class="fas fa-calendar"></i> Creado: ${createdAt}</span>
+                    <span><i class="fas fa-clock"></i> Entrega: ${deadline}</span>
+                    ${project.budget_range ? `<span><i class="fas fa-dollar-sign"></i> ${getBudgetText(project.budget_range)}</span>` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function getProjectTypeText(type) {
+    const types = {
+        'website': 'Sitio Web',
+        'ecommerce': 'E-commerce',
+        'webapp': 'App Web',
+        'mobile': 'App Móvil',
+        'desktop': 'Software',
+        'api': 'API/Backend',
+        'maintenance': 'Mantenimiento',
+        'consultation': 'Consultoría',
+        'other': 'Otro'
+    };
+    return types[type] || type;
+}
+
+function getBudgetText(budget) {
+    const budgets = {
+        'under-500': 'Menos de $500',
+        '500-1000': '$500 - $1,000',
+        '1000-2500': '$1,000 - $2,500',
+        '2500-5000': '$2,500 - $5,000',
+        'over-5000': 'Más de $5,000',
+        'to-discuss': 'A discutir'
+    };
+    return budgets[budget] || budget;
+}
+
+function getStatusText(status) {
+    const statusMap = {
+        'pending': 'Pendiente',
+        'in-progress': 'En Progreso',
+        'completed': 'Completado'
+    };
+    return statusMap[status] || status;
+}
+
+function setFormLoading(formType, loading) {
+    const forms = {
+        'login': document.getElementById('login-form'),
+        'register': document.getElementById('register-form'),
+        'project': document.getElementById('project-form')
+    };
+    
+    const form = forms[formType];
+    const btn = form.querySelector('button[type="submit"]');
+    const btnText = btn.querySelector('.btn-text');
+    const btnIcon = btn.querySelector('i');
+    
+    if (loading) {
+        btn.disabled = true;
+        btnText.textContent = 'Procesando...';
+        btnIcon.className = 'fas fa-spinner fa-spin';
+    } else {
+        btn.disabled = false;
+        if (formType === 'login') {
+            btnText.textContent = 'Iniciar Sesión';
+            btnIcon.className = 'fas fa-sign-in-alt';
+        } else if (formType === 'register') {
+            btnText.textContent = 'Crear Cuenta';
+            btnIcon.className = 'fas fa-user-plus';
+        } else if (formType === 'project') {
+            btnText.textContent = 'Enviar Solicitud';
+            btnIcon.className = 'fas fa-paper-plane';
+        }
+    }
+}
+
+function logout() {
+    currentUser = null;
+    userToken = null;
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userToken');
+    updateUserInterface();
+}
