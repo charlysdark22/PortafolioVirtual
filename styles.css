@@ -44,6 +44,45 @@ html {
     padding: 0 1rem;
 }
 
+/* Accessibility */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    background: var(--bg-white);
+    color: var(--text-dark);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 10000;
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.social-link:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
+.form-status {
+    margin-top: 0.75rem;
+    color: var(--text-light);
+    min-height: 1.25rem;
+}
+
 /* Navigation */
 .navbar {
     position: fixed;
@@ -835,6 +874,18 @@ html {
 
 .fade-in-up {
     animation: fadeInUp 0.6s ease-out;
+}
+
+/* Reduce Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+    .floating-card {
+        animation: none !important;
+    }
 }
 
 /* Scroll animations */

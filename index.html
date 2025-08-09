@@ -7,39 +7,59 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- SEO & Social -->
+    <meta name="description" content="Desarrollo web moderno, UI/UX y optimización SEO. Portafolio y servicios profesionales.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#667eea">
+    <link rel="canonical" href="https://miweb.dev/">
+    <meta property="og:title" content="Mi Página Web Moderna">
+    <meta property="og:description" content="Desarrollo web moderno, UI/UX y optimización SEO. Portafolio y servicios profesionales.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://miweb.dev/">
+    <meta property="og:image" content="https://miweb.dev/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mi Página Web Moderna">
+    <meta name="twitter:description" content="Desarrollo web moderno, UI/UX y optimización SEO. Portafolio y servicios profesionales.">
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-code"></i>
-                <span>MiWeb</span>
+    <header>
+        <nav class="navbar" aria-label="Principal">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-code"></i>
+                    <span>MiWeb</span>
+                </div>
+                <ul class="nav-menu" id="primary-navigation">
+                    <li class="nav-item">
+                        <a href="#inicio" class="nav-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#servicios" class="nav-link">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contacto" class="nav-link">Contacto</a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" id="mobile-menu" aria-label="Abrir menú" aria-controls="primary-navigation" aria-expanded="false">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#inicio" class="nav-link">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#servicios" class="nav-link">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contacto" class="nav-link">Contacto</a>
-                </li>
-            </ul>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
+        </nav>
+    </header>
+    <main id="main-content" tabindex="-1">
     <!-- Hero Section -->
-    <section id="inicio" class="hero">
+    <section id="inicio" class="hero" aria-label="Inicio">
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -71,10 +91,10 @@
     </section>
 
     <!-- Services Section -->
-    <section id="servicios" class="services">
+    <section id="servicios" class="services" aria-labelledby="servicios-title">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Mis Servicios</h2>
+                <h2 class="section-title" id="servicios-title">Mis Servicios</h2>
                 <p class="section-subtitle">Soluciones digitales que impulsan tu negocio</p>
             </div>
             <div class="services-grid">
@@ -120,11 +140,11 @@
     </section>
 
     <!-- About Section -->
-    <section id="sobre-mi" class="about">
+    <section id="sobre-mi" class="about" aria-labelledby="sobre-mi-title">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">Sobre Mí</h2>
+                    <h2 class="section-title" id="sobre-mi-title">Sobre Mí</h2>
                     <p class="about-description">
                         Soy un desarrollador web apasionado por crear soluciones digitales innovadoras. 
                         Con más de 5 años de experiencia en el desarrollo frontend y backend, 
@@ -192,10 +212,10 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contacto" class="contact">
+    <section id="contacto" class="contact" aria-labelledby="contacto-title">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Hablemos</h2>
+                <h2 class="section-title" id="contacto-title">Hablemos</h2>
                 <p class="section-subtitle">¿Tienes un proyecto en mente? Estoy aquí para ayudarte</p>
             </div>
             <div class="contact-content">
@@ -228,27 +248,27 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link">
+                        <a href="#" class="social-link" aria-label="LinkedIn">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="#" class="social-link" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="#" class="social-link" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="social-link">
+                        <a href="#" class="social-link" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </div>
                 </div>
                 <form class="contact-form">
                     <div class="form-group">
-                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
                         <label for="nombre">Nombre</label>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                        <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" required>
                         <label for="email">Email</label>
                     </div>
                     <div class="form-group">
@@ -263,10 +283,12 @@
                         Enviar Mensaje
                         <i class="fas fa-paper-plane"></i>
                     </button>
+                    <p class="form-status" role="status" aria-live="polite"></p>
                 </form>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -314,6 +336,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <noscript>Para una mejor experiencia, activa JavaScript. Algunas animaciones y efectos están deshabilitados sin JS.</noscript>
 </body>
 </html>
