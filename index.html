@@ -3,38 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web Moderna</title>
+    <title>Carlos Aguiar - Desarrollador Web Full Stack | Portafolio</title>
+    <meta name="description" content="Desarrollador web especializado en React, Node.js y soluciones digitales personalizadas. +5 años de experiencia creando sitios web modernos y optimizados.">
+    <meta name="keywords" content="desarrollador web, React, Node.js, JavaScript, diseño web, Carlos Aguiar, portafolio">
+    <meta name="author" content="Carlos Aguiar">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
+    <meta property="og:description" content="Desarrollador web especializado en crear soluciones digitales modernas y optimizadas">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carlosaguiar.dev">
+    <meta property="og:image" content="https://carlosaguiar.dev/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
+    <meta name="twitter:description" content="Desarrollador web especializado en crear soluciones digitales modernas y optimizadas">
+    <meta name="twitter:image" content="https://carlosaguiar.dev/og-image.jpg">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="web">
+    <meta name="rating" content="general">
+    <link rel="canonical" href="https://carlosaguiar.dev">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Carlos Aguiar",
+      "jobTitle": "Desarrollador Web Full Stack",
+      "description": "Desarrollador web especializado en React, Node.js y soluciones digitales personalizadas",
+      "url": "https://carlosaguiar.dev",
+      "email": "carlosaguilardark22@gmail.com",
+      "telephone": "+53 53932292",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Cuba"
+      },
+      "knowsAbout": ["React", "Node.js", "JavaScript", "TypeScript", "HTML5", "CSS3", "Diseño Web", "UI/UX"],
+      "sameAs": [
+        "https://github.com/charlysdark22"
+      ]
+    }
+    </script>
+    
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Navegación principal">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-code"></i>
-                <span>MiWeb</span>
+                <i class="fas fa-code" aria-hidden="true"></i>
+                <span>Carlos Aguiar</span>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#inicio" class="nav-link">Inicio</a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none">
+                    <a href="#inicio" class="nav-link" role="menuitem">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#servicios" class="nav-link">Servicios</a>
+                <li class="nav-item" role="none">
+                    <a href="#servicios" class="nav-link" role="menuitem">Servicios</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                <li class="nav-item" role="none">
+                    <a href="#sobre-mi" class="nav-link" role="menuitem">Sobre Mí</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#contacto" class="nav-link">Contacto</a>
+                <li class="nav-item" role="none">
+                    <a href="#proyectos" class="nav-link" role="menuitem">Proyectos</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <a href="#contacto" class="nav-link" role="menuitem">Contacto</a>
+                </li>
+                <li class="nav-item" role="none">
+                    <button class="theme-toggle" aria-label="Cambiar tema" title="Alternar modo oscuro/claro">
+                        <i class="fas fa-moon" aria-hidden="true"></i>
+                    </button>
                 </li>
             </ul>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="nav-toggle" id="mobile-menu" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
@@ -43,26 +101,27 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Bienvenido a Mi 
-                    <span class="gradient-text">Página Web</span>
+                    Hola, soy <span class="gradient-text">Carlos Aguiar</span>
+                    <br>Desarrollador Web Full Stack
                 </h1>
                 <p class="hero-description">
-                    Creando experiencias digitales increíbles con diseño moderno y tecnología de vanguardia.
+                    Especialista en crear soluciones digitales personalizadas con React, Node.js y tecnologías modernas. 
+                    +5 años transformando ideas en experiencias web excepcionales.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#servicios" class="btn btn-primary">
+                    <a href="#servicios" class="btn btn-primary" aria-label="Ver mis servicios">
                         Explorar Servicios
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
-                    <a href="#contacto" class="btn btn-secondary">
+                    <a href="#contacto" class="btn btn-secondary" aria-label="Contactar conmigo">
                         Contactar
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
             <div class="hero-image">
-                <div class="floating-card">
-                    <i class="fas fa-laptop-code"></i>
+                <div class="floating-card" role="img" aria-label="Tarjeta de presentación de desarrollo web">
+                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
                     <h3>Desarrollo Web</h3>
                     <p>Sitios web modernos y responsivos</p>
                 </div>
@@ -126,9 +185,10 @@
                 <div class="about-text">
                     <h2 class="section-title">Sobre Mí</h2>
                     <p class="about-description">
-                        Soy un desarrollador web apasionado por crear soluciones digitales innovadoras. 
-                        Con más de 5 años de experiencia en el desarrollo frontend y backend, 
-                        me especializo en transformar ideas en realidades digitales.
+                        Soy Carlos Aguiar, desarrollador web full stack especializado en crear soluciones digitales 
+                        personalizadas, optimizadas y visualmente atractivas. Con más de 5 años de experiencia, 
+                        estoy comprometido con la excelencia técnica, la experiencia del usuario y la satisfacción del cliente. 
+                        Domino tecnologías modernas para construir sitios rápidos, seguros y escalables.
                     </p>
                     <div class="skills">
                         <div class="skill-item">
@@ -191,6 +251,172 @@
         </div>
     </section>
 
+    <!-- Projects Section -->
+    <section id="proyectos" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Proyectos Destacados</h2>
+                <p class="section-subtitle">Algunos de mis trabajos más recientes y destacados</p>
+            </div>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-shopping-cart project-icon" aria-hidden="true"></i>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="Ver proyecto de tienda online">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="project-code" aria-label="Ver código en GitHub">
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Tienda Online Moderna</h3>
+                        <p>E-commerce completo con React, carrito de compras, pasarela de pagos y panel de administración.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-graduation-cap project-icon" aria-hidden="true"></i>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="Ver proyecto de plataforma educativa">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="project-code" aria-label="Ver código en GitHub">
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Plataforma Educativa</h3>
+                        <p>Sistema de gestión de cursos con videos, exámenes, progreso del estudiante y certificaciones.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-chart-line project-icon" aria-hidden="true"></i>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="Ver proyecto de dashboard analítico">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="project-code" aria-label="Ver código en GitHub">
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Dashboard Analítico</h3>
+                        <p>Panel de control con métricas en tiempo real, gráficos interactivos y reportes automatizados.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonios" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo que dicen mis clientes</h2>
+                <p class="section-subtitle">Testimonios reales de proyectos exitosos</p>
+            </div>
+            <div class="testimonials-grid">
+                <article class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left" aria-hidden="true"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Carlos desarrolló nuestra tienda online con una calidad excepcional. 
+                            El sitio es rápido, moderno y fácil de usar. Aumentamos nuestras ventas un 150% desde el lanzamiento."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>María González</h4>
+                                <span>CEO, Boutique Elena</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left" aria-hidden="true"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Profesionalismo y atención al detalle impresionantes. 
+                            Carlos entendió perfectamente nuestras necesidades y entregó una plataforma educativa que superó nuestras expectativas."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Dr. Roberto Martínez</h4>
+                                <span>Director, Academia Digital</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left" aria-hidden="true"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Excelente comunicación y resultados de primera calidad. 
+                            El dashboard que desarrolló nos ayuda a tomar mejores decisiones empresariales basadas en datos."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Ana Rodríguez</h4>
+                                <span>Gerente, TechStart Solutions</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                                <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contacto" class="contact">
         <div class="container">
@@ -206,25 +432,25 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p>hola@miweb.com</p>
+                            <p>carlosaguilardark22@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
+                            <i class="fas fa-phone" aria-hidden="true"></i>
                         </div>
                         <div class="contact-details">
                             <h4>Teléfono</h4>
-                            <p>+34 123 456 789</p>
+                            <p>+53 53932292</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                         </div>
                         <div class="contact-details">
                             <h4>Ubicación</h4>
-                            <p>Madrid, España</p>
+                            <p>Cuba</p>
                         </div>
                     </div>
                     <div class="social-links">

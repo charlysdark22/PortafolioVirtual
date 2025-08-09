@@ -3,6 +3,8 @@ const mobileMenu = document.getElementById('mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 
 mobileMenu.addEventListener('click', () => {
+    const isExpanded = mobileMenu.getAttribute('aria-expanded') === 'true';
+    mobileMenu.setAttribute('aria-expanded', !isExpanded);
     mobileMenu.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
@@ -10,10 +12,41 @@ mobileMenu.addEventListener('click', () => {
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
+        mobileMenu.setAttribute('aria-expanded', 'false');
         mobileMenu.classList.remove('active');
         navMenu.classList.remove('active');
     });
 });
+
+// Theme Toggle Functionality
+const themeToggle = document.querySelector('.theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or default to light mode
+const currentTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', currentTheme);
+
+// Update icon based on current theme
+updateThemeIcon(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-label', 'Cambiar a modo claro');
+    } else {
+        themeIcon.className = 'fas fa-moon';
+        themeToggle.setAttribute('aria-label', 'Cambiar a modo oscuro');
+    }
+}
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -33,9 +66,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
+// Optimized navbar background on scroll with throttling
+let ticking = false;
+const navbar = document.querySelector('.navbar');
+
+function updateNavbar() {
     if (window.scrollY > 50) {
         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
@@ -43,9 +78,17 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'rgba(255, 255, 255, 0.95)';
         navbar.style.boxShadow = 'none';
     }
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+    }
 });
 
-// Scroll reveal animation
+// Optimized Scroll reveal animation with debouncing
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -55,14 +98,17 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('revealed');
+            // Unobserve element after animation to improve performance
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Add reveal class to elements that should animate
-const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item');
-revealElements.forEach(el => {
+// Add reveal class to elements that should animate with staggered delays
+const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item, .project-card, .testimonial-card');
+revealElements.forEach((el, index) => {
     el.classList.add('reveal');
+    el.style.setProperty('--animation-order', index);
     observer.observe(el);
 });
 
@@ -86,10 +132,104 @@ skillBars.forEach(bar => {
     skillObserver.observe(bar);
 });
 
-// Form handling
+// Form handling with improved validation
 const contactForm = document.querySelector('.contact-form');
+
+// Add real-time validation
+const formInputs = contactForm.querySelectorAll('input, textarea');
+formInputs.forEach(input => {
+    input.addEventListener('blur', validateField);
+    input.addEventListener('input', clearErrorState);
+});
+
+function validateField(e) {
+    const field = e.target;
+    const value = field.value.trim();
+    let isValid = true;
+    
+    // Remove existing error styling
+    field.classList.remove('error');
+    removeErrorMessage(field);
+    
+    // Validate based on field type
+    switch(field.type) {
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                isValid = false;
+                showError(field, 'Por favor ingresa un email válido');
+            }
+            break;
+        case 'text':
+            if (field.name === 'nombre' && value.length < 2) {
+                isValid = false;
+                showError(field, 'El nombre debe tener al menos 2 caracteres');
+            }
+            if (field.name === 'asunto' && value.length < 5) {
+                isValid = false;
+                showError(field, 'El asunto debe tener al menos 5 caracteres');
+            }
+            break;
+        case 'textarea':
+            if (value.length < 10) {
+                isValid = false;
+                showError(field, 'El mensaje debe tener al menos 10 caracteres');
+            }
+            break;
+    }
+    
+    return isValid;
+}
+
+function clearErrorState(e) {
+    const field = e.target;
+    field.classList.remove('error');
+    removeErrorMessage(field);
+}
+
+function showError(field, message) {
+    field.classList.add('error');
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    field.parentNode.appendChild(errorDiv);
+}
+
+function removeErrorMessage(field) {
+    const errorMsg = field.parentNode.querySelector('.error-message');
+    if (errorMsg) {
+        errorMsg.remove();
+    }
+}
+
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    
+    // Validate all fields
+    let isFormValid = true;
+    formInputs.forEach(input => {
+        if (!validateField({ target: input })) {
+            isFormValid = false;
+        }
+    });
+    
+    // Check if all required fields are filled
+    formInputs.forEach(input => {
+        if (input.hasAttribute('required') && !input.value.trim()) {
+            isFormValid = false;
+            showError(input, 'Este campo es obligatorio');
+        }
+    });
+    
+    if (!isFormValid) {
+        // Scroll to first error
+        const firstError = contactForm.querySelector('.error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+        }
+        return;
+    }
     
     // Get form data
     const formData = new FormData(contactForm);
@@ -106,17 +246,42 @@ contactForm.addEventListener('submit', (e) => {
         submitBtn.innerHTML = '<i class="fas fa-check"></i> ¡Mensaje Enviado!';
         submitBtn.style.background = 'linear-gradient(45deg, #48bb78, #38a169)';
         
+        // Show success message
+        showSuccessMessage();
+        
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
             submitBtn.style.background = 'linear-gradient(45deg, #f093fb, #f5576c)';
             contactForm.reset();
-        }, 2000);
+            hideSuccessMessage();
+        }, 3000);
     }, 1500);
     
     // Here you would typically send the data to your server
     console.log('Form submitted:', data);
 });
+
+function showSuccessMessage() {
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-message';
+    successDiv.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>¡Gracias por contactarme! Te responderé pronto.</span>
+    `;
+    contactForm.appendChild(successDiv);
+    
+    setTimeout(() => {
+        successDiv.classList.add('show');
+    }, 100);
+}
+
+function hideSuccessMessage() {
+    const successMsg = contactForm.querySelector('.success-message');
+    if (successMsg) {
+        successMsg.remove();
+    }
+}
 
 // Floating animation for hero card
 const floatingCard = document.querySelector('.floating-card');
