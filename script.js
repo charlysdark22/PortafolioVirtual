@@ -60,10 +60,200 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Add reveal class to elements that should animate
-const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item');
+const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item, .portfolio-item, .testimonial-content');
 revealElements.forEach(el => {
     el.classList.add('reveal');
     observer.observe(el);
+});
+
+// Testimonials Carousel
+class TestimonialsCarousel {
+    constructor() {
+        this.currentIndex = 0;
+        this.testimonials = document.querySelectorAll('.testimonial-item');
+        this.dots = document.querySelectorAll('.dot');
+        this.prevBtn = document.querySelector('.prev-btn');
+        this.nextBtn = document.querySelector('.next-btn');
+        this.autoSlideInterval = null;
+        
+        this.init();
+    }
+    
+    init() {
+        if (this.testimonials.length === 0) return;
+        
+        // Add event listeners
+        this.prevBtn?.addEventListener('click', () => this.prevSlide());
+        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+        
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.goToSlide(index));
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.isCarouselInView()) {
+                if (e.key === 'ArrowLeft') this.prevSlide();
+                if (e.key === 'ArrowRight') this.nextSlide();
+            }
+        });
+        
+        // Touch/swipe support
+        this.addTouchSupport();
+        
+        // Auto-slide
+        this.startAutoSlide();
+        
+        // Pause on hover
+        const carousel = document.querySelector('.testimonials-carousel');
+        carousel?.addEventListener('mouseenter', () => this.stopAutoSlide());
+        carousel?.addEventListener('mouseleave', () => this.startAutoSlide());
+        
+        // Update on page visibility
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.stopAutoSlide();
+            } else {
+                this.startAutoSlide();
+            }
+        });
+    }
+    
+    goToSlide(index) {
+        // Remove active classes
+        this.testimonials[this.currentIndex]?.classList.remove('active');
+        this.dots[this.currentIndex]?.classList.remove('active');
+        
+        // Update current index
+        this.currentIndex = index;
+        
+        // Add active classes
+        this.testimonials[this.currentIndex]?.classList.add('active');
+        this.dots[this.currentIndex]?.classList.add('active');
+        
+        // Update navigation buttons
+        this.updateNavButtons();
+        
+        // Announce for screen readers
+        this.announceSlideChange();
+    }
+    
+    nextSlide() {
+        const nextIndex = (this.currentIndex + 1) % this.testimonials.length;
+        this.goToSlide(nextIndex);
+    }
+    
+    prevSlide() {
+        const prevIndex = (this.currentIndex - 1 + this.testimonials.length) % this.testimonials.length;
+        this.goToSlide(prevIndex);
+    }
+    
+    updateNavButtons() {
+        // For infinite carousel, buttons are always enabled
+        // You could disable them at start/end for linear navigation
+    }
+    
+    startAutoSlide() {
+        this.stopAutoSlide();
+        this.autoSlideInterval = setInterval(() => {
+            this.nextSlide();
+        }, 5000); // 5 seconds
+    }
+    
+    stopAutoSlide() {
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+            this.autoSlideInterval = null;
+        }
+    }
+    
+    isCarouselInView() {
+        const carousel = document.querySelector('.testimonials-carousel');
+        if (!carousel) return false;
+        
+        const rect = carousel.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+    
+    announceSlideChange() {
+        const currentTestimonial = this.testimonials[this.currentIndex];
+        const authorName = currentTestimonial?.querySelector('.author-info h4')?.textContent;
+        
+        if (authorName) {
+            // Create announcement for screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = `Mostrando testimonio de ${authorName}`;
+            
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+    }
+    
+    addTouchSupport() {
+        const carousel = document.querySelector('.testimonials-carousel');
+        if (!carousel) return;
+        
+        let startX = 0;
+        let startY = 0;
+        let isScrolling = false;
+        
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            isScrolling = false;
+        });
+        
+        carousel.addEventListener('touchmove', (e) => {
+            if (!startX || !startY) return;
+            
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            const diffX = startX - currentX;
+            const diffY = startY - currentY;
+            
+            if (Math.abs(diffY) > Math.abs(diffX)) {
+                isScrolling = true;
+                return;
+            }
+            
+            if (!isScrolling && Math.abs(diffX) > 10) {
+                e.preventDefault();
+            }
+        });
+        
+        carousel.addEventListener('touchend', (e) => {
+            if (!startX || !startY || isScrolling) {
+                startX = 0;
+                startY = 0;
+                return;
+            }
+            
+            const currentX = e.changedTouches[0].clientX;
+            const diffX = startX - currentX;
+            
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0) {
+                    this.nextSlide();
+                } else {
+                    this.prevSlide();
+                }
+            }
+            
+            startX = 0;
+            startY = 0;
+        });
+    }
+}
+
+// Initialize testimonials carousel
+document.addEventListener('DOMContentLoaded', () => {
+    new TestimonialsCarousel();
 });
 
 // Animate skill bars when they come into view
@@ -353,6 +543,298 @@ function animateCursorTrail() {
     });
     
     requestAnimationFrame(animateCursorTrail);
+}
+
+// Accessibility: Keyboard navigation for portfolio items
+document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.setAttribute('tabindex', '0');
+    
+    item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.querySelector('.portfolio-link')?.click();
+        }
+    });
+    
+    // Focus management
+    item.addEventListener('focus', () => {
+        item.style.outline = '2px solid var(--primary-color)';
+        item.style.outlineOffset = '2px';
+    });
+    
+    item.addEventListener('blur', () => {
+        item.style.outline = 'none';
+    });
+});
+
+// Enhanced form accessibility
+document.querySelectorAll('.form-group input, .form-group textarea').forEach(field => {
+    field.addEventListener('invalid', (e) => {
+        e.target.setAttribute('aria-invalid', 'true');
+        
+        // Add error styling
+        e.target.style.borderColor = '#e53e3e';
+        e.target.style.boxShadow = '0 0 0 3px rgba(229, 62, 62, 0.1)';
+    });
+    
+    field.addEventListener('input', (e) => {
+        if (e.target.validity.valid) {
+            e.target.removeAttribute('aria-invalid');
+            e.target.style.borderColor = 'var(--border-light)';
+            e.target.style.boxShadow = 'none';
+        }
+    });
+});
+
+// Animated counters for stats
+function animateCounter(element, target, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        
+        if (element.textContent.includes('+')) {
+            element.textContent = Math.floor(current) + '+';
+        } else if (element.textContent.includes('/')) {
+            element.textContent = Math.floor(current) + '/7';
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
+// Initialize counters when stats section is visible
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statNumbers = entry.target.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const text = stat.textContent;
+                const number = parseInt(text.replace(/\D/g, ''));
+                animateCounter(stat, number, 2000);
+            });
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const aboutSection = document.querySelector('#sobre-mi');
+if (aboutSection) {
+    statsObserver.observe(aboutSection);
+}
+
+// Dark mode toggle functionality
+function createDarkModeToggle() {
+    const toggle = document.createElement('button');
+    toggle.className = 'dark-mode-toggle';
+    toggle.setAttribute('aria-label', 'Alternar modo oscuro');
+    toggle.innerHTML = '<i class="fas fa-moon"></i>';
+    
+    // Add toggle styles
+    const toggleStyles = document.createElement('style');
+    toggleStyles.textContent = `
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .dark-mode-toggle:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .dark-mode-toggle {
+                width: 50px;
+                height: 50px;
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 1.25rem;
+            }
+        }
+        
+        .dark-theme {
+            --text-dark: #f7fafc;
+            --text-light: #a0aec0;
+            --bg-light: #1a202c;
+            --bg-white: #2d3748;
+            --border-light: #4a5568;
+        }
+        
+        .dark-theme .navbar {
+            background: rgba(26, 32, 44, 0.95);
+            border-bottom-color: #4a5568;
+        }
+        
+        .dark-theme .service-card,
+        .dark-theme .contact-item,
+        .dark-theme .portfolio-item {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+        }
+        
+        .dark-theme .form-group input,
+        .dark-theme .form-group textarea {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #f7fafc;
+        }
+    `;
+    document.head.appendChild(toggleStyles);
+    
+    // Toggle functionality
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
+        
+        toggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        toggle.setAttribute('aria-label', isDark ? 'Activar modo claro' : 'Alternar modo oscuro');
+        
+        // Save preference
+        localStorage.setItem('darkMode', isDark);
+    });
+    
+    // Load saved preference
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-theme');
+        toggle.innerHTML = '<i class="fas fa-sun"></i>';
+        toggle.setAttribute('aria-label', 'Activar modo claro');
+    }
+    
+    document.body.appendChild(toggle);
+}
+
+// Initialize dark mode toggle
+createDarkModeToggle();
+
+// Enhanced scroll to top functionality
+function createScrollToTop() {
+    const scrollBtn = document.createElement('button');
+    scrollBtn.className = 'scroll-to-top';
+    scrollBtn.setAttribute('aria-label', 'Volver arriba');
+    scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    
+    const scrollStyles = document.createElement('style');
+    scrollStyles.textContent = `
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.9);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 6rem;
+                left: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+    `;
+    document.head.appendChild(scrollStyles);
+    
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+    
+    document.body.appendChild(scrollBtn);
+}
+
+createScrollToTop();
+
+// Progressive Web App service worker registration
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+            console.log('SW registered successfully');
+        })
+        .catch(error => {
+            console.log('SW registration failed');
+        });
+}
+
+// Performance monitoring
+const perfObserver = new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+        if (entry.entryType === 'navigation') {
+            console.log('Page load time:', entry.loadEventEnd - entry.fetchStart, 'ms');
+        }
+    }
+});
+
+perfObserver.observe({ entryTypes: ['navigation'] });
+
+// Reduce motion for users who prefer it
+const respectsReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+if (respectsReducedMotion.matches) {
+    // Disable animations for users who prefer reduced motion
+    const style = document.createElement('style');
+    style.textContent = `
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 animateCursorTrail();

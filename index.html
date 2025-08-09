@@ -3,10 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web Moderna</title>
+    <title>Carlos Aguiar - Desarrollador Web Full Stack | Portfolio Profesional</title>
+    <meta name="description" content="Carlos Aguiar - Desarrollador Web Full Stack especializado en React, Node.js y soluciones digitales personalizadas. +15 proyectos completados con tecnologías modernas.">
+    <meta name="keywords" content="desarrollador web, full stack, React, Node.js, JavaScript, portfolio, Carlos Aguiar">
+    <meta name="author" content="Carlos Aguiar">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carlosaguiar.dev">
+    <meta property="og:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
+    <meta property="og:description" content="Desarrollador web especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
+    <meta property="og:image" content="/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://carlosaguiar.dev">
+    <meta property="twitter:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
+    <meta property="twitter:description" content="Desarrollador web especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
+    <meta property="twitter:image" content="/assets/og-image.jpg">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Carlos Aguiar",
+        "jobTitle": "Desarrollador Web Full Stack",
+        "email": "carlosaguilardark22@gmail.com",
+        "telephone": "+53 53932292",
+        "url": "https://carlosaguiar.dev",
+        "sameAs": [
+            "https://github.com/charlysdark22"
+        ],
+        "knowsAbout": ["JavaScript", "React", "Node.js", "HTML5", "CSS3", "Web Development"],
+        "description": "Desarrollador web especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas."
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -14,7 +69,7 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <i class="fas fa-code"></i>
-                <span>MiWeb</span>
+                <span>Carlos Aguiar</span>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -25,6 +80,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portafolio" class="nav-link">Portafolio</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contacto" class="nav-link">Contacto</a>
@@ -43,11 +101,11 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Bienvenido a Mi 
-                    <span class="gradient-text">Página Web</span>
+                    Soy Carlos Aguiar
+                    <span class="gradient-text">Desarrollador Full Stack</span>
                 </h1>
                 <p class="hero-description">
-                    Creando experiencias digitales increíbles con diseño moderno y tecnología de vanguardia.
+                    Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas. Más de 15 proyectos completados con tecnologías modernas.
                 </p>
                 <div class="hero-buttons">
                     <a href="#servicios" class="btn btn-primary">
@@ -191,6 +249,223 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonios" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo que dicen mis clientes</h2>
+                <p class="section-subtitle">Testimonios reales de proyectos exitosos</p>
+            </div>
+            <div class="testimonials-carousel">
+                <div class="testimonial-track">
+                    <div class="testimonial-item active">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "Carlos desarrolló nuestra tienda online con un diseño increíble y funcionalidad perfecta. Las ventas aumentaron un 150% en los primeros tres meses. Altamente recomendado."
+                            </blockquote>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23667eea'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EM%3C/text%3E%3C/svg%3E" alt="María González" loading="lazy">
+                                </div>
+                                <div class="author-info">
+                                    <h4>María González</h4>
+                                    <p>CEO, TechStore</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-item">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "La plataforma educativa que Carlos creó superó todas nuestras expectativas. La interfaz es intuitiva y el rendimiento excelente. Nuestros estudiantes están encantados."
+                            </blockquote>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23764ba2'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EL%3C/text%3E%3C/svg%3E" alt="Luis Rodríguez" loading="lazy">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Luis Rodríguez</h4>
+                                    <p>Director, EduTech Academy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-item">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <blockquote>
+                                "Trabajar con Carlos fue una experiencia excelente. Su conocimiento técnico y atención al detalle hicieron que nuestro proyecto fuera un éxito total. Comunicación perfecta durante todo el proceso."
+                            </blockquote>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f093fb'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EA%3C/text%3E%3C/svg%3E" alt="Ana Martínez" loading="lazy">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Ana Martínez</h4>
+                                    <p>Fundadora, StartupCo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="nav-btn prev-btn" aria-label="Testimonio anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="testimonial-dots">
+                        <button class="dot active" aria-label="Ir al testimonio 1"></button>
+                        <button class="dot" aria-label="Ir al testimonio 2"></button>
+                        <button class="dot" aria-label="Ir al testimonio 3"></button>
+                    </div>
+                    <button class="nav-btn next-btn" aria-label="Siguiente testimonio">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mi Portafolio</h2>
+                <p class="section-subtitle">Algunos de mis proyectos más destacados</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23667eea'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='white'%3EProyecto E-commerce%3C/text%3E%3C/svg%3E" alt="Proyecto E-commerce" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>Tienda Online</h3>
+                                <p>Plataforma de e-commerce completa con React y Node.js</p>
+                                <div class="portfolio-tech">
+                                    <span>React</span>
+                                    <span>Node.js</span>
+                                    <span>MongoDB</span>
+                                </div>
+                                <div class="portfolio-links">
+                                    <a href="#" class="portfolio-link" aria-label="Ver proyecto en vivo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="portfolio-link" aria-label="Ver código en GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23764ba2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='white'%3EApp Educativa%3C/text%3E%3C/svg%3E" alt="Aplicación Educativa" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>Plataforma Educativa</h3>
+                                <p>Sistema de gestión de aprendizaje con video streaming</p>
+                                <div class="portfolio-tech">
+                                    <span>Vue.js</span>
+                                    <span>Express</span>
+                                    <span>PostgreSQL</span>
+                                </div>
+                                <div class="portfolio-links">
+                                    <a href="#" class="portfolio-link" aria-label="Ver proyecto en vivo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="portfolio-link" aria-label="Ver código en GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f093fb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='white'%3EApp Móvil%3C/text%3E%3C/svg%3E" alt="Aplicación Móvil" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>App de Productividad</h3>
+                                <p>Aplicación móvil para gestión de tareas y proyectos</p>
+                                <div class="portfolio-tech">
+                                    <span>React Native</span>
+                                    <span>Firebase</span>
+                                    <span>Redux</span>
+                                </div>
+                                <div class="portfolio-links">
+                                    <a href="#" class="portfolio-link" aria-label="Ver proyecto en vivo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="portfolio-link" aria-label="Ver código en GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%2348bb78'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='white'%3EAPI REST%3C/text%3E%3C/svg%3E" alt="API REST" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-content">
+                                <h3>API de Gestión</h3>
+                                <p>API REST escalable para sistema de inventario</p>
+                                <div class="portfolio-tech">
+                                    <span>Node.js</span>
+                                    <span>Express</span>
+                                    <span>MySQL</span>
+                                </div>
+                                <div class="portfolio-links">
+                                    <a href="#" class="portfolio-link" aria-label="Ver documentación">
+                                        <i class="fas fa-book"></i>
+                                    </a>
+                                    <a href="#" class="portfolio-link" aria-label="Ver código en GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-cta">
+                <a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    Ver Más Proyectos en GitHub
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contacto" class="contact">
         <div class="container">
@@ -206,7 +481,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p>hola@miweb.com</p>
+                            <p>carlosaguilardark22@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -215,7 +490,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Teléfono</h4>
-                            <p>+34 123 456 789</p>
+                            <p>+53 53932292</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -224,7 +499,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Ubicación</h4>
-                            <p>Madrid, España</p>
+                            <p>Cuba</p>
                         </div>
                     </div>
                     <div class="social-links">
@@ -275,9 +550,9 @@
                 <div class="footer-brand">
                     <div class="footer-logo">
                         <i class="fas fa-code"></i>
-                        <span>MiWeb</span>
+                        <span>Carlos Aguiar</span>
                     </div>
-                    <p>Creando el futuro digital, un proyecto a la vez.</p>
+                    <p>Desarrollador Full Stack comprometido con la excelencia técnica y la satisfacción del cliente.</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-section">
@@ -309,7 +584,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 MiWeb. Todos los derechos reservados.</p>
+                <p>&copy; 2024 Carlos Aguiar. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
