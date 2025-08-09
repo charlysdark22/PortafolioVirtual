@@ -59,10 +59,33 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Add reveal class to elements that should animate
-const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item');
-revealElements.forEach(el => {
+// Add reveal classes to elements that should animate with staggered timing
+const revealElements = document.querySelectorAll('.service-card, .skill-item, .stat-item, .contact-item, .portfolio-item, .testimonial-card');
+revealElements.forEach((el, index) => {
     el.classList.add('reveal');
+    if (index % 4 === 0) el.classList.add('stagger-1');
+    else if (index % 4 === 1) el.classList.add('stagger-2');
+    else if (index % 4 === 2) el.classList.add('stagger-3');
+    else el.classList.add('stagger-4');
+    observer.observe(el);
+});
+
+// Enhanced animations for different elements
+const leftRevealElements = document.querySelectorAll('.about-text');
+leftRevealElements.forEach(el => {
+    el.classList.add('reveal-left');
+    observer.observe(el);
+});
+
+const rightRevealElements = document.querySelectorAll('.about-stats');
+rightRevealElements.forEach(el => {
+    el.classList.add('reveal-right');
+    observer.observe(el);
+});
+
+const scaleRevealElements = document.querySelectorAll('.section-header');
+scaleRevealElements.forEach(el => {
+    el.classList.add('reveal-scale');
     observer.observe(el);
 });
 
@@ -356,3 +379,103 @@ function animateCursorTrail() {
 }
 
 animateCursorTrail();
+
+// Dark Mode Toggle
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or default to light mode
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+// Update icon based on current theme
+function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+    }
+}
+
+// Initialize icon
+updateThemeIcon(savedTheme);
+
+// Theme toggle functionality
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+    
+    // Add a nice animation effect
+    themeToggle.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        themeToggle.style.transform = 'scale(1)';
+    }, 150);
+});
+
+// Lazy Loading for Images
+const lazyImages = document.querySelectorAll('img[data-src]');
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+lazyImages.forEach(img => imageObserver.observe(img));
+
+// Performance optimizations
+// Debounce scroll events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimize scroll listener
+const debouncedScrollHandler = debounce(() => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = 'none';
+    }
+}, 10);
+
+// Replace the existing scroll listener
+window.removeEventListener('scroll', () => {});
+window.addEventListener('scroll', debouncedScrollHandler, { passive: true });
+
+// Preload critical resources
+function preloadCriticalResources() {
+    const criticalImages = [
+        'https://images.unsplash.com/photo-1460925895917-afdab827c52f',
+        'https://images.unsplash.com/photo-1551650975-87deedd944c3'
+    ];
+    
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+}
+
+// Initialize performance optimizations
+preloadCriticalResources();
