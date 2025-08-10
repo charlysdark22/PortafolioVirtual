@@ -642,7 +642,7 @@ function createDarkModeToggle() {
         .dark-mode-toggle {
             position: fixed;
             bottom: 2rem;
-            right: 2rem;
+            right: 8rem;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -671,7 +671,7 @@ function createDarkModeToggle() {
                 width: 50px;
                 height: 50px;
                 bottom: 1rem;
-                right: 1rem;
+                right: 6rem;
                 font-size: 1.25rem;
             }
         }
@@ -832,7 +832,7 @@ function createScrollToTop() {
         .scroll-to-top {
             position: fixed;
             bottom: 2rem;
-            left: 2rem;
+            left: 8rem;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -860,7 +860,7 @@ function createScrollToTop() {
         @media (max-width: 768px) {
             .scroll-to-top {
                 bottom: 6rem;
-                left: 1rem;
+                left: 6rem;
                 width: 45px;
                 height: 45px;
                 font-size: 1rem;
