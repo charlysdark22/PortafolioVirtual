@@ -1,469 +1,265 @@
 <!DOCTYPE html>
-<html lang="es-CU">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlos Aguiar - Desarrollador Web Full Stack | Soluciones Digitales Personalizadas</title>
-    <meta name="description" content="Carlos Aguiar, Desarrollador Web Full Stack especializado en React, Node.js, HTML5, CSS3. Creando soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
-    <meta name="keywords" content="desarrollador web, full stack, react, nodejs, html5, css3, javascript, portfolio, carlos aguiar, cuba">
-    <meta name="author" content="Carlos Aguiar">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
-    <meta property="og:description" content="Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://github.com/charlysdark22/Charlys-Repocitorie.git">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Carlos Aguiar - Desarrollador Web Full Stack">
-    <meta name="twitter:description" content="Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas.">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>TechStore - Tienda Online de Tecnología</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
-    <!-- Skip Navigation -->
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-code"></i>
-                <span>Carlos Aguiar</span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#inicio" class="nav-link">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#servicios" class="nav-link">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#portafolio" class="nav-link">Portafolio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contacto" class="nav-link">Contacto</a>
-                </li>
-            </ul>
-            <div class="nav-toggle" id="mobile-menu" aria-label="Menú móvil" role="button" tabindex="0">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary-600 dark:text-primary-400">
+                        TechStore
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        <span data-translate="nav.home">Inicio</span>
+                    </a>
+                    <a href="productos.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        <span data-translate="nav.products">Productos</span>
+                    </a>
+                    <a href="categorias.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        <span data-translate="nav.categories">Categorías</span>
+                    </a>
+                </nav>
+
+                <!-- Right side -->
+                <div class="flex items-center space-x-4">
+                    <!-- Theme & Language Controls -->
+                    <div class="flex items-center space-x-2">
+                        <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                            <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        
+                        <select id="language-select" class="bg-gray-100 dark:bg-gray-700 border-0 rounded-lg px-3 py-2 text-sm">
+                            <option value="es">🇪🇸 ES</option>
+                            <option value="en">🇺🇸 EN</option>
+                            <option value="fr">🇫🇷 FR</option>
+                            <option value="pt">🇧🇷 PT</option>
+                        </select>
+                    </div>
+
+                    <!-- Cart -->
+                    <a href="carrito.html" class="relative p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H19M7 13v8a2 2 0 002 2h6a2 2 0 002-2v-8m-8 0V9a2 2 0 012-2h4a2 2 0 012 2v4.01"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+
+                    <!-- User Menu -->
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </button>
+                        
+                        <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                            <div id="auth-links" class="py-2">
+                                <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-translate="auth.login">Iniciar Sesión</a>
+                                <a href="register.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-translate="auth.register">Registrarse</a>
+                            </div>
+                            <div id="user-links" class="hidden py-2 border-t border-gray-200 dark:border-gray-700">
+                                <a href="perfil.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-translate="user.profile">Mi Perfil</a>
+                                <a href="pedidos.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-translate="user.orders">Mis Pedidos</a>
+                                <div id="admin-link" class="hidden">
+                                    <a href="admin.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-translate="admin.panel">Panel Admin</a>
+                                </div>
+                                <button id="logout-btn" class="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700" data-translate="auth.logout">Cerrar Sesión</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <main id="main-content">
-    <section id="inicio" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Soy Carlos Aguiar
-                    <span class="gradient-text">Desarrollador Full Stack</span>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-4 py-2 space-y-1">
+                <a href="index.html" class="block py-2 text-gray-700 dark:text-gray-300" data-translate="nav.home">Inicio</a>
+                <a href="productos.html" class="block py-2 text-gray-700 dark:text-gray-300" data-translate="nav.products">Productos</a>
+                <a href="categorias.html" class="block py-2 text-gray-700 dark:text-gray-300" data-translate="nav.categories">Categorías</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6" data-translate="hero.title">
+                    La Mejor Tecnología a Tu Alcance
                 </h1>
-                <p class="hero-description">
-                    🚀 Especializado en crear soluciones digitales personalizadas, optimizadas y visualmente atractivas. Comprometido con la excelencia técnica y la satisfacción del cliente.
+                <p class="text-xl md:text-2xl mb-8 opacity-90" data-translate="hero.subtitle">
+                    Computadoras, laptops, teléfonos y accesorios de las mejores marcas
                 </p>
-                <div class="hero-buttons">
-                    <a href="#servicios" class="btn btn-primary">
-                        Explorar Servicios
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#contacto" class="btn btn-secondary">
-                        Contactar
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="floating-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Desarrollo Web</h3>
-                    <p>Sitios web modernos y responsivos</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="servicios" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Mis Servicios</h2>
-                <p class="section-subtitle">Soluciones digitales que impulsan tu negocio</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Diseño UI/UX</h3>
-                    <p>Interfaces intuitivas y experiencias de usuario excepcionales que conectan con tu audiencia.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Diseño responsivo</li>
-                        <li><i class="fas fa-check"></i> Prototipado interactivo</li>
-                        <li><i class="fas fa-check"></i> Investigación UX</li>
-                    </ul>
-                </div>
-                <div class="service-card featured">
-                    <div class="service-badge">Popular</div>
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Desarrollo Frontend</h3>
-                    <p>Aplicaciones web modernas usando las últimas tecnologías y mejores prácticas de desarrollo.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> React & Vue.js</li>
-                        <li><i class="fas fa-check"></i> TypeScript</li>
-                        <li><i class="fas fa-check"></i> Optimización SEO</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Desarrollo Mobile</h3>
-                    <p>Aplicaciones móviles nativas y híbridas para iOS y Android con rendimiento óptimo.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> React Native</li>
-                        <li><i class="fas fa-check"></i> Flutter</li>
-                        <li><i class="fas fa-check"></i> App Store Deploy</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portafolio" class="portfolio">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Mi Portafolio</h2>
-                <p class="section-subtitle">Algunos de mis proyectos más destacados</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Tienda Online</h3>
-                        <p>E-commerce completo con React y Node.js, integración de pagos y gestión de inventario.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Plataforma Educativa</h3>
-                        <p>Sistema de gestión de aprendizaje con videoconferencias y seguimiento de progreso.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Express</span>
-                            <span class="tech-tag">WebRTC</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Dashboard Analytics</h3>
-                        <p>Panel de control interactivo con visualizaciones de datos en tiempo real.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">D3.js</span>
-                            <span class="tech-tag">Socket.io</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>App Móvil</h3>
-                        <p>Aplicación híbrida para iOS y Android con funcionalidades offline.</p>
-                        <div class="portfolio-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">SQLite</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="portfolio-footer">
-                <a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-github"></i>
-                    Ver más en GitHub
+                <a href="productos.html" class="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors" data-translate="hero.cta">
+                    Ver Productos
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="sobre-mi" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Sobre Mí</h2>
-                    <p class="about-description">
-                        Soy Carlos Aguiar, desarrollador web especializado en crear soluciones digitales personalizadas, 
-                        optimizadas y visualmente atractivas. Comprometido con la excelencia técnica, la experiencia del usuario 
-                        y la satisfacción del cliente. Dominio de tecnologías modernas para construir sitios rápidos, seguros y escalables.
-                    </p>
-                    <div class="skills">
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>JavaScript / TypeScript</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
+        <!-- Featured Categories -->
+        <section class="py-16 bg-gray-50 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center mb-12" data-translate="categories.title">Categorías Destacadas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-4l-2 2-2-2H5a2 2 0 01-2-2V5zm5.5 6a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100-2 1 1 0 000 2zm-2-5a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>React / Vue.js</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>CSS / Sass</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Node.js / Python</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2" data-translate="categories.computers">Computadoras</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4" data-translate="categories.computers_desc">PCs de escritorio potentes</p>
+                        <a href="categoria.html?cat=computadoras" class="text-primary-600 dark:text-primary-400 font-medium hover:underline" data-translate="categories.view_all">Ver Todo</a>
                     </div>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Sitios Web Creados</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Optimización SEO</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">React</div>
-                        <div class="stat-label">Especialización</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Soporte Técnico</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Lo que dicen mis clientes</h2>
-                <p class="section-subtitle">Testimonios reales de proyectos exitosos</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-quote">
-                            <i class="fas fa-quote-left"></i>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2v4h10V6H5z" clip-rule="evenodd"></path>
+                            </svg>
                         </div>
-                        <p>"Carlos desarrolló nuestra tienda online completa. El resultado superó nuestras expectativas. Excelente comunicación y entrega puntual."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>María González</h4>
-                                <p>CEO, TiendaOnline.cu</p>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2" data-translate="categories.laptops">Laptops</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4" data-translate="categories.laptops_desc">Portátiles para trabajo y gaming</p>
+                        <a href="categoria.html?cat=laptops" class="text-primary-600 dark:text-primary-400 font-medium hover:underline" data-translate="categories.view_all">Ver Todo</a>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-quote">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        <p>"Profesional, creativo y muy técnico. Nuestro sitio web ahora es más rápido y atractivo. Definitivamente recomendado."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Roberto Martínez</h4>
-                                <p>Director, Empresa Digital</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-quote">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        <p>"La plataforma educativa que nos desarrolló es increíble. Los estudiantes están encantados con la experiencia de usuario."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4>Ana Rodríguez</h4>
-                                <p>Coordinadora, Centro Educativo</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contacto" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Hablemos</h2>
-                <p class="section-subtitle">¿Tienes un proyecto en mente? Estoy aquí para ayudarte</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 14a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                            </svg>
                         </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>carlosaguilardark22@gmail.com</p>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2" data-translate="categories.phones">Teléfonos</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4" data-translate="categories.phones_desc">Smartphones de última generación</p>
+                        <a href="categoria.html?cat=telefonos" class="text-primary-600 dark:text-primary-400 font-medium hover:underline" data-translate="categories.view_all">Ver Todo</a>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
+
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 text-center">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
+                            </svg>
                         </div>
-                        <div class="contact-details">
-                            <h4>Teléfono</h4>
-                            <p>+53 53932292</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Ubicación</h4>
-                            <p>Cuba</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" target="_blank" class="social-link" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:carlosaguilardark22@gmail.com" class="social-link" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="tel:+5353932292" class="social-link" title="Teléfono">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                        <a href="#" class="social-link" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
+                        <h3 class="text-xl font-semibold mb-2" data-translate="categories.accessories">Accesorios</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4" data-translate="categories.accessories_desc">Complementos y periféricos</p>
+                        <a href="categoria.html?cat=accesorios" class="text-primary-600 dark:text-primary-400 font-medium hover:underline" data-translate="categories.view_all">Ver Todo</a>
                     </div>
                 </div>
-                <form class="contact-form" aria-label="Formulario de contacto">
-                    <div class="form-group">
-                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required aria-describedby="nombre-help">
-                        <label for="nombre">Nombre</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="tu@email.com" required aria-describedby="email-help">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="asunto" name="asunto" placeholder="Asunto del mensaje" required aria-describedby="asunto-help">
-                        <label for="asunto">Asunto</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="mensaje" name="mensaje" placeholder="Describe tu proyecto..." required aria-describedby="mensaje-help"></textarea>
-                        <label for="mensaje">Mensaje</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de contacto">
-                        Enviar Mensaje
-                        <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                    </button>
-                </form>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center mb-12" data-translate="products.featured">Productos Destacados</h2>
+                <div id="featured-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+                <div class="text-center mt-12">
+                    <a href="productos.html" class="inline-block bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors" data-translate="products.view_all">
+                        Ver Todos los Productos
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <i class="fas fa-code"></i>
-                        <span>Carlos Aguiar</span>
-                    </div>
-                    <p>Desarrollador Full Stack comprometido con la excelencia técnica y la satisfacción del cliente.</p>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">TechStore</h3>
+                    <p class="text-gray-400 mb-4" data-translate="footer.description">
+                        Tu tienda de confianza para tecnología de calidad
+                    </p>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-section">
-                        <h4>Servicios</h4>
-                        <ul>
-                            <li><a href="#servicios">Diseño UI/UX</a></li>
-                            <li><a href="#servicios">Desarrollo Frontend</a></li>
-                            <li><a href="#servicios">Desarrollo Mobile</a></li>
-                            <li><a href="#servicios">Optimización SEO</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Empresa</h4>
-                        <ul>
-                            <li><a href="#sobre-mi">Sobre Mí</a></li>
-                            <li><a href="#portafolio">Portafolio</a></li>
-                            <li><a href="#contacto">Contacto</a></li>
-                            <li><a href="https://github.com/charlysdark22/Charlys-Repocitorie.git" target="_blank">GitHub</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#">Privacidad</a></li>
-                            <li><a href="#">Términos</a></li>
-                            <li><a href="#">Cookies</a></li>
-                        </ul>
+                
+                <div>
+                    <h4 class="font-semibold mb-4" data-translate="footer.categories">Categorías</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="categoria.html?cat=computadoras" class="hover:text-white transition-colors" data-translate="categories.computers">Computadoras</a></li>
+                        <li><a href="categoria.html?cat=laptops" class="hover:text-white transition-colors" data-translate="categories.laptops">Laptops</a></li>
+                        <li><a href="categoria.html?cat=telefonos" class="hover:text-white transition-colors" data-translate="categories.phones">Teléfonos</a></li>
+                        <li><a href="categoria.html?cat=accesorios" class="hover:text-white transition-colors" data-translate="categories.accessories">Accesorios</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4" data-translate="footer.support">Soporte</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="contacto.html" class="hover:text-white transition-colors" data-translate="footer.contact">Contacto</a></li>
+                        <li><a href="ayuda.html" class="hover:text-white transition-colors" data-translate="footer.help">Ayuda</a></li>
+                        <li><a href="envios.html" class="hover:text-white transition-colors" data-translate="footer.shipping">Envíos</a></li>
+                        <li><a href="devoluciones.html" class="hover:text-white transition-colors" data-translate="footer.returns">Devoluciones</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4" data-translate="footer.payment">Métodos de Pago</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Transfermóvil</p>
+                        <p>Enzona</p>
+                        <p>BANDEC • BPA • Metropolitano</p>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Carlos Aguiar. Todos los derechos reservados.</p>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 TechStore. <span data-translate="footer.rights">Todos los derechos reservados.</span></p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="js/translations.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
