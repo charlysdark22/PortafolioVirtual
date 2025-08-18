@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TechStore - Tecnología al mejor precio</title>
+  <title>Charlie's Tecnologi - Tecnología en Cuba</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
@@ -12,34 +12,28 @@
       --primary: #000;
       --secondary: #f5f5f5;
       --border: #ddd;
-      --hover: #ddd;
       --accent: #007bff;
     }
-
     [data-theme="dark"] {
       --bg: #181818;
       --text: #f5f5f5;
       --primary: #fff;
       --secondary: #333;
       --border: #444;
-      --hover: #444;
       --accent: #00bfff;
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
     }
-
     body {
       background: var(--bg);
       color: var(--text);
       transition: background 0.3s, color 0.3s;
       line-height: 1.6;
     }
-
     header {
       display: flex;
       justify-content: space-between;
@@ -51,48 +45,34 @@
       top: 0;
       z-index: 1000;
     }
-
     .logo {
       font-size: 22px;
       font-weight: bold;
       color: var(--primary);
     }
-
     nav {
       display: flex;
       gap: 20px;
     }
-
     nav a {
       text-decoration: none;
       color: var(--text);
       font-size: 15px;
       font-weight: 500;
-      transition: color 0.3s;
     }
-
     nav a:hover {
       color: var(--accent);
     }
-
     .actions {
       display: flex;
       align-items: center;
       gap: 15px;
       font-size: 18px;
     }
-
-    .menu-toggle {
-      display: none;
-      font-size: 24px;
+    .cart-icon {
+      position: relative;
       cursor: pointer;
     }
-
-    .cart-icon, .user-actions a {
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
     #cartCount {
       position: absolute;
       top: -8px;
@@ -107,326 +87,320 @@
       align-items: center;
       justify-content: center;
     }
-
     .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 60px 20px;
-      gap: 30px;
-      background: var(--secondary);
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--secondary), #e0e0e0);
       border-radius: 12px;
       margin: 20px;
+      max-width: 1200px;
+      margin: 30px auto;
     }
-
-    .hero-text h1 {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 20px;
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: var(--primary);
     }
-
-    .hero-text p {
-      font-size: 16px;
-      margin-bottom: 30px;
+    .hero p {
+      font-size: 1.2rem;
       color: #666;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
-
-    .hero-buttons button {
-      padding: 12px 24px;
-      margin-right: 15px;
+    .hero-buttons {
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 14px 28px;
+      margin: 0 10px;
       border: none;
-      cursor: pointer;
-      border-radius: 5px;
+      border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
       transition: 0.3s;
     }
-
     .btn-black {
-      background: black;
+      background: var(--primary);
       color: white;
     }
-
-    .btn-black:hover {
-      background: #222;
-    }
-
     .btn-white {
       background: white;
-      color: black;
-      border: 1px solid black;
+      color: var(--primary);
+      border: 1px solid var(--border);
     }
-
-    .btn-white:hover {
-      background: #f0f0f0;
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     }
-
-    .hero-stats {
-      display: flex;
-      gap: 30px;
-      margin-top: 25px;
-      font-size: 14px;
-    }
-
-    .hero-stats div {
-      text-align: center;
-    }
-
-    .hero-stats strong {
-      display: block;
-      font-size: 20px;
-      color: var(--accent);
-    }
-
-    .hero-img img {
-      max-width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
     .categories {
       text-align: center;
       padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-
     .categories h2 {
-      font-size: 28px;
+      font-size: 2rem;
       margin-bottom: 10px;
     }
-
     .categories p {
-      font-size: 14px;
       color: #777;
       margin-bottom: 40px;
     }
-
-    .search-bar {
-      margin-bottom: 30px;
-    }
-
-    .search-bar input {
-      padding: 12px;
-      width: 100%;
-      max-width: 400px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 15px;
-    }
-
     .category-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
     }
-
     .category-item {
-      padding: 30px 15px;
+      padding: 25px 15px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--secondary);
       transition: 0.3s;
       cursor: pointer;
-      font-weight: 500;
     }
-
     .category-item:hover {
-      background: var(--hover);
+      background: #ddd;
       transform: translateY(-5px);
     }
 
+    /* Botón flotante de WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+    .whatsapp-float:hover {
+      background: #128C7E;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--secondary);
+      padding: 50px 20px;
+      margin-top: 50px;
+    }
+    .footer a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      color: var(--accent);
+    }
+    .footer h4 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    .footer ul {
+      list-style: none;
+    }
+    .footer ul li {
+      margin: 8px 0;
+    }
+    .footer .social a {
+      font-size: 1.5rem;
+      margin: 0 10px;
+    }
+    .footer .contact-info i {
+      width: 24px;
+    }
     @media (max-width: 768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        background: var(--bg);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        border-top: 1px solid var(--border);
-        padding: 15px 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      .hero h1 {
+        font-size: 2.2rem;
       }
-      nav.active {
-        display: flex;
-      }
-      .menu-toggle {
-        display: block;
-      }
-      .hero {
-        padding: 30px 15px;
-      }
-      .hero-text h1 {
-        font-size: 32px;
+      .hero p {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header>
-    <div class="logo">TechStore</div>
-    <nav id="mainNav">
+    <div class="logo">Charlie's Tecnologi</div>
+    <nav>
       <a href="products.html">Productos</a>
-      <a href="#">Ofertas</a>
-      <a href="#">Soporte</a>
+      <a href="offers.html">Ofertas</a>
+      <a href="support.html">Soporte</a>
     </nav>
     <div class="actions">
       <span id="langToggle">🇬🇧</span>
       <span id="themeToggle">🌙</span>
-      <span class="menu-toggle" id="menuToggle">☰</span>
-      <div class="user-actions">
-        <a href="login.html" id="authLink">Iniciar sesión</a>
-      </div>
-      <span class="cart-icon" id="cart">
+      <a href="cart.html" class="cart-icon">
         <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
-      </span>
+      </a>
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-text">
-      <h1 id="title">Bienvenido a TechStore</h1>
-      <p id="subtitle">La mejor tecnología al mejor precio, con envío rápido y garantía</p>
-      <div class="hero-buttons">
-        <button class="btn-black" id="shopNow">Ver Productos</button>
-        <button class="btn-white" id="explore">Explorar</button>
-      </div>
-      <div class="hero-stats">
-        <div><strong>10K+</strong> Productos</div>
-        <div><strong>24/7</strong> Soporte</div>
-        <div><strong>30 días</strong> Devolución</div>
-      </div>
-    </div>
-    <div class="hero-img">
-      <img src="https://via.placeholder.com/400x300/f5f5f5/000000?text=Tech+Products" alt="Tecnología" />
+    <h1 id="welcomeText">Bienvenido a Charlie's Tecnologi</h1>
+    <p id="subtitle">La mejor tecnología en Cuba, con envío seguro y soporte personalizado.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-black" onclick="location.href='products.html'">Ver Productos</button>
+      <button class="btn btn-white" onclick="location.href='offers.html'">Ver Ofertas</button>
     </div>
   </section>
 
+  <!-- Categorías -->
   <section class="categories">
     <h2 id="catTitle">Categorías Destacadas</h2>
-    <p id="catSubtitle">Encuentra exactamente lo que necesitas en nuestra amplia selección de productos tecnológicos</p>
-
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Buscar categoría..." />
-    </div>
-
-    <div class="category-grid" id="categoryGrid">
-      <div class="category-item" data-category="computadoras">Computadoras</div>
-      <div class="category-item" data-category="laptops">Laptops</div>
-      <div class="category-item" data-category="teléfonos">Teléfonos</div>
-      <div class="category-item" data-category="accesorios">Accesorios</div>
-      <div class="category-item" data-category="gaming">Gaming</div>
-      <div class="category-item" data-category="hogar inteligente">Hogar Inteligente</div>
+    <p id="catSubtitle">Encuentra lo que necesitas: laptops, smartphones, accesorios y más.</p>
+    <div class="category-grid">
+      <div class="category-item" onclick="searchProducts('laptops')">Laptops</div>
+      <div class="category-item" onclick="searchProducts('phones')">Teléfonos</div>
+      <div class="category-item" onclick="searchProducts('accessories')">Accesorios</div>
+      <div class="category-item" onclick="searchProducts('gaming')">Gaming</div>
     </div>
   </section>
 
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20sus%20productos." 
+     target="_blank" 
+     class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+        <!-- Logo y descripción -->
+        <div>
+          <h3 class="text-2xl font-bold mb-3">Charlie's Tecnologi</h3>
+          <p class="mb-4">
+            Tu aliado tecnológico en Cuba. Productos originales, precios justos y soporte personalizado.
+          </p>
+          <div class="social">
+            <a href="https://wa.me/5353932292"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:carlosaguilardark22@gmail.com"><i class="fab fa-google"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+
+        <!-- Enlaces -->
+        <div>
+          <h4>Explorar</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="products.html">Productos</a></li>
+            <li><a href="offers.html">Ofertas</a></li>
+            <li><a href="support.html">Soporte</a></li>
+          </ul>
+        </div>
+
+        <!-- Soporte -->
+        <div>
+          <h4>Soporte</h4>
+          <ul>
+            <li><a href="support.html">Contacto</a></li>
+            <li><a href="#">Preguntas Frecuentes</a></li>
+            <li><a href="#">Política de Devoluciones</a></li>
+            <li><a href="#">Envíos</a></li>
+          </ul>
+        </div>
+
+        <!-- Contacto -->
+        <div>
+          <h4>Contacto</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-envelope"></i> <a href="mailto:carlosaguilardark22@gmail.com">carlosaguilardark22@gmail.com</a></li>
+            <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5353932292">+53 53932292</a></li>
+            <li><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr style="border:1px solid var(--border); margin: 30px 0;" />
+
+      <div class="text-center md:flex md:justify-between text-sm">
+        <p>&copy; 2024 Charlie's Tecnologi. Todos los derechos reservados.</p>
+        <div class="mt-2 md:mt-0 space-x-4">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+          <a href="#">Garantía</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Font Awesome para íconos -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script>
-    // Estado global
-    const user = JSON.parse(localStorage.getItem("user"));
-    const cartCount = parseInt(localStorage.getItem("cartCount")) || 0;
-    document.getElementById("cartCount").textContent = cartCount;
-
-    // Actualizar enlace de autenticación
-    const authLink = document.getElementById("authLink");
-    if (user) {
-      authLink.textContent = user.name;
-      authLink.href = "#";
-    } else {
-      authLink.textContent = "Iniciar sesión";
-      authLink.href = "login.html";
-    }
-
     // Traducciones
     const translations = {
-      en: {
-        title: "Welcome to TechStore",
-        subtitle: "The best technology at the best price, fast shipping and warranty",
-        catTitle: "Featured Categories",
-        catSubtitle: "Find exactly what you need in our wide selection of tech products",
-        authLogin: "Login",
-        authWelcome: "Welcome"
-      },
       es: {
-        title: "Bienvenido a TechStore",
-        subtitle: "La mejor tecnología al mejor precio, con envío rápido y garantía",
+        welcome: "Bienvenido a Charlie's Tecnologi",
+        subtitle: "La mejor tecnología en Cuba, con envío seguro y soporte personalizado.",
         catTitle: "Categorías Destacadas",
-        catSubtitle: "Encuentra exactamente lo que necesitas en nuestra amplia selección de productos tecnológicos",
-        authLogin: "Iniciar sesión",
-        authWelcome: "Bienvenido"
+        catSubtitle: "Encuentra lo que necesitas: laptops, smartphones, accesorios y más."
+      },
+      en: {
+        welcome: "Welcome to Charlie's Tecnologi",
+        subtitle: "The best technology in Cuba, with secure shipping and personalized support.",
+        catTitle: "Featured Categories",
+        catSubtitle: "Find what you need: laptops, smartphones, accessories and more."
       }
     };
 
-    const langToggle = document.getElementById("langToggle");
-    const savedLang = localStorage.getItem("language") || "es";
-    let lang = savedLang;
+    // Estado
+    const lang = localStorage.getItem("language") || "es";
+    const theme = localStorage.getItem("theme") || "light";
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    function updateLanguage() {
-      document.getElementById("title").textContent = translations[lang].title;
-      document.getElementById("subtitle").textContent = translations[lang].subtitle;
-      document.getElementById("catTitle").textContent = translations[lang].catTitle;
-      document.getElementById("catSubtitle").textContent = translations[lang].catSubtitle;
-      langToggle.textContent = lang === "es" ? "🇬🇧" : "🇪🇸";
-      if (!user) {
-        authLink.textContent = translations[lang].authLogin;
-      } else {
-        authLink.textContent = translations[lang].authWelcome + ", " + user.name.split(" ")[0];
-      }
-    }
+    // Aplicar tema
+    document.body.dataset.theme = theme;
+    document.getElementById("themeToggle").textContent = theme === "dark" ? "☀️" : "🌙";
 
-    langToggle.addEventListener("click", () => {
-      lang = lang === "es" ? "en" : "es";
-      localStorage.setItem("language", lang);
-      updateLanguage();
+    // Aplicar idioma
+    const t = translations[lang];
+    document.getElementById("langToggle").textContent = lang === "es" ? "🇬🇧" : "🇪🇸";
+    document.getElementById("welcomeText").textContent = t.welcome;
+    document.getElementById("subtitle").textContent = t.subtitle;
+    document.getElementById("catTitle").textContent = t.catTitle;
+    document.getElementById("catSubtitle").textContent = t.catSubtitle;
+
+    // Actualizar carrito
+    document.getElementById("cartCount").textContent = cart.length;
+
+    // Eventos
+    document.getElementById("langToggle").addEventListener("click", () => {
+      const newLang = lang === "es" ? "en" : "es";
+      localStorage.setItem("language", newLang);
+      location.reload();
     });
 
-    // Tema
-    const themeToggle = document.getElementById("themeToggle");
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.body.dataset.theme = savedTheme;
-    themeToggle.textContent = savedTheme === "dark" ? "☀️" : "🌙";
-
-    themeToggle.addEventListener("click", () => {
+    document.getElementById("themeToggle").addEventListener("click", () => {
       const newTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-      document.body.dataset.theme = newTheme;
-      themeToggle.textContent = newTheme === "dark" ? "☀️" : "🌙";
       localStorage.setItem("theme", newTheme);
+      location.reload();
     });
 
-    // Menú móvil
-    menuToggle.addEventListener("click", () => {
-      nav.classList.toggle("active");
-    });
-
-    nav.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        nav.classList.remove("active");
-      });
-    });
-
-    // Búsqueda
-    document.getElementById("searchInput").addEventListener("keyup", (e) => {
-      const filter = e.target.value.toLowerCase();
-      document.querySelectorAll(".category-item").forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(filter) ? "block" : "none";
-      });
-    });
-
-    // Botones
-    document.getElementById("shopNow").addEventListener("click", () => {
-      window.location.href = "products.html";
-    });
-
-    document.getElementById("explore").addEventListener("click", () => {
-      window.scrollTo({ top: document.querySelector(".categories").offsetTop, behavior: "smooth" });
-    });
-
-    // Cargar idioma al inicio
-    updateLanguage();
+    function searchProducts(category) {
+      localStorage.setItem("searchQuery", category);
+      location.href = "products.html";
+    }
   </script>
+
 </body>
 </html>
