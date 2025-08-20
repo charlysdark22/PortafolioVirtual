@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos - TechStore Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Admin Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="admin.html" class="text-2xl font-bold text-blue-600 dark:text-blue-400">TechStore Admin</a>
+                    <span class="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-xs font-medium">ADMIN</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600">
+                        <span class="dark:hidden">🌙</span>
+                        <span class="hidden dark:inline">☀️</span>
+                    </button>
+                    <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white dark:bg-gray-800 shadow-sm min-h-screen">
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="admin.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <span>📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-productos.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-medium">
+                            <span>📦</span>
+                            <span>Productos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-pedidos.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <span>🛒</span>
+                            <span>Pedidos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-usuarios.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <span>👥</span>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-configuracion.html" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <span>⚙️</span>
+                            <span>Configuración</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Gestión de Productos</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">Administrar el catálogo de productos</p>
+                </div>
+                <button id="add-product-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                    Agregar Producto
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Buscar</label>
+                        <input type="text" id="search-products" placeholder="Buscar productos..." class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoría</label>
+                        <select id="filter-category" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Todas las categorías</option>
+                            <option value="computadoras">Computadoras</option>
+                            <option value="laptops">Laptops</option>
+                            <option value="telefonos">Teléfonos</option>
+                            <option value="accesorios">Accesorios</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
+                        <select id="filter-stock" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Todos</option>
+                            <option value="low">Stock bajo (< 10)</option>
+                            <option value="out">Sin stock</option>
+                            <option value="available">Disponible</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button id="clear-filters" class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                            Limpiar Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Producto</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Categoría</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Precio</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Stock</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para agregar/editar producto -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-white">Agregar Producto</h2>
+                    <button id="close-modal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                        <span class="text-2xl">&times;</span>
+                    </button>
+                </div>
+
+                <form id="product-form" class="space-y-4">
+                    <input type="hidden" id="product-id">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre del Producto</label>
+                            <input type="text" id="product-name" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoría</label>
+                            <select id="product-category" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                <option value="">Seleccionar categoría</option>
+                                <option value="computadoras">Computadoras</option>
+                                <option value="laptops">Laptops</option>
+                                <option value="telefonos">Teléfonos</option>
+                                <option value="accesorios">Accesorios</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción</label>
+                        <textarea id="product-description" rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Precio ($)</label>
+                            <input type="number" id="product-price" step="0.01" min="0" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Stock</label>
+                            <input type="number" id="product-stock" min="0" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Estado</label>
+                            <select id="product-status" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                <option value="active">Activo</option>
+                                <option value="inactive">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">URL de Imagen</label>
+                        <input type="url" id="product-image" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                    </div>
+
+                    <div class="flex justify-end space-x-4 pt-6">
+                        <button type="button" id="cancel-product" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                            Guardar Producto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/translations.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        let currentProducts = [];
+        let editingProductId = null;
+
+        // Verificar acceso de administrador
+        function checkAdminAccess() {
+            const currentUser = getCurrentUser();
+            if (!currentUser || !currentUser.isAdmin) {
+                alert('Acceso denegado. Solo administradores pueden acceder a esta página.');
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Cargar y mostrar productos
+        function loadProducts() {
+            currentProducts = getProducts();
+            displayProducts(currentProducts);
+        }
+
+        // Mostrar productos en la tabla
+        function displayProducts(products) {
+            const tbody = document.getElementById('products-table-body');
+            tbody.innerHTML = '';
+
+            if (products.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                            No se encontraron productos
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 dark:hover:bg-gray-700';
+                
+                const stockStatus = product.stock === 0 ? 'Sin stock' : 
+                                  product.stock < 10 ? 'Stock bajo' : 'Disponible';
+                const stockColor = product.stock === 0 ? 'text-red-600' : 
+                                 product.stock < 10 ? 'text-yellow-600' : 'text-green-600';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <img src="${product.image}" alt="${product.name}" class="w-12 h-12 object-cover rounded-lg mr-4">
+                            <div>
+                                <div class="text-sm font-medium text-gray-900 dark:text-white">${product.name}</div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">${product.description?.substring(0, 50) || ''}...</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs font-medium">
+                            ${product.category}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                        $${product.price.toFixed(2)}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm font-medium ${stockColor}">${product.stock} unidades</span>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">${stockStatus}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 ${product.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'} rounded-full text-xs font-medium">
+                            ${product.status === 'active' ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="editProduct('${product.id}')" class="text-blue-600 dark:text-blue-400 hover:underline mr-3">Editar</button>
+                        <button onclick="deleteProduct('${product.id}')" class="text-red-600 dark:text-red-400 hover:underline">Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Filtrar productos
+        function filterProducts() {
+            const searchTerm = document.getElementById('search-products').value.toLowerCase();
+            const categoryFilter = document.getElementById('filter-category').value;
+            const stockFilter = document.getElementById('filter-stock').value;
+
+            let filtered = currentProducts.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) ||
+                                    product.description?.toLowerCase().includes(searchTerm);
+                const matchesCategory = !categoryFilter || product.category === categoryFilter;
+                
+                let matchesStock = true;
+                if (stockFilter === 'low') matchesStock = product.stock < 10 && product.stock > 0;
+                else if (stockFilter === 'out') matchesStock = product.stock === 0;
+                else if (stockFilter === 'available') matchesStock = product.stock > 0;
+
+                return matchesSearch && matchesCategory && matchesStock;
+            });
+
+            displayProducts(filtered);
+        }
+
+        // Abrir modal para agregar producto
+        function openAddProductModal() {
+            editingProductId = null;
+            document.getElementById('modal-title').textContent = 'Agregar Producto';
+            document.getElementById('product-form').reset();
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+
+        // Editar producto
+        function editProduct(productId) {
+            const product = currentProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            editingProductId = productId;
+            document.getElementById('modal-title').textContent = 'Editar Producto';
+            
+            // Llenar formulario
+            document.getElementById('product-id').value = product.id;
+            document.getElementById('product-name').value = product.name;
+            document.getElementById('product-category').value = product.category;
+            document.getElementById('product-description').value = product.description || '';
+            document.getElementById('product-price').value = product.price;
+            document.getElementById('product-stock').value = product.stock;
+            document.getElementById('product-status').value = product.status || 'active';
+            document.getElementById('product-image').value = product.image;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+
+        // Eliminar producto
+        function deleteProduct(productId) {
+            if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                const products = getProducts();
+                const updatedProducts = products.filter(p => p.id !== productId);
+                localStorage.setItem('products', JSON.stringify(updatedProducts));
+                loadProducts();
+            }
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.getElementById('product-modal').classList.remove('flex');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!checkAdminAccess()) return;
+            
+            loadProducts();
+
+            // Filtros
+            document.getElementById('search-products').addEventListener('input', filterProducts);
+            document.getElementById('filter-category').addEventListener('change', filterProducts);
+            document.getElementById('filter-stock').addEventListener('change', filterProducts);
+            document.getElementById('clear-filters').addEventListener('click', function() {
+                document.getElementById('search-products').value = '';
+                document.getElementById('filter-category').value = '';
+                document.getElementById('filter-stock').value = '';
+                displayProducts(currentProducts);
+            });
+
+            // Modal
+            document.getElementById('add-product-btn').addEventListener('click', openAddProductModal);
+            document.getElementById('close-modal').addEventListener('click', closeModal);
+            document.getElementById('cancel-product').addEventListener('click', closeModal);
+
+            // Formulario
+            document.getElementById('product-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    id: editingProductId || 'prod-' + Date.now(),
+                    name: document.getElementById('product-name').value,
+                    category: document.getElementById('product-category').value,
+                    description: document.getElementById('product-description').value,
+                    price: parseFloat(document.getElementById('product-price').value),
+                    stock: parseInt(document.getElementById('product-stock').value),
+                    status: document.getElementById('product-status').value,
+                    image: document.getElementById('product-image').value || '/placeholder.svg?height=300&width=300'
+                };
+
+                const products = getProducts();
+                
+                if (editingProductId) {
+                    // Editar producto existente
+                    const index = products.findIndex(p => p.id === editingProductId);
+                    if (index !== -1) {
+                        products[index] = { ...products[index], ...formData };
+                    }
+                } else {
+                    // Agregar nuevo producto
+                    products.push(formData);
+                }
+
+                localStorage.setItem('products', JSON.stringify(products));
+                loadProducts();
+                closeModal();
+            });
+        });
+    </script>
+</body>
+</html>

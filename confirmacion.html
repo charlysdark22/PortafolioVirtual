@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Confirmado - TechStore Cuba</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 dark:text-blue-400">TechStore</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600">
+                        <span class="dark:hidden">🌙</span>
+                        <span class="hidden dark:inline">☀️</span>
+                    </button>
+                    <select id="language-select" class="bg-gray-100 dark:bg-gray-700 border-0 rounded-lg px-3 py-1">
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="pt">🇧🇷 PT</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Confirmación -->
+        <div class="text-center mb-8">
+            <div class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-translate="confirmation.title">¡Pedido Confirmado!</h1>
+            <p class="text-gray-600 dark:text-gray-400" data-translate="confirmation.subtitle">Gracias por su compra. Su pedido ha sido procesado exitosamente.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Detalles del Pedido -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6" data-translate="confirmation.order_details">Detalles del Pedido</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600 dark:text-gray-400" data-translate="confirmation.order_number">Número de Pedido:</span>
+                        <span id="order-number" class="font-semibold text-gray-900 dark:text-white"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600 dark:text-gray-400" data-translate="confirmation.order_date">Fecha del Pedido:</span>
+                        <span id="order-date" class="text-gray-900 dark:text-white"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600 dark:text-gray-400" data-translate="confirmation.payment_method">Método de Pago:</span>
+                        <span id="payment-method" class="text-gray-900 dark:text-white"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600 dark:text-gray-400" data-translate="confirmation.status">Estado:</span>
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium" data-translate="confirmation.confirmed">Confirmado</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4" data-translate="confirmation.items_ordered">Productos Pedidos</h3>
+                    <div id="order-items" class="space-y-3">
+                        <!-- Se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between text-lg font-semibold">
+                        <span class="text-gray-900 dark:text-white" data-translate="confirmation.total_paid">Total Pagado:</span>
+                        <span id="total-paid" class="text-green-600 dark:text-green-400"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de Envío -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6" data-translate="confirmation.shipping_info">Información de Envío</h2>
+                
+                <div id="shipping-details" class="space-y-3">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+
+                <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                    <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2" data-translate="confirmation.next_steps">Próximos Pasos</h3>
+                    <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                        <li data-translate="confirmation.step1">• Recibirá un email de confirmación en breve</li>
+                        <li data-translate="confirmation.step2">• Su pedido será procesado en 1-2 días hábiles</li>
+                        <li data-translate="confirmation.step3">• Le notificaremos cuando su pedido sea enviado</li>
+                        <li data-translate="confirmation.step4">• Tiempo estimado de entrega: 3-5 días hábiles</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center space-x-4">
+            <button onclick="window.location.href='pedidos.html'" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors" data-translate="confirmation.view_orders">
+                Ver Mis Pedidos
+            </button>
+            <button onclick="window.location.href='index.html'" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" data-translate="confirmation.continue_shopping">
+                Seguir Comprando
+            </button>
+        </div>
+    </main>
+
+    <script src="js/translations.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        // Cargar detalles del pedido
+        function loadOrderDetails() {
+            const order = JSON.parse(localStorage.getItem('currentOrder') || '{}');
+            
+            if (!order.id) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Detalles básicos
+            document.getElementById('order-number').textContent = order.id;
+            document.getElementById('order-date').textContent = new Date(order.date).toLocaleDateString();
+            document.getElementById('payment-method').textContent = order.paymentMethod === 'transfermovil' ? 'Transfermóvil' : 'Enzona';
+            document.getElementById('total-paid').textContent = `$${order.total.toFixed(2)}`;
+
+            // Items del pedido
+            const itemsContainer = document.getElementById('order-items');
+            itemsContainer.innerHTML = '';
+            
+            order.items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-gray-900 dark:text-white text-sm">${item.name}</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">Cantidad: ${item.quantity}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-semibold text-gray-900 dark:text-white text-sm">$${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                `;
+                itemsContainer.appendChild(itemElement);
+            });
+
+            // Información de envío
+            const shippingContainer = document.getElementById('shipping-details');
+            const customer = order.customer;
+            
+            shippingContainer.innerHTML = `
+                <div>
+                    <span class="text-gray-600 dark:text-gray-400 text-sm">Nombre:</span>
+                    <p class="font-medium text-gray-900 dark:text-white">${customer.firstName} ${customer.lastName}</p>
+                </div>
+                <div>
+                    <span class="text-gray-600 dark:text-gray-400 text-sm">Email:</span>
+                    <p class="text-gray-900 dark:text-white">${customer.email}</p>
+                </div>
+                <div>
+                    <span class="text-gray-600 dark:text-gray-400 text-sm">Teléfono:</span>
+                    <p class="text-gray-900 dark:text-white">${customer.phone}</p>
+                </div>
+                <div>
+                    <span class="text-gray-600 dark:text-gray-400 text-sm">Dirección:</span>
+                    <p class="text-gray-900 dark:text-white">${customer.address}</p>
+                    <p class="text-gray-900 dark:text-white">${customer.city}, ${customer.province}</p>
+                </div>
+            `;
+
+            // Limpiar datos temporales
+            localStorage.removeItem('currentOrder');
+            localStorage.removeItem('checkoutData');
+        }
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderDetails();
+            updateTranslations();
+        });
+    </script>
+</body>
+</html>
