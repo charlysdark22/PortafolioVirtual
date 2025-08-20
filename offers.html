@@ -6,158 +6,66 @@
   <title>Ofertas - Charlie's Tecnologi</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* (Mismo estilo que products.html, solo cambia el contenido) */
     :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --primary: #000000;
+      --bg: #fff;
+      --text: #000;
+      --primary: #000;
       --secondary: #f8f9fa;
+      --border: #ddd;
       --accent: #e63946;
-      --accent-hover: #d02e3f;
-      --border: #e0e0e0;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
     [data-theme="dark"] {
-      --bg: #0f0f14;
+      --bg: #181818;
       --text: #f5f5f5;
-      --primary: #ffffff;
-      --secondary: #1a1a24;
+      --primary: #fff;
+      --secondary: #2a2a2a;
+      --border: #444;
       --accent: #ff4d4d;
-      --accent-hover: #ff6b6b;
-      --border: #333;
     }
-
-    *, *::before, *::after {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
-
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      transition: all 0.4s ease;
+      transition: background 0.3s, color 0.3s;
     }
-
-    /* Header (igual que en products.html) */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 5%;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
     }
-
     .logo {
-      font-weight: 700;
-      font-size: 1.6rem;
+      font-size: 22px;
+      font-weight: bold;
       color: var(--primary);
-      text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
-
-    nav {
-      display: flex;
-      gap: 2.2rem;
-    }
-
     nav a {
-      color: var(--text);
       text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      padding: 5px 0;
-      transition: color 0.3s;
+      color: var(--text);
+      margin-left: 15px;
     }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
     .actions {
       display: flex;
       align-items: center;
-      gap: 1.4rem;
-      font-size: 1.1rem;
+      gap: 15px;
     }
-
-    .action-icon {
-      cursor: pointer;
-      color: var(--text);
-      transition: all 0.3s ease;
-    }
-
-    .action-icon:hover {
-      color: var(--accent);
-      transform: scale(1.1);
-    }
-
-    .lang-select {
-      display: flex;
-      gap: 0.6rem;
-      font-size: 1.2rem;
-    }
-
-    .lang-select span {
-      opacity: 0.6;
-      transition: all 0.3s;
-    }
-
-    .lang-select span.active {
-      opacity: 1;
-      font-weight: bold;
-      transform: scale(1.1);
-    }
-
     .cart-icon {
       position: relative;
-      display: none;
+      cursor: pointer;
     }
-
-    .cart-icon.visible {
-      display: flex;
-    }
-
     #cartCount {
       position: absolute;
       top: -8px;
       right: -8px;
-      background: var(--accent);
+      background: #007bff;
       color: white;
-      font-size: 0.75rem;
+      font-size: 12px;
       width: 18px;
       height: 18px;
       border-radius: 50%;
@@ -165,338 +73,121 @@
       align-items: center;
       justify-content: center;
     }
-
-    .user-menu {
-      position: relative;
-      display: none;
-    }
-
-    .user-trigger {
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.3s;
-    }
-
-    .user-trigger:hover {
-      color: var(--accent);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 110%;
-      right: 0;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      min-width: 200px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    .user-menu:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .dropdown-menu a {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.9rem 1.2rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .dropdown-menu a:hover {
-      background: var(--secondary);
-    }
-
-    /* Hero ofertas */
-    .hero-offers {
-      padding: 5rem 5%;
-      text-align: center;
-      max-width: 900px;
+    main {
+      padding: 40px 20px;
+      max-width: 1200px;
       margin: 0 auto;
     }
-
-    .hero-offers h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
+    h1, h2 {
+      margin-bottom: 20px;
     }
-
-    /* Ofertas grid */
-    .offers-grid {
+    .badge {
+      background: var(--accent);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .offer-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.2rem;
-      padding: 3rem 5%;
-      max-width: 1400px;
-      margin: 0 auto;
+      gap: 25px;
     }
-
     .offer-card {
-      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.4s ease;
+      background: var(--bg);
     }
-
-    .offer-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .offer-img {
+    .offer-card img {
       width: 100%;
       height: 180px;
       object-fit: cover;
     }
-
     .offer-info {
-      padding: 1.4rem;
+      padding: 15px;
     }
-
-    .badge {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .offer-info h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
-    }
-
     .price {
-      font-size: 1.3rem;
+      font-size: 18px;
       font-weight: bold;
       color: var(--accent);
     }
-
     .original-price {
       text-decoration: line-through;
       color: #888;
-      font-size: 0.95rem;
+      font-size: 14px;
     }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 5rem 5%;
-      margin-top: 6rem;
-      background: var(--secondary);
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .footer-logo {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .contact-info {
-      margin: 1.8rem 0;
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .contact-info a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .footer-bottom {
-      margin-top: 2.5rem;
-      padding-top: 1.8rem;
-      border-top: 1px solid var(--border);
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    /* WhatsApp flotante */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #25D366;
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--accent);
       color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1) rotate(10deg);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header>
-    <div class="nav-container">
-      <a href="index.html" class="logo">Charlie's Tecnologi</a>
-      <nav>
-        <a href="index.html">Inicio</a>
-        <a href="products.html">Productos</a>
-        <a href="offers.html">Ofertas</a>
-        <a href="support.html">Soporte</a>
-      </nav>
-      <div class="actions">
-        <div class="lang-select">
-          <span id="lang-es" class="active">🇪🇸</span>
-          <span id="lang-en">🇬🇧</span>
-        </div>
-        <span id="themeToggle" class="action-icon">🌙</span>
-        <a href="login.html" id="loginLink" class="action-icon">
-          <i class="fas fa-sign-in-alt"></i>
-        </a>
-        <a href="register.html" id="registerLink" class="action-icon">
-          <i class="fas fa-user-plus"></i>
-        </a>
-        <a href="cart.html" class="cart-icon" id="cartIcon">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cartCount">0</span>
-        </a>
-        <div class="user-menu" id="userMenu">
-          <div class="user-trigger">
-            <i class="fas fa-user-circle"></i>
-            <span id="userName">Usuario</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#"><i class="fas fa-user"></i> Mi perfil</a>
-            <a href="orders.html"><i class="fas fa-box"></i> Mis pedidos</a>
-            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-          </div>
-        </div>
-      </div>
+    <div class="logo">Charlie's Tecnologi</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="products.html">Productos</a>
+      <a href="support.html">Soporte</a>
+    </nav>
+    <div class="actions">
+      <span id="langToggle">🇬🇧</span>
+      <span id="themeToggle">🌙</span>
+      <a href="login.html">👤</a>
+      <a href="cart.html" class="cart-icon">
+        <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+      </a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero-offers">
-    <h1>🔥 Ofertas Especiales</h1>
+  <main>
+    <h1 data-i18n="offers">🔥 Ofertas Especiales</h1>
     <p>Descuentos exclusivos por tiempo limitado. ¡Aprovecha ahora!</p>
-  </section>
 
-  <!-- Ofertas -->
-  <div class="offers-grid">
-    <div class="offer-card">
-      <img src="https://placehold.co/300x180/000/FFF?text=MacBook+Pro" alt="MacBook Pro" class="offer-img">
-      <div class="offer-info">
+    <div class="offer-grid">
+      <div class="offer-card">
         <div class="badge">-30%</div>
-        <h3>MacBook Pro 14"</h3>
-        <p class="price">$1,329 <span class="original-price">$1,899</span></p>
-        <p>Chip M3, 16GB RAM, 512GB SSD</p>
+        <img src="https://placehold.co/300x200/000/FFF?text=MacBook+Pro" alt="MacBook Pro">
+        <div class="offer-info">
+          <h3>MacBook Pro 14"</h3>
+          <p class="price">$1,329 <span class="original-price">$1,899</span></p>
+          <p>Chip M3, 16GB RAM, 512GB SSD</p>
+          <button class="btn" onclick="App.addToCart({name:'MacBook Pro',price:1329,img:'https://placehold.co/300x200/000/FFF?text=MacBook+Pro'})" data-i18n="addToCart">Añadir</button>
+        </div>
       </div>
-    </div>
-    <div class="offer-card">
-      <img src="https://placehold.co/300x180/f00/FFF?text=iPhone+15" alt="iPhone 15" class="offer-img">
-      <div class="offer-info">
-        <div class="badge">-25%</div>
-        <h3>iPhone 15 Pro</h3>
-        <p class="price">$899 <span class="original-price">$1,199</span></p>
-        <p>Titanio, cámara profesional</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">Charlie's Tecnologi</div>
-      <div class="contact-info">
-        <p><i class="fas fa-envelope"></i> <a href="mailto:carlosaguilardark22@gmail.com">carlosaguilardark22@gmail.com</a></p>
-        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5353932292">+53 53932292</a></p>
-        <p><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</p>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2024 Charlie's Tecnologi. Todos los derechos reservados.
+      <div class="offer-card">
+        <div class="badge">-25%</div>
+        <img src="https://placehold.co/300x200/f00/FFF?text=iPhone+15" alt="iPhone 15">
+        <div class="offer-info">
+          <h3>iPhone 15 Pro</h3>
+          <p class="price">$899 <span class="original-price">$1,199</span></p>
+          <p>Titanio, cámara profesional</p>
+          <button class="btn" onclick="App.addToCart({name:'iPhone 15',price:899,img:'https://placehold.co/300x200/f00/FFF?text=iPhone+15'})" data-i18n="addToCart">Añadir</button>
+        </div>
       </div>
     </div>
-  </footer>
+  </main>
 
   <!-- WhatsApp flotante -->
   <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20ofertas." 
      target="_blank" 
-     class="whatsapp-float">
+     style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:1000;">
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Script (igual que en products.html) -->
+  <script src="app.js"></script>
   <script>
-    // (Mismo script de products.html, con ajustes menores)
-    const user = JSON.parse(localStorage.getItem("user"));
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    document.getElementById("cartCount").textContent = cart.length;
-
-    const cartIcon = document.getElementById("cartIcon");
-    if (user) {
-      document.getElementById("loginLink").style.display = "none";
-      document.getElementById("registerLink").style.display = "none";
-      document.getElementById("userMenu").style.display = "block";
-      document.getElementById("userName").textContent = user.name.split(" ")[0];
-      cartIcon.classList.add("visible");
-    } else {
-      cartIcon.classList.remove("visible");
-    }
-
-    document.body.dataset.theme = localStorage.getItem("theme") || "light";
-    document.getElementById("themeToggle").textContent = document.body.dataset.theme === "dark" ? "☀️" : "🌙";
-    document.getElementById("themeToggle").addEventListener("click", () => {
-      const newTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-      document.body.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
-      document.getElementById("themeToggle").textContent = newTheme === "dark" ? "☀️" : "🌙";
-    });
-
-    const langEs = document.getElementById("lang-es");
-    const langEn = document.getElementById("lang-en");
-    const lang = localStorage.getItem("language") || "es";
-    langEs.classList.toggle("active", lang === "es");
-    langEn.classList.toggle("active", lang === "en");
-
-    document.getElementById("logoutBtn")?.addEventListener("click", () => {
-      localStorage.removeItem("user");
-      localStorage.removeItem("cart");
-      alert("Sesión cerrada");
-      location.reload();
-    });
+    App.init();
   </script>
 </body>
 </html>

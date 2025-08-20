@@ -6,158 +6,66 @@
   <title>Soporte - Charlie's Tecnologi</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* (Estilo idéntico al resto) */
     :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --primary: #000000;
+      --bg: #fff;
+      --text: #000;
+      --primary: #000;
       --secondary: #f8f9fa;
+      --border: #ddd;
       --accent: #007bff;
-      --accent-hover: #0056b3;
-      --border: #e0e0e0;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
     [data-theme="dark"] {
-      --bg: #0f0f14;
+      --bg: #181818;
       --text: #f5f5f5;
-      --primary: #ffffff;
-      --secondary: #1a1a24;
+      --primary: #fff;
+      --secondary: #2a2a2a;
+      --border: #444;
       --accent: #00bfff;
-      --accent-hover: #00d4ff;
-      --border: #333;
     }
-
-    *, *::before, *::after {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
-
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      transition: all 0.4s ease;
+      transition: background 0.3s, color 0.3s;
     }
-
-    /* Header */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 5%;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
     }
-
     .logo {
-      font-weight: 700;
-      font-size: 1.6rem;
+      font-size: 22px;
+      font-weight: bold;
       color: var(--primary);
-      text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
-
-    nav {
-      display: flex;
-      gap: 2.2rem;
-    }
-
     nav a {
-      color: var(--text);
       text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      padding: 5px 0;
-      transition: color 0.3s;
+      color: var(--text);
+      margin-left: 15px;
     }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
     .actions {
       display: flex;
       align-items: center;
-      gap: 1.4rem;
-      font-size: 1.1rem;
+      gap: 15px;
     }
-
-    .action-icon {
-      cursor: pointer;
-      color: var(--text);
-      transition: all 0.3s ease;
-    }
-
-    .action-icon:hover {
-      color: var(--accent);
-      transform: scale(1.1);
-    }
-
-    .lang-select {
-      display: flex;
-      gap: 0.6rem;
-      font-size: 1.2rem;
-    }
-
-    .lang-select span {
-      opacity: 0.6;
-      transition: all 0.3s;
-    }
-
-    .lang-select span.active {
-      opacity: 1;
-      font-weight: bold;
-      transform: scale(1.1);
-    }
-
     .cart-icon {
       position: relative;
-      display: none;
+      cursor: pointer;
     }
-
-    .cart-icon.visible {
-      display: flex;
-    }
-
     #cartCount {
       position: absolute;
       top: -8px;
       right: -8px;
-      background: var(--accent);
+      background: #007bff;
       color: white;
-      font-size: 0.75rem;
+      font-size: 12px;
       width: 18px;
       height: 18px;
       border-radius: 50%;
@@ -165,259 +73,79 @@
       align-items: center;
       justify-content: center;
     }
-
-    .user-menu {
-      position: relative;
-      display: none;
-    }
-
-    .user-trigger {
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.3s;
-    }
-
-    .user-trigger:hover {
-      color: var(--accent);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 110%;
-      right: 0;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      min-width: 200px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    .user-menu:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .dropdown-menu a {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.9rem 1.2rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .dropdown-menu a:hover {
-      background: var(--secondary);
-    }
-
-    /* Hero soporte */
-    .hero-support {
-      padding: 5rem 5%;
-      text-align: center;
+    main {
+      padding: 40px 20px;
       max-width: 900px;
       margin: 0 auto;
     }
-
-    .hero-support h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
+    h1, h2 {
+      margin-bottom: 20px;
     }
-
-    /* Contenido */
-    .support-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 5%;
-    }
-
     .contact-info {
       background: var(--secondary);
-      padding: 2.2rem;
-      border-radius: 16px;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 20px 0;
       border: 1px solid var(--border);
-      margin: 2.5rem 0;
-      text-align: left;
     }
-
-    .contact-info h3 {
-      margin-bottom: 1.2rem;
-      color: var(--accent);
-      font-size: 1.4rem;
-    }
-
     .contact-info p {
-      margin: 0.9rem 0;
-      font-size: 1.1rem;
+      margin: 10px 0;
+      font-size: 16px;
     }
-
     .btn-contact {
       display: inline-block;
-      padding: 1rem 2rem;
+      margin-top: 15px;
+      padding: 12px 24px;
       background: var(--accent);
       color: white;
       text-decoration: none;
-      border-radius: 60px;
-      font-weight: 600;
-      transition: all 0.3s;
+      border-radius: 5px;
+      font-weight: bold;
     }
-
-    .btn-contact:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
-    }
-
-    /* FAQ */
     .faq {
-      margin: 3rem 0;
+      margin: 40px 0;
     }
-
     .faq-item {
-      margin-bottom: 1.8rem;
+      margin-bottom: 20px;
     }
-
     .faq-question {
       font-weight: bold;
       color: var(--accent);
-      font-size: 1.1rem;
-      margin-bottom: 0.6rem;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 5rem 5%;
-      margin-top: 6rem;
-      background: var(--secondary);
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .footer-logo {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .contact-info a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .footer-bottom {
-      margin-top: 2.5rem;
-      padding-top: 1.8rem;
-      border-top: 1px solid var(--border);
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    /* WhatsApp flotante */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #25D366;
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1) rotate(10deg);
     }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header>
-    <div class="nav-container">
-      <a href="index.html" class="logo">Charlie's Tecnologi</a>
-      <nav>
-        <a href="index.html">Inicio</a>
-        <a href="products.html">Productos</a>
-        <a href="offers.html">Ofertas</a>
-        <a href="support.html">Soporte</a>
-      </nav>
-      <div class="actions">
-        <div class="lang-select">
-          <span id="lang-es" class="active">🇪🇸</span>
-          <span id="lang-en">🇬🇧</span>
-        </div>
-        <span id="themeToggle" class="action-icon">🌙</span>
-        <a href="login.html" id="loginLink" class="action-icon">
-          <i class="fas fa-sign-in-alt"></i>
-        </a>
-        <a href="register.html" id="registerLink" class="action-icon">
-          <i class="fas fa-user-plus"></i>
-        </a>
-        <a href="cart.html" class="cart-icon" id="cartIcon">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cartCount">0</span>
-        </a>
-        <div class="user-menu" id="userMenu">
-          <div class="user-trigger">
-            <i class="fas fa-user-circle"></i>
-            <span id="userName">Usuario</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#"><i class="fas fa-user"></i> Mi perfil</a>
-            <a href="orders.html"><i class="fas fa-box"></i> Mis pedidos</a>
-            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-          </div>
-        </div>
-      </div>
+    <div class="logo">Charlie's Tecnologi</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="products.html">Productos</a>
+      <a href="offers.html">Ofertas</a>
+    </nav>
+    <div class="actions">
+      <span id="langToggle">🇬🇧</span>
+      <span id="themeToggle">🌙</span>
+      <a href="login.html">👤</a>
+      <a href="cart.html" class="cart-icon">
+        <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+      </a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero-support">
-    <h1>Soporte Técnico</h1>
+  <main>
+    <h1 data-i18n="support">Soporte Técnico</h1>
     <p>Estamos aquí para ayudarte con cualquier consulta o problema.</p>
-  </section>
 
-  <!-- Contenido -->
-  <div class="support-container">
     <div class="contact-info">
-      <h3>📞 Contáctanos Directamente</h3>
+      <h2 data-i18n="contact">📞 Contáctanos</h2>
       <p><strong>Email:</strong> <a href="mailto:carlosaguilardark22@gmail.com">carlosaguilardark22@gmail.com</a></p>
       <p><strong>WhatsApp:</strong> <a href="https://wa.me/5353932292">+53 53932292</a></p>
-      <p><strong>Horario:</strong> Lunes a Sábado, 9:00 AM - 8:00 PM</p>
-      <a href="https://wa.me/5353932292" class="btn-contact">Chatea por WhatsApp</a>
+      <p data-i18n="hours"><strong>Horario:</strong> Lunes a Sábado, 9:00 AM - 8:00 PM</p>
+      <a href="https://wa.me/5353932292" class="btn-contact" data-i18n="contact">Chatea por WhatsApp</a>
     </div>
 
     <div class="faq">
-      <h2>❓ Preguntas Frecuentes</h2>
+      <h2 data-i18n="faq">❓ Preguntas Frecuentes</h2>
       <div class="faq-item">
         <p class="faq-question">¿Ofrecen garantía?</p>
         <p>Sí, todos los productos tienen garantía de 12 meses.</p>
@@ -427,68 +155,18 @@
         <p>Sí, trabajamos con mensajería confiable en toda Cuba.</p>
       </div>
     </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">Charlie's Tecnologi</div>
-      <div class="contact-info">
-        <p><i class="fas fa-envelope"></i> <a href="mailto:carlosaguilardark22@gmail.com">carlosaguilardark22@gmail.com</a></p>
-        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5353932292">+53 53932292</a></p>
-        <p><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</p>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2024 Charlie's Tecnologi. Todos los derechos reservados.
-      </div>
-    </div>
-  </footer>
+  </main>
 
   <!-- WhatsApp flotante -->
   <a href="https://wa.me/5353932292" 
      target="_blank" 
-     class="whatsapp-float">
+     style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:1000;">
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Script -->
+  <script src="app.js"></script>
   <script>
-    const user = JSON.parse(localStorage.getItem("user"));
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    document.getElementById("cartCount").textContent = cart.length;
-
-    const cartIcon = document.getElementById("cartIcon");
-    if (user) {
-      document.getElementById("loginLink").style.display = "none";
-      document.getElementById("registerLink").style.display = "none";
-      document.getElementById("userMenu").style.display = "block";
-      document.getElementById("userName").textContent = user.name.split(" ")[0];
-      cartIcon.classList.add("visible");
-    } else {
-      cartIcon.classList.remove("visible");
-    }
-
-    document.body.dataset.theme = localStorage.getItem("theme") || "light";
-    document.getElementById("themeToggle").textContent = document.body.dataset.theme === "dark" ? "☀️" : "🌙";
-    document.getElementById("themeToggle").addEventListener("click", () => {
-      const newTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-      document.body.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
-      document.getElementById("themeToggle").textContent = newTheme === "dark" ? "☀️" : "🌙";
-    });
-
-    const langEs = document.getElementById("lang-es");
-    const langEn = document.getElementById("lang-en");
-    const lang = localStorage.getItem("language") || "es";
-    langEs.classList.toggle("active", lang === "es");
-    langEn.classList.toggle("active", lang === "en");
-
-    document.getElementById("logoutBtn")?.addEventListener("click", () => {
-      localStorage.removeItem("user");
-      localStorage.removeItem("cart");
-      alert("Sesión cerrada");
-      location.reload();
-    });
+    App.init();
   </script>
 </body>
 </html>

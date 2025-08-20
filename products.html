@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Productos - Charlie's Tecnologi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
       --bg: #fff;
@@ -22,14 +23,17 @@
     .actions { display: flex; gap: 15px; }
     .cart-icon { position: relative; cursor: pointer; }
     #cartCount { position: absolute; top: -8px; right: -8px; background: #007bff; color: white; font-size: 12px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
-    .filters input { padding: 10px; width: 100%; max-width: 400px; border: 1px solid var(--border); border-radius: 5px; }
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin: 20px 0; }
-    .product-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .product-card img { width: 100%; height: 180px; object-fit: cover; }
+    main { padding: 20px; max-width: 1400px; margin: 0 auto; }
+    .filters { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filters input, .filters select { padding: 10px; border: 1px solid var(--border); border-radius: 8px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 20px 0; }
+    .product-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .product-card img { width: 100%; height: 200px; object-fit: cover; }
     .product-info { padding: 15px; }
     .product-info h3 { margin-bottom: 10px; }
-    .product-info button { width: 100%; padding: 10px; background: #000; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .price { font-size: 18px; font-weight: bold; color: #e63946; }
+    .original-price { text-decoration: line-through; color: #888; }
+    .btn-add { width: 100%; padding: 10px; background: #000; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -51,38 +55,47 @@
   </header>
 
   <main>
-    <h2 data-i18n="products">Productos</h2>
+    <h2>Productos</h2>
     <div class="filters">
       <input type="text" id="search" placeholder="Buscar producto..." />
+      <select id="categoryFilter">
+        <option value="">Todas las categorías</option>
+        <option value="laptops">Laptops</option>
+        <option value="phones">Teléfonos</option>
+      </select>
     </div>
     <div class="product-grid" id="products"></div>
   </main>
 
-  <script src="shared.js"></script>
+  <script src="app.js"></script>
   <script>
     App.init();
 
     const products = [
-      { id: 1, name: "MacBook Pro", price: 1899, img: "https://placehold.co/300x200/000/FFF?text=MacBook" },
-      { id: 2, name: "iPhone 15", price: 1199, img: "https://placehold.co/300x200/f00/FFF?text=iPhone" },
-      { id: 3, name: "AirPods", price: 249, img: "https://placehold.co/300x200/0f0/FFF?text=AirPods" },
-      { id: 4, name: "Surface", price: 1299, img: "https://placehold.co/300x200/00f/FFF?text=Surface" }
+      { id: 1, name: "MacBook Pro", price: 1899, img: "https://placehold.co/300x200/000/FFF?text=MacBook", category: "laptops" },
+      { id: 2, name: "iPhone 15", price: 1199, img: "https://placehold.co/300x200/f00/FFF?text=iPhone", category: "phones" },
+      { id: 3, name: "AirPods", price: 249, img: "https://placehold.co/300x200/0f0/FFF?text=AirPods", category: "accessories" }
     ];
 
     function render() {
       const query = document.getElementById("search").value.toLowerCase();
+      const category = document.getElementById("categoryFilter").value;
       const container = document.getElementById("products");
       container.innerHTML = "";
       products
-        .filter(p => p.name.toLowerCase().includes(query))
+        .filter(p => {
+          const q = p.name.toLowerCase().includes(query);
+          const c = !category || p.category === category;
+          return q && c;
+        })
         .forEach(p => {
           container.innerHTML += `
             <div class="product-card">
               <img src="${p.img}" alt="${p.name}">
               <div class="product-info">
                 <h3>${p.name}</h3>
-                <p>$${p.price}</p>
-                <button onclick="App.addToCart(${JSON.stringify(p)})" data-i18n="addToCart">Añadir</button>
+                <p class="price">$${p.price}</p>
+                <button class="btn-add" onclick="App.addToCart(${JSON.stringify(p)})">Añadir al carrito</button>
               </div>
             </div>
           `;
@@ -90,6 +103,7 @@
     }
 
     document.getElementById("search").addEventListener("input", render);
+    document.getElementById("categoryFilter").addEventListener("change", render);
     render();
   </script>
 </body>

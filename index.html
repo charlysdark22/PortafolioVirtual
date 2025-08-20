@@ -11,177 +11,778 @@
       --text: #1a1a1a;
       --primary: #000;
       --secondary: #f5f5f5;
-      --border: #ddd;
+      --border: #e0e0e0;
       --accent: #007bff;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      --radius: 8px;
     }
     [data-theme="dark"] {
       --bg: #181818;
       --text: #f5f5f5;
       --primary: #fff;
-      --secondary: #333;
+      --secondary: #2a2a2a;
       --border: #444;
       --accent: #00bfff;
     }
-    * {
+
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
     }
+
     body {
+      font-family: 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
+      line-height: 1.6;
       transition: background 0.3s, color 0.3s;
     }
+
+    /* Header mejorado */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 1rem 2rem;
       border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
+
     .logo {
-      font-size: 22px;
-      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.3rem;
       color: var(--primary);
-    }
-    nav a, .actions a {
       text-decoration: none;
-      color: var(--text);
-      margin-left: 15px;
-      font-size: 15px;
+      transition: all 0.3s ease;
     }
+
+    .logo span {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .logo:hover {
+      transform: scale(1.03);
+    }
+
+    .search-bar {
+      flex: 1;
+      max-width: 500px;
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--secondary);
+      transition: all 0.3s ease;
+    }
+
+    .search-bar:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      flex: 1;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .search-bar input::placeholder {
+      color: #888;
+    }
+
     .actions {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 1.2rem;
+      font-size: 1.1rem;
     }
-    .cart-icon {
-      position: relative;
+
+    .action-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--secondary);
+      border-radius: 50%;
+      color: var(--text);
       cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    #cartCount {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--accent);
+
+    .action-icon:hover {
+      background: var(--primary);
       color: white;
-      font-size: 12px;
-      width: 18px;
-      height: 18px;
+      transform: translateY(-3px);
+    }
+
+    .action-icon i {
+      font-size: 1.1rem;
+    }
+
+    /* Contador del carrito */
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: red;
+      color: white;
+      font-size: 0.7rem;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .hero {
-      padding: 80px 20px;
-      text-align: center;
+
+    /* Menú de usuario */
+    .user-menu {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-width: 180px;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 0.8rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .dropdown a:hover {
       background: var(--secondary);
-      border-radius: 12px;
-      margin: 20px;
     }
-    .hero h1 {
+
+    .user-menu:hover .dropdown {
+      display: block;
+    }
+
+    /* Navegación */
+    nav {
+      display: flex;
+      gap: 1.4rem;
+      margin: 1rem 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 80px 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 4rem;
+    }
+
+    .hero-content h1 {
       font-size: 3rem;
-      margin-bottom: 15px;
+      margin-bottom: 1rem;
+      font-weight: 800;
     }
-    .hero p {
-      font-size: 1.2rem;
+
+    .hero-content p {
       color: #666;
-      margin-bottom: 30px;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
     }
+
     .btn {
-      padding: 14px 28px;
-      margin: 0 10px;
+      padding: 0.8rem 1.6rem;
+      margin: 0 0.5rem;
       border: none;
       border-radius: 6px;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
+
     .btn-black {
       background: var(--primary);
       color: white;
     }
+
     .btn-white {
       background: white;
       color: var(--primary);
       border: 1px solid var(--border);
     }
-    .categories {
-      text-align: center;
-      padding: 60px 20px;
+
+    .stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
     }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat strong {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .stat small {
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    /* Featured Categories */
+    .categories {
+      padding: 60px 2rem;
+      text-align: center;
+    }
+
+    .categories h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .categories p {
+      color: #666;
+      margin-bottom: 3rem;
+    }
+
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 40px auto;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-    .category-item {
-      padding: 25px 15px;
+
+    .category-card {
       border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--secondary);
-      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
-    .category-item:hover {
-      background: #ddd;
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .category-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: var(--secondary);
+    }
+
+    .category-info {
+      padding: 1.5rem;
+    }
+
+    .category-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-info p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Products */
+    .products {
+      padding: 60px 2rem;
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .products p {
+      color: #666;
+      margin-bottom: 3rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      background: var(--secondary);
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-info .badge {
+      background: red;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-info .rating {
+      color: #f59e0b;
+      font-size: 0.9rem;
+    }
+
+    .product-info .price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .product-info .original-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .btn-add {
+      width: 100%;
+      padding: 0.8rem 1.6rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-add:hover {
+      background: #000;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      padding: 4rem 2rem;
+      margin-top: 6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo span {
+      background: black;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a {
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .contact-info {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-info i {
+      margin-right: 0.5rem;
+      color: #666;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      color: #666;
+      font-size: 1.2rem;
+    }
+
+    .footer-bottom {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: #888;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .category-grid, .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header>
-    <div class="logo">Charlie's Tecnologi</div>
-    <nav>
-      <a href="products.html" data-i18n="products">Productos</a>
-      <a href="offers.html" data-i18n="offers">Ofertas</a>
-      <a href="support.html" data-i18n="support">Soporte</a>
-    </nav>
+    <a href="index.html" class="logo">
+      <span>CT</span> Charlie's Tecnologi
+    </a>
+    <div class="search-bar">
+      <i class="fas fa-search" style="color: #888;"></i>
+      <input type="text" placeholder="Buscar productos..." />
+    </div>
     <div class="actions">
-      <span id="langToggle">🇬🇧</span>
-      <span id="themeToggle">🌙</span>
-      <a href="login.html">👤</a>
-      <a href="cart.html" class="cart-icon">
-        <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+      <!-- Modo oscuro -->
+      <div class="action-icon" id="themeToggle" title="Cambiar tema">
+        <i class="fas fa-moon"></i>
+      </div>
+
+      <!-- Login / Usuario -->
+      <div class="user-menu">
+        <div class="action-icon" id="userToggle" title="Cuenta">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="dropdown">
+          <a href="login.html" id="loginLink">Iniciar sesión</a>
+          <a href="register.html" id="registerLink">Registrarse</a>
+          <a href="profile.html" id="profileLink" style="display: none;">Mi perfil</a>
+          <a href="#" id="logoutBtn" style="display: none;">Cerrar sesión</a>
+        </div>
+      </div>
+
+      <!-- Carrito -->
+      <a href="cart.html" class="action-icon" title="Carrito">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
       </a>
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
-    <h1 data-i18n="welcome">Bienvenido a Charlie's Tecnologi</h1>
-    <p data-i18n="subtitle">Tecnología de calidad en Cuba</p>
-    <div>
-      <button class="btn btn-black" onclick="location.href='products.html'">Ver Productos</button>
+    <div class="hero-content">
+      <h1>Cuba's Best Technology</h1>
+      <p>Computers, laptops, phones and accessories with the best prices and guaranteed quality</p>
+      <div>
+        <button class="btn btn-black" onclick="location.href='products.html'">Shop Now</button>
+        <button class="btn btn-white" onclick="location.href='offers.html'">Ver Ofertas</button>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <strong>500+</strong>
+          <small>Productos</small>
+        </div>
+        <div class="stat">
+          <strong>24/7</strong>
+          <small>Soporte</small>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <small>Seguro</small>
+        </div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://placehold.co/600x500/ddd/FFF?text=Charlie's" alt="Charlie's Tecnologi" style="width: 100%; height: 100%; object-fit: cover;" />
     </div>
   </section>
 
+  <!-- Featured Categories -->
   <section class="categories">
-    <h2 data-i18n="featured">Categorías Destacadas</h2>
+    <h2>Featured Categories</h2>
+    <p>Encuentra exactamente lo que necesitas en nuestra amplia selección de productos tecnológicos</p>
     <div class="category-grid">
-      <div class="category-item" onclick="search('laptops')">Laptops</div>
-      <div class="category-item" onclick="search('phones')">Teléfonos</div>
-      <div class="category-item" onclick="search('accessories')">Accesorios</div>
-      <div class="category-item" onclick="search('gaming')">Gaming</div>
+      <div class="category-card" onclick="searchCat('laptops')">
+        <div class="category-img" style="background:#000; color:white; display:flex; align-items:center; justify-content:center;">Laptops</div>
+        <div class="category-info">
+          <h3>Laptops</h3>
+          <p>Gaming Laptops</p>
+        </div>
+      </div>
+      <div class="category-card" onclick="searchCat('phones')">
+        <div class="category-img" style="background:#000; color:white; display:flex; align-items:center; justify-content:center;">Phones</div>
+        <div class="category-info">
+          <h3>Phones</h3>
+          <p>Smartphones</p>
+        </div>
+      </div>
+      <div class="category-card" onclick="searchCat('accessories')">
+        <div class="category-img" style="background:#000; color:white; display:flex; align-items:center; justify-content:center;">Accessories</div>
+        <div class="category-info">
+          <h3>Accessories</h3>
+          <p>PC Accessories</p>
+        </div>
+      </div>
+      <div class="category-card" onclick="searchCat('gaming')">
+        <div class="category-img" style="background:#000; color:white; display:flex; align-items:center; justify-content:center;">Gaming</div>
+        <div class="category-info">
+          <h3>Gaming</h3>
+          <p>Gaming PCs</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <script src="shared.js"></script>
+  <!-- Products -->
+  <section class="products">
+    <h2>Productos Destacados</h2>
+    <p>Los productos más populares y mejor valorados por nuestros clientes</p>
+    <div class="product-grid" id="products"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span>CT</span> Charlie's Tecnologi
+      </div>
+      <div class="footer-links">
+        <h4>Enlaces Rápidos</h4>
+        <a href="index.html">Inicio</a>
+        <a href="products.html">Productos</a>
+        <a href="offers.html">Ofertas</a>
+        <a href="support.html">Soporte</a>
+      </div>
+      <div class="footer-links">
+        <h4>Atención al Cliente</h4>
+        <a href="support.html">Centro de Ayuda</a>
+        <a href="support.html">Garantía</a>
+        <a href="support.html">Envíos</a>
+        <a href="support.html">Devoluciones</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <div class="contact-info">
+          <i class="fas fa-phone"></i> +53 53932292<br>
+          <i class="fas fa-envelope"></i> carlosaguilardark22@gmail.com<br>
+          <i class="fas fa-map-marker-alt"></i> La Habana, Cuba
+        </div>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 Charlie's Tecnologi. Todos los derechos reservados.
+      <div style="float: right;">
+        <a href="#" style="color: #888; margin-left: 1rem;">Política de Privacidad</a>
+        <a href="#" style="color: #888; margin-left: 1rem;">Términos de Uso</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20sus%20productos." 
+     target="_blank" 
+     style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:1000;">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Script principal -->
+  <script src="app.js"></script>
   <script>
+    // Inicializar app
     App.init();
 
-    document.getElementById("langToggle").onclick = () => {
-      App.setLang(App.lang === "es" ? "en" : "es");
-    };
+    // Actualizar icono de tema
+    function updateThemeIcon() {
+      const themeIcon = document.getElementById("themeToggle").querySelector("i");
+      if (App.theme === "dark") {
+        themeIcon.className = "fas fa-sun";
+      } else {
+        themeIcon.className = "fas fa-moon";
+      }
+    }
 
-    document.getElementById("themeToggle").onclick = () => {
-      App.setTheme(App.theme === "light" ? "dark" : "light");
-    };
+    // Cambiar tema
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const newTheme = App.theme === "dark" ? "light" : "dark";
+      App.setTheme(newTheme);
+      updateThemeIcon();
+    });
 
-    function search(query) {
-      localStorage.setItem("searchQuery", query);
+    // Actualizar interfaz de usuario según sesión
+    const user = App.user;
+    const loginLink = document.getElementById("loginLink");
+    const registerLink = document.getElementById("registerLink");
+    const profileLink = document.getElementById("profileLink");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (user) {
+      loginLink.style.display = "none";
+      registerLink.style.display = "none";
+      profileLink.style.display = "block";
+      logoutBtn.style.display = "block";
+      loginLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.name || "Usuario"}`;
+    }
+
+    // Cerrar sesión
+    logoutBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      App.logout();
+    });
+
+    // Productos destacados
+    const featuredProducts = [
+      { id: 1, name: "Gaming PC RTX 4070 Super", price: 45000, img: "https://placehold.co/300x200/000/FFF?text=Gaming+PC", discount: "-10%" },
+      { id: 2, name: "MacBook Air M2 13\"", price: 65000, img: "https://placehold.co/300x200/000/FFF?text=MacBook" },
+      { id: 3, name: "Gaming Laptop RTX 4060", price: 55000, img: "https://placehold.co/300x200/000/FFF?text=Gaming+Laptop", discount: "Nuevo" },
+      { id: 4, name: "iPhone 15 Pro 128GB", price: 85000, img: "https://placehold.co/300x200/f00/FFF?text=iPhone", discount: "Nuevo" },
+      { id: 5, name: "Samsung Galaxy S24 Ultra", price: 75000, img: "https://placehold.co/300x200/00f/FFF?text=Galaxy" }
+    ];
+
+    const container = document.getElementById("products");
+    featuredProducts.forEach(p => {
+      container.innerHTML += `
+        <div class="product-card">
+          <img src="${p.img.trim()}" alt="${p.name}" class="product-img">
+          <div class="product-info">
+            ${p.discount ? `<div class="badge">${p.discount}</div>` : ""}
+            <h3>${p.name}</h3>
+            <div class="rating">⭐ 4.8 (24 reseñas)</div>
+            <div class="price">$${p.price} CUP ${p.price !== 85000 ? `<span class="original-price">$${(p.price * 1.1).toFixed(0)}</span>` : ""}</div>
+            <button class="btn-add" onclick="App.addToCart(${JSON.stringify(p)})"><i class="fas fa-shopping-cart"></i> Agregar al Carrito</button>
+          </div>
+        </div>
+      `;
+    });
+
+    // Buscar por categoría
+    function searchCat(cat) {
+      localStorage.setItem("searchQuery", cat);
       location.href = "products.html";
     }
+
+    // Iniciar
+    updateThemeIcon();
   </script>
 </body>
 </html>

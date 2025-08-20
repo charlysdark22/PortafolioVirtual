@@ -2,8 +2,7 @@
 <html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito - TechStore</title>
+  <title>Carrito - Charlie's Tecnologi</title>
   <style>
     :root {
       --bg: #fff;
@@ -24,117 +23,106 @@
     body {
       background: var(--bg);
       color: var(--text);
-      transition: 0.3s;
+      padding: 20px;
     }
     header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
     }
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-    }
-    main {
-      padding: 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .cart-item {
+    .item {
       display: flex;
       gap: 15px;
       padding: 15px 0;
       border-bottom: 1px solid var(--border);
     }
-    .cart-item img {
+    .item img {
       width: 80px;
       border-radius: 8px;
     }
-    .item-info {
-      flex: 1;
-    }
-    .item-actions button {
-      padding: 5px 10px;
-      background: red;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
     .total {
       text-align: right;
-      font-size: 18px;
+      font-size: 1.2rem;
+      font-weight: bold;
       margin: 20px 0;
     }
     .actions {
       display: flex;
       justify-content: space-between;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .empty {
+      text-align: center;
+      color: #888;
+      margin: 40px 0;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">TechStore</div>
-    <span>🛒 <span id="cartCount">0</span></span>
+    <div>Charlie's Tecnologi</div>
+    <a href="index.html">← Volver</a>
   </header>
 
-  <main>
-    <h2>Tu Carrito</h2>
-    <div id="cartItems"></div>
-    <div class="total" id="total">Total: $0</div>
-    <div class="actions">
-      <button onclick="window.history.back()">Seguir comprando</button>
-      <button onclick="checkout()">Finalizar compra</button>
-    </div>
-  </main>
+  <h2>Tu Carrito</h2>
+  <div id="cartItems"></div>
 
+  <div class="total">Total: $<span id="total">0</span></div>
+
+  <div class="actions">
+    <button onclick="location.href='products.html'">Seguir comprando</button>
+    <button onclick="checkout()">Finalizar compra</button>
+  </div>
+
+  <script src="app.js"></script>
   <script>
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const cartCountEl = document.getElementById("cartCount");
-    cartCountEl.textContent = cart.length;
+    App.init();
 
-    const cartItemsEl = document.getElementById("cartItems");
+    const cart = App.cart;
+    const itemsEl = document.getElementById("cartItems");
     const totalEl = document.getElementById("total");
 
     if (cart.length === 0) {
-      cartItemsEl.innerHTML = "<p>Tu carrito está vacío.</p>";
+      itemsEl.innerHTML = `<p class="empty">Tu carrito está vacío</p>`;
     } else {
       let total = 0;
-      cart.forEach((item, index) => {
-        const price = parseFloat(item.price.replace(/[$,]/g, "")) || 0;
+      cart.forEach((item, i) => {
+        const price = item.price || 0;
         total += price;
-        cartItemsEl.innerHTML += `
-          <div class="cart-item">
+        itemsEl.innerHTML += `
+          <div class="item">
             <img src="${item.img}" alt="${item.name}">
-            <div class="item-info">
+            <div>
               <h3>${item.name}</h3>
-              <p>${item.price}</p>
-            </div>
-            <div class="item-actions">
-              <button onclick="removeItem(${index})">Eliminar</button>
+              <p>$${price.toLocaleString()}</p>
+              <button onclick="remove(${i})">Eliminar</button>
             </div>
           </div>
         `;
       });
-      totalEl.textContent = `Total: $${total.toFixed(2)}`;
+      totalEl.textContent = total.toLocaleString();
     }
 
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
+    function remove(index) {
+      App.removeFromCart(index);
       location.reload();
     }
 
     function checkout() {
-      if (cart.length === 0) {
-        alert("Tu carrito está vacío.");
-      } else {
-        alert("Gracias por tu compra. ¡Pronto recibirás tu pedido!");
-        localStorage.removeItem("cart");
-        location.reload();
-      }
+      if (App.cart.length === 0) return;
+      alert("¡Gracias por tu compra! Nos contactaremos contigo.");
+      localStorage.removeItem("cart");
+      location.reload();
     }
   </script>
 </body>
