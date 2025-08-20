@@ -2,588 +2,95 @@
 <html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Productos - Charlie's Tecnologi</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --primary: #000000;
-      --secondary: #f8f9fa;
-      --accent: #6c63ff;
-      --accent-hover: #5a52d5;
-      --border: #e0e0e0;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --bg: #fff;
+      --text: #000;
+      --border: #ddd;
     }
     [data-theme="dark"] {
-      --bg: #0f0f14;
+      --bg: #181818;
       --text: #f5f5f5;
-      --primary: #ffffff;
-      --secondary: #1a1a24;
-      --accent: #8a85ff;
-      --accent-hover: #a39eff;
-      --border: #333;
+      --border: #444;
     }
-
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      transition: all 0.4s ease;
-    }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 5%;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: var(--primary);
-      text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    nav {
-      display: flex;
-      gap: 2.2rem;
-    }
-
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      padding: 5px 0;
-      transition: color 0.3s;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-      font-size: 1.1rem;
-    }
-
-    .action-icon {
-      cursor: pointer;
-      color: var(--text);
-      transition: all 0.3s ease;
-    }
-
-    .action-icon:hover {
-      color: var(--accent);
-      transform: scale(1.1);
-    }
-
-    .lang-select {
-      display: flex;
-      gap: 0.6rem;
-      font-size: 1.2rem;
-    }
-
-    .lang-select span {
-      opacity: 0.6;
-      transition: all 0.3s;
-    }
-
-    .lang-select span.active {
-      opacity: 1;
-      font-weight: bold;
-      transform: scale(1.1);
-    }
-
-    /* Carrito condicional */
-    .cart-icon {
-      position: relative;
-      display: none;
-    }
-
-    .cart-icon.visible {
-      display: flex;
-    }
-
-    #cartCount {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--accent);
-      color: white;
-      font-size: 0.75rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Menú de usuario */
-    .user-menu {
-      position: relative;
-      display: none;
-    }
-
-    .user-trigger {
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.3s;
-    }
-
-    .user-trigger:hover {
-      color: var(--accent);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 110%;
-      right: 0;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      min-width: 200px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    .user-menu:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .dropdown-menu a {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.9rem 1.2rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .dropdown-menu a:hover {
-      background: var(--secondary);
-    }
-
-    /* Hero productos */
-    .hero-products {
-      padding: 5rem 5%;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero-products h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .hero-products p {
-      font-size: 1.2rem;
-      color: #666;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Filtros */
-    .filters {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      padding: 1.5rem 5%;
-      background: var(--secondary);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      justify-content: center;
-    }
-
-    .filters input, .filters select {
-      padding: 0.8rem 1.2rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.95rem;
-      min-width: 200px;
-    }
-
-    /* Product grid */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      padding: 3rem 5%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .product-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.4s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .product-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .product-info {
-      padding: 1.4rem;
-    }
-
-    .product-info h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .price {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 0.9rem;
-      margin-top: 1rem;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 5rem 5%;
-      margin-top: 6rem;
-      background: var(--secondary);
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .footer-logo {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .contact-info {
-      margin: 1.8rem 0;
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .contact-info a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .footer-bottom {
-      margin-top: 2.5rem;
-      padding-top: 1.8rem;
-      border-top: 1px solid var(--border);
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    /* WhatsApp flotante */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #25D366;
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1) rotate(10deg);
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background: var(--bg); color: var(--text); }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border); }
+    .logo { font-size: 22px; font-weight: bold; }
+    nav a { text-decoration: none; color: var(--text); margin-left: 15px; }
+    .actions { display: flex; gap: 15px; }
+    .cart-icon { position: relative; cursor: pointer; }
+    #cartCount { position: absolute; top: -8px; right: -8px; background: #007bff; color: white; font-size: 12px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .filters input { padding: 10px; width: 100%; max-width: 400px; border: 1px solid var(--border); border-radius: 5px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin: 20px 0; }
+    .product-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .product-card img { width: 100%; height: 180px; object-fit: cover; }
+    .product-info { padding: 15px; }
+    .product-info h3 { margin-bottom: 10px; }
+    .product-info button { width: 100%; padding: 10px; background: #000; color: white; border: none; border-radius: 5px; cursor: pointer; }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header>
-    <div class="nav-container">
-      <a href="index.html" class="logo">Charlie's Tecnologi</a>
-      <nav>
-        <a href="index.html">Inicio</a>
-        <a href="products.html">Productos</a>
-        <a href="offers.html">Ofertas</a>
-        <a href="support.html">Soporte</a>
-      </nav>
-      <div class="actions">
-        <div class="lang-select">
-          <span id="lang-es" class="active">🇪🇸</span>
-          <span id="lang-en">🇬🇧</span>
-        </div>
-        <span id="themeToggle" class="action-icon">🌙</span>
-        <a href="login.html" id="loginLink" class="action-icon">
-          <i class="fas fa-sign-in-alt"></i>
-        </a>
-        <a href="register.html" id="registerLink" class="action-icon">
-          <i class="fas fa-user-plus"></i>
-        </a>
-        <a href="cart.html" class="cart-icon" id="cartIcon">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cartCount">0</span>
-        </a>
-        <div class="user-menu" id="userMenu">
-          <div class="user-trigger">
-            <i class="fas fa-user-circle"></i>
-            <span id="userName">Usuario</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#"><i class="fas fa-user"></i> Mi perfil</a>
-            <a href="orders.html"><i class="fas fa-box"></i> Mis pedidos</a>
-            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-          </div>
-        </div>
-      </div>
+    <div class="logo">Charlie's Tecnologi</div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="offers.html">Ofertas</a>
+      <a href="support.html">Soporte</a>
+    </nav>
+    <div class="actions">
+      <span id="langToggle">🇬🇧</span>
+      <span id="themeToggle">🌙</span>
+      <a href="login.html">👤</a>
+      <a href="cart.html" class="cart-icon">
+        <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+      </a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero-products">
-    <h1>Productos Disponibles</h1>
-    <p>Equipos originales con garantía y soporte técnico personalizado.</p>
-  </section>
-
-  <!-- Filtros -->
-  <div class="filters">
-    <input type="text" id="search" placeholder="Buscar producto..." />
-    <select id="categoryFilter">
-      <option value="">Todas las categorías</option>
-      <option value="laptops">Laptops</option>
-      <option value="phones">Teléfonos</option>
-      <option value="accessories">Accesorios</option>
-    </select>
-    <select id="priceFilter">
-      <option value="">Precio</option>
-      <option value="low">Menos de $500</option>
-      <option value="mid">$500 - $1000</option>
-      <option value="high">Más de $1000</option>
-    </select>
-  </div>
-
-  <!-- Productos -->
-  <div class="product-grid" id="products">
-    <!-- Se llenará con JS -->
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">Charlie's Tecnologi</div>
-      <div class="contact-info">
-        <p><i class="fas fa-envelope"></i> <a href="mailto:carlosaguilardark22@gmail.com">carlosaguilardark22@gmail.com</a></p>
-        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5353932292">+53 53932292</a></p>
-        <p><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</p>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2024 Charlie's Tecnologi. Todos los derechos reservados.
-      </div>
+  <main>
+    <h2 data-i18n="products">Productos</h2>
+    <div class="filters">
+      <input type="text" id="search" placeholder="Buscar producto..." />
     </div>
-  </footer>
+    <div class="product-grid" id="products"></div>
+  </main>
 
-  <!-- WhatsApp flotante -->
-  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20productos." 
-     target="_blank" 
-     class="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
+  <script src="shared.js"></script>
   <script>
+    App.init();
+
     const products = [
-      { id: 1, name: "MacBook Pro 14\"", price: 1899, img: "https://placehold.co/300x180/000/FFF?text=MacBook", category: "laptops" },
-      { id: 2, name: "iPhone 15 Pro", price: 1199, img: "https://placehold.co/300x180/f00/FFF?text=iPhone", category: "phones" },
-      { id: 3, name: "AirPods Pro", price: 249, img: "https://placehold.co/300x180/0f0/FFF?text=AirPods", category: "accessories" },
-      { id: 4, name: "Surface Laptop 5", price: 1299, img: "https://placehold.co/300x180/00f/FFF?text=Surface", category: "laptops" }
+      { id: 1, name: "MacBook Pro", price: 1899, img: "https://placehold.co/300x200/000/FFF?text=MacBook" },
+      { id: 2, name: "iPhone 15", price: 1199, img: "https://placehold.co/300x200/f00/FFF?text=iPhone" },
+      { id: 3, name: "AirPods", price: 249, img: "https://placehold.co/300x200/0f0/FFF?text=AirPods" },
+      { id: 4, name: "Surface", price: 1299, img: "https://placehold.co/300x200/00f/FFF?text=Surface" }
     ];
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Interfaz
-    document.getElementById("cartCount").textContent = cart.length;
-    const cartIcon = document.getElementById("cartIcon");
-    if (user) {
-      document.getElementById("loginLink").style.display = "none";
-      document.getElementById("registerLink").style.display = "none";
-      document.getElementById("userMenu").style.display = "block";
-      document.getElementById("userName").textContent = user.name.split(" ")[0];
-      cartIcon.classList.add("visible");
-    } else {
-      cartIcon.classList.remove("visible");
-    }
-
-    // Tema
-    document.body.dataset.theme = localStorage.getItem("theme") || "light";
-    document.getElementById("themeToggle").textContent = document.body.dataset.theme === "dark" ? "☀️" : "🌙";
-    document.getElementById("themeToggle").addEventListener("click", () => {
-      const newTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-      document.body.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
-      document.getElementById("themeToggle").textContent = newTheme === "dark" ? "☀️" : "🌙";
-    });
-
-    // Idioma
-    const langEs = document.getElementById("lang-es");
-    const langEn = document.getElementById("lang-en");
-    const lang = localStorage.getItem("language") || "es";
-    langEs.classList.toggle("active", lang === "es");
-    langEn.classList.toggle("active", lang === "en");
-
-    // Renderizar productos
     function render() {
       const query = document.getElementById("search").value.toLowerCase();
-      const category = document.getElementById("categoryFilter").value;
-      const price = document.getElementById("priceFilter").value;
-
-      const filtered = products.filter(p => {
-        const q = p.name.toLowerCase().includes(query);
-        const c = !category || p.category === category;
-        let pr = true;
-        if (price === "low") pr = p.price < 500;
-        else if (price === "mid") pr = p.price >= 500 && p.price <= 1000;
-        else if (price === "high") pr = p.price > 1000;
-        return q && c && pr;
-      });
-
       const container = document.getElementById("products");
       container.innerHTML = "";
-      filtered.forEach(p => {
-        container.innerHTML += `
-          <div class="product-card">
-            <img src="${p.img}" alt="${p.name}" class="product-img">
-            <div class="product-info">
-              <h3>${p.name}</h3>
-              <p class="price">$${p.price.toLocaleString()}</p>
-              <button class="btn" onclick="addToCart(${p.id})">Añadir al carrito</button>
+      products
+        .filter(p => p.name.toLowerCase().includes(query))
+        .forEach(p => {
+          container.innerHTML += `
+            <div class="product-card">
+              <img src="${p.img}" alt="${p.name}">
+              <div class="product-info">
+                <h3>${p.name}</h3>
+                <p>$${p.price}</p>
+                <button onclick="App.addToCart(${JSON.stringify(p)})" data-i18n="addToCart">Añadir</button>
+              </div>
             </div>
-          </div>
-        `;
-      });
-    }
-
-    function addToCart(id) {
-      const product = products.find(p => p.id === id);
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      document.getElementById("cartCount").textContent = cart.length;
-      alert(`${product.name} añadido al carrito`);
+          `;
+        });
     }
 
     document.getElementById("search").addEventListener("input", render);
-    document.getElementById("categoryFilter").addEventListener("change", render);
-    document.getElementById("priceFilter").addEventListener("change", render);
     render();
-
-    // Cerrar sesión
-    document.getElementById("logoutBtn")?.addEventListener("click", () => {
-      localStorage.removeItem("user");
-      localStorage.removeItem("cart");
-      alert("Sesión cerrada");
-      location.reload();
-    });
   </script>
 </body>
 </html>

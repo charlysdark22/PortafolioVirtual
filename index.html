@@ -3,835 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie's Tecnologi - Tecnología en Cuba</title>
+  <title>Charlie's Tecnologi</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
-      --bg: #ffffff;
+      --bg: #fff;
       --text: #1a1a1a;
-      --primary: #000000;
-      --secondary: #f8f9fa;
-      --accent: #6c63ff;
-      --accent-alt: #e63946;
-      --accent-hover: #5a52d5;
-      --border: #e0e0e0;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
-      --radius: 16px;
-      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --primary: #000;
+      --secondary: #f5f5f5;
+      --border: #ddd;
+      --accent: #007bff;
     }
     [data-theme="dark"] {
-      --bg: #0f0f14;
+      --bg: #181818;
       --text: #f5f5f5;
-      --primary: #ffffff;
-      --secondary: #1a1a24;
-      --accent: #8a85ff;
-      --accent-alt: #ff4d4d;
-      --accent-hover: #a39eff;
-      --border: #333;
+      --primary: #fff;
+      --secondary: #333;
+      --border: #444;
+      --accent: #00bfff;
     }
-
-    *, *::before, *::after {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
-
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%) var(--bg);
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      transition: var(--transition);
-      min-height: 100vh;
-      background-attachment: fixed;
+      transition: background 0.3s, color 0.3s;
     }
-
-    [data-theme="dark"] body {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    }
-
-    /* Header moderno con blur */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.3rem 5%;
-      box-shadow: var(--shadow);
-      border-radius: 0 0 var(--radius) var(--radius);
-      transition: var(--transition);
-    }
-
-    [data-theme="dark"] header {
-      background: rgba(15, 15, 20, 0.9);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
     }
-
     .logo {
-      font-weight: 700;
-      font-size: 1.7rem;
+      font-size: 22px;
+      font-weight: bold;
       color: var(--primary);
+    }
+    nav a, .actions a {
       text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      transition: var(--transition);
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-    nav {
-      display: flex;
-      gap: 2.4rem;
-    }
-
-    nav a {
       color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      padding: 6px 0;
-      transition: var(--transition);
+      margin-left: 15px;
+      font-size: 15px;
     }
-
-    nav a::before {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 3px;
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      border-radius: 3px;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    nav a:hover::before {
-      width: 100%;
-    }
-
     .actions {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
-      font-size: 1.2rem;
+      gap: 15px;
     }
-
-    .action-icon {
-      cursor: pointer;
-      color: var(--text);
-      transition: var(--transition);
-      padding: 8px;
-      border-radius: 50%;
-    }
-
-    .action-icon:hover {
-      background: var(--secondary);
-      color: var(--accent);
-      transform: scale(1.15) rotate(10deg);
-    }
-
-    /* Selector de idioma con efecto */
-    .lang-select {
-      display: flex;
-      gap: 0.8rem;
-      font-size: 1.3rem;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      padding: 4px 8px;
-      background: var(--bg);
-    }
-
-    .lang-select span {
-      opacity: 0.6;
-      transition: var(--transition);
-      padding: 4px 8px;
-      border-radius: 40px;
-    }
-
-    .lang-select span.active {
-      opacity: 1;
-      background: var(--accent);
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .lang-select span:hover:not(.active) {
-      background: var(--secondary);
-      opacity: 0.8;
-    }
-
-    /* Carrito (condicional) */
     .cart-icon {
       position: relative;
-      display: none;
+      cursor: pointer;
     }
-
-    .cart-icon.visible {
-      display: flex;
-    }
-
     #cartCount {
       position: absolute;
       top: -8px;
       right: -8px;
-      background: var(--accent-alt);
+      background: var(--accent);
       color: white;
-      font-size: 0.8rem;
-      width: 20px;
-      height: 20px;
+      font-size: 12px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: pulse 2s infinite;
     }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    /* Menú de usuario */
-    .user-menu {
-      position: relative;
-      display: none;
-    }
-
-    .user-trigger {
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: var(--transition);
-      padding: 8px 12px;
-      border-radius: 12px;
-    }
-
-    .user-trigger:hover {
-      background: var(--secondary);
-      color: var(--accent);
-      transform: scale(1.05);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 110%;
-      right: 0;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      min-width: 220px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-15px) scale(0.95);
-      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      overflow: hidden;
-      border-radius: var(--radius);
-    }
-
-    .user-menu:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
-    }
-
-    .dropdown-menu a {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1rem 1.3rem;
-      color: var(--text);
-      text-decoration: none;
-      transition: var(--transition);
-      border-left: 3px solid transparent;
-    }
-
-    .dropdown-menu a:hover {
-      background: var(--secondary);
-      color: var(--accent);
-      border-left: 3px solid var(--accent);
-      transform: translateX(5px);
-    }
-
-    /* Hero con fondo extendido */
     .hero {
-      min-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 80px 20px;
       text-align: center;
-      padding: 3rem 5%;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center;
-      background-size: cover;
-      filter: brightness(0.6) blur(2px);
-      z-index: -1;
-      border-radius: var(--radius);
-    }
-
-    .hero-content {
-      z-index: 2;
-      max-width: 800px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 3rem;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      color: white;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .hero h1 {
-      font-size: 4.2rem;
-      margin-bottom: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      background: linear-gradient(90deg, #ffffff, #e0e0e0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: 1.6rem;
-      margin-bottom: 2.8rem;
-      font-weight: 300;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .btn {
-      padding: 1.1rem 2.6rem;
-      margin: 0 0.8rem;
-      border: none;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 1.2rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 2px solid transparent;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      z-index: -1;
-      border-radius: 60px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-
-    .btn:hover::before {
-      transform: scaleX(1);
-    }
-
-    .btn-primary {
-      color: white;
-    }
-
-    .btn-primary:hover {
-      color: white;
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: white;
-      border: 2px solid white;
-    }
-
-    .btn-outline::before {
-      background: white;
-    }
-
-    .btn-outline:hover {
-      color: var(--primary);
-      transform: translateY(-5px) scale(1.05);
-    }
-
-    /* Categorías */
-    .categories {
-      padding: 6rem 5%;
-      text-align: center;
-    }
-
-    .categories h2 {
-      font-size: 2.7rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-      position: relative;
-      display: inline-block;
-    }
-
-    .categories h2::after {
-      content: '';
-      position: absolute;
-      width: 60%;
-      height: 3px;
-      bottom: -10px;
-      left: 20%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      border-radius: 3px;
-    }
-
-    .category-grid {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .category-item {
-      padding: 1.8rem 2.2rem;
       background: var(--secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 1.15rem;
-      font-weight: 500;
+      border-radius: 12px;
+      margin: 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .btn {
+      padding: 14px 28px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
-      transition: var(--transition);
-      min-width: 190px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
     }
-
-    .category-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      z-index: -1;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-      border-radius: var(--radius);
-    }
-
-    .category-item:hover {
+    .btn-black {
+      background: var(--primary);
       color: white;
-      transform: translateY(-7px) scale(1.03);
-      box-shadow: var(--shadow-lg);
     }
-
-    .category-item:hover::before {
-      transform: scaleX(1);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 5rem 5%;
-      margin-top: 6rem;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid var(--border);
-      border-radius: var(--radius) var(--radius) 0 0;
-      transition: var(--transition);
-    }
-
-    [data-theme="dark"] footer {
-      background: rgba(30, 30, 40, 0.8);
-    }
-
-    .footer-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .footer-logo {
-      font-size: 2.4rem;
-      font-weight: 700;
+    .btn-white {
+      background: white;
       color: var(--primary);
-      margin-bottom: 1.2rem;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      border: 1px solid var(--border);
     }
-
-    .footer-links {
-      margin: 2rem 0;
-      display: flex;
-      justify-content: center;
-      gap: 2.8rem;
-      flex-wrap: wrap;
-      font-size: 1.1rem;
+    .categories {
+      text-align: center;
+      padding: 60px 20px;
     }
-
-    .footer-links a {
-      color: var(--text);
-      text-decoration: none;
-      transition: var(--transition);
-      position: relative;
-      padding: 5px 0;
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 40px auto;
     }
-
-    .footer-links a::before {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      transition: width 0.4s ease;
+    .category-item {
+      padding: 25px 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--secondary);
+      cursor: pointer;
     }
-
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-
-    .footer-links a:hover::before {
-      width: 100%;
-    }
-
-    .social-icons {
-      margin: 2rem 0;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      font-size: 1.7rem;
-    }
-
-    .social-icons a {
-      color: var(--text);
-      transition: var(--transition);
-      padding: 10px;
-      border-radius: 50%;
-    }
-
-    .social-icons a:hover {
-      color: white;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      transform: translateY(-5px) rotate(12deg);
-    }
-
-    .contact-info {
-      margin: 2rem 0;
-      font-size: 1.05rem;
-      line-height: 1.9;
-    }
-
-    .contact-info a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-      border-bottom: 2px dotted transparent;
-    }
-
-    .contact-info a:hover {
-      border-bottom: 2px dotted var(--accent);
-      transform: scale(1.05);
-    }
-
-    .footer-bottom {
-      margin-top: 2.8rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      color: #888;
-      font-size: 0.95rem;
-    }
-
-    /* WhatsApp flotante */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 26px;
-      right: 26px;
-      background: #25D366;
-      color: white;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
-      z-index: 1000;
-      transition: var(--transition);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.15) rotate(15deg) translateY(-5px);
-      box-shadow: 0 15px 30px rgba(37, 211, 102, 0.6);
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 3rem;
-      }
-      .hero p {
-        font-size: 1.3rem;
-      }
-      .nav-container {
-        flex-direction: column;
-        gap: 1.4rem;
-      }
-      nav {
-        width: 100%;
-        justify-content: center;
-      }
-      .actions {
-        width: 100%;
-        justify-content: center;
-      }
-      .category-grid {
-        flex-direction: column;
-        align-items: center;
-      }
+    .category-item:hover {
+      background: #ddd;
     }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header>
-    <div class="nav-container">
-      <a href="#" class="logo">Charlie's Tecnologi</a>
-      <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="products.html">Productos</a>
-        <a href="offers.html">Ofertas</a>
-        <a href="support.html">Soporte</a>
-      </nav>
-      <div class="actions">
-        <div class="lang-select">
-          <span id="lang-es" class="active">🇪🇸</span>
-          <span id="lang-en">🇬🇧</span>
-        </div>
-        <span id="themeToggle" class="action-icon">🌙</span>
-        <a href="login.html" id="loginLink" class="action-icon">
-          <i class="fas fa-sign-in-alt"></i>
-        </a>
-        <a href="register.html" id="registerLink" class="action-icon">
-          <i class="fas fa-user-plus"></i>
-        </a>
-        <a href="cart.html" class="cart-icon" id="cartIcon">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="cartCount">0</span>
-        </a>
-        <div class="user-menu" id="userMenu">
-          <div class="user-trigger">
-            <i class="fas fa-user-circle"></i>
-            <span id="userName">Usuario</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
-          </div>
-          <div class="dropdown-menu">
-            <a href="#"><i class="fas fa-user"></i> Mi perfil</a>
-            <a href="orders.html"><i class="fas fa-box"></i> Mis pedidos</a>
-            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-          </div>
-        </div>
-      </div>
+    <div class="logo">Charlie's Tecnologi</div>
+    <nav>
+      <a href="products.html" data-i18n="products">Productos</a>
+      <a href="offers.html" data-i18n="offers">Ofertas</a>
+      <a href="support.html" data-i18n="support">Soporte</a>
+    </nav>
+    <div class="actions">
+      <span id="langToggle">🇬🇧</span>
+      <span id="themeToggle">🌙</span>
+      <a href="login.html">👤</a>
+      <a href="cart.html" class="cart-icon">
+        <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+      </a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero" id="inicio">
-    <div class="hero-content">
-      <h1>Tecnología de Alto Rendimiento</h1>
-      <p>Potencia, estilo y garantía en cada producto. ¡Tu futuro digital empieza aquí!</p>
-      <div>
-        <a href="products.html" class="btn btn-primary">Ver Productos</a>
-        <a href="offers.html" class="btn btn-outline">Ver Ofertas</a>
-      </div>
+  <section class="hero">
+    <h1 data-i18n="welcome">Bienvenido a Charlie's Tecnologi</h1>
+    <p data-i18n="subtitle">Tecnología de calidad en Cuba</p>
+    <div>
+      <button class="btn btn-black" onclick="location.href='products.html'">Ver Productos</button>
     </div>
   </section>
 
-  <!-- Categorías -->
   <section class="categories">
-    <h2>Categorías Populares</h2>
-    <p>Encuentra lo que necesitas con un solo clic</p>
+    <h2 data-i18n="featured">Categorías Destacadas</h2>
     <div class="category-grid">
-      <div class="category-item" onclick="searchCat('laptops')">Laptops</div>
-      <div class="category-item" onclick="searchCat('phones')">Teléfonos</div>
-      <div class="category-item" onclick="searchCat('accessories')">Accesorios</div>
-      <div class="category-item" onclick="searchCat('gaming')">Gaming</div>
+      <div class="category-item" onclick="search('laptops')">Laptops</div>
+      <div class="category-item" onclick="search('phones')">Teléfonos</div>
+      <div class="category-item" onclick="search('accessories')">Accesorios</div>
+      <div class="category-item" onclick="search('gaming')">Gaming</div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">Charlie's Tecnologi</div>
-      <p>Tu aliado tecnológico en Cuba. Productos originales, precios justos y soporte 24/7.</p>
-      <div class="footer-links">
-        <a href="#inicio">Inicio</a>
-        <a href="products.html">Productos</a>
-        <a href="offers.html">Ofertas</a>
-        <a href="support.html">Soporte</a>
-        <a href="cart.html">Carrito</a>
-      </div>
-      <div class="social-icons">
-        <a href="https://wa.me/5353932292"><i class="fab fa-whatsapp"></i></a>
-        <a href="mailto:carlosaguilardark22@gmail.com"><i class="fas fa-envelope"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-      </div>
-      <div class="contact-info">
-        <p><i class="fas fa-envelope"></i> <a href="mailto:carlosaguilardark22@gmail.com">carlosaguilardark22@gmail.com</a></p>
-        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5353932292">+53 53932292</a></p>
-        <p><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</p>
-      </div>
-      <div class="footer-bottom">
-        &copy; 2024 Charlie's Tecnologi. Todos los derechos reservados.
-      </div>
-    </div>
-  </footer>
-
-  <!-- WhatsApp flotante -->
-  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20sus%20productos." 
-     target="_blank" 
-     class="whatsapp-float"
-     aria-label="Contactar por WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <!-- Script -->
+  <script src="shared.js"></script>
   <script>
-    const user = JSON.parse(localStorage.getItem("user"));
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    App.init();
 
-    const loginLink = document.getElementById("loginLink");
-    const registerLink = document.getElementById("registerLink");
-    const userMenu = document.getElementById("userMenu");
-    const userName = document.getElementById("userName");
-    const cartIcon = document.getElementById("cartIcon");
-    const cartCount = document.getElementById("cartCount");
-    const logoutBtn = document.getElementById("logoutBtn");
+    document.getElementById("langToggle").onclick = () => {
+      App.setLang(App.lang === "es" ? "en" : "es");
+    };
 
-    // Idioma
-    const langEs = document.getElementById("lang-es");
-    const langEn = document.getElementById("lang-en");
-    const savedLang = localStorage.getItem("language") || "es";
-    let lang = savedLang;
+    document.getElementById("themeToggle").onclick = () => {
+      App.setTheme(App.theme === "light" ? "dark" : "light");
+    };
 
-    function updateLanguage() {
-      langEs.classList.toggle("active", lang === "es");
-      langEn.classList.toggle("active", lang === "en");
-    }
-
-    langEs.addEventListener("click", () => {
-      lang = "es";
-      localStorage.setItem("language", "es");
-      updateLanguage();
-    });
-
-    langEn.addEventListener("click", () => {
-      lang = "en";
-      localStorage.setItem("language", "en");
-      updateLanguage();
-    });
-
-    updateLanguage();
-
-    // Tema
-    const themeToggle = document.getElementById("themeToggle");
-    const theme = localStorage.getItem("theme") || "light";
-    document.body.dataset.theme = theme;
-    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
-
-    themeToggle.addEventListener("click", () => {
-      const newTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-      document.body.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
-      themeToggle.textContent = newTheme === "dark" ? "☀️" : "🌙";
-    });
-
-    // Interfaz según sesión
-    if (user) {
-      loginLink.style.display = "none";
-      registerLink.style.display = "none";
-      userMenu.style.display = "block";
-      userName.textContent = user.name.split(" ")[0];
-      cartIcon.classList.add("visible");
-      cartCount.textContent = cart.length;
-    } else {
-      userMenu.style.display = "none";
-      cartIcon.classList.remove("visible");
-    }
-
-    // Cerrar sesión
-    logoutBtn?.addEventListener("click", () => {
-      localStorage.removeItem("user");
-      localStorage.removeItem("cart");
-      alert("Sesión cerrada");
-      location.reload();
-    });
-
-    function searchCat(category) {
-      localStorage.setItem("searchQuery", category);
-      window.location.href = "products.html";
+    function search(query) {
+      localStorage.setItem("searchQuery", query);
+      location.href = "products.html";
     }
   </script>
-
 </body>
 </html>
