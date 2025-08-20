@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Productos - Charlie's Tecnologi</title>
+  <title>Ofertas - Charlie's Tecnologi</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    /* (Mismo estilo que products.html, solo cambia el contenido) */
     :root {
       --bg: #ffffff;
       --text: #1a1a1a;
       --primary: #000000;
       --secondary: #f8f9fa;
-      --accent: #6c63ff;
-      --accent-hover: #5a52d5;
+      --accent: #e63946;
+      --accent-hover: #d02e3f;
       --border: #e0e0e0;
       --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -22,8 +23,8 @@
       --text: #f5f5f5;
       --primary: #ffffff;
       --secondary: #1a1a24;
-      --accent: #8a85ff;
-      --accent-hover: #a39eff;
+      --accent: #ff4d4d;
+      --accent-hover: #ff6b6b;
       --border: #333;
     }
 
@@ -41,7 +42,7 @@
       transition: all 0.4s ease;
     }
 
-    /* Header */
+    /* Header (igual que en products.html) */
     header {
       position: sticky;
       top: 0;
@@ -141,7 +142,6 @@
       transform: scale(1.1);
     }
 
-    /* Carrito condicional */
     .cart-icon {
       position: relative;
       display: none;
@@ -166,7 +166,6 @@
       justify-content: center;
     }
 
-    /* Menú de usuario */
     .user-menu {
       position: relative;
       display: none;
@@ -221,61 +220,31 @@
       background: var(--secondary);
     }
 
-    /* Hero productos */
-    .hero-products {
+    /* Hero ofertas */
+    .hero-offers {
       padding: 5rem 5%;
       text-align: center;
       max-width: 900px;
       margin: 0 auto;
     }
 
-    .hero-products h1 {
+    .hero-offers h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
-      color: var(--primary);
+      color: var(--accent);
     }
 
-    .hero-products p {
-      font-size: 1.2rem;
-      color: #666;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Filtros */
-    .filters {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      padding: 1.5rem 5%;
-      background: var(--secondary);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      justify-content: center;
-    }
-
-    .filters input, .filters select {
-      padding: 0.8rem 1.2rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.95rem;
-      min-width: 200px;
-    }
-
-    /* Product grid */
-    .product-grid {
+    /* Ofertas grid */
+    .offers-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.2rem;
       padding: 3rem 5%;
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    .product-card {
+    .offer-card {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -284,22 +253,32 @@
       transition: all 0.4s ease;
     }
 
-    .product-card:hover {
+    .offer-card:hover {
       transform: translateY(-8px);
       box-shadow: var(--shadow-lg);
     }
 
-    .product-img {
+    .offer-img {
       width: 100%;
       height: 180px;
       object-fit: cover;
     }
 
-    .product-info {
+    .offer-info {
       padding: 1.4rem;
     }
 
-    .product-info h3 {
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .offer-info h3 {
       font-size: 1.2rem;
       margin-bottom: 0.6rem;
     }
@@ -310,22 +289,10 @@
       color: var(--accent);
     }
 
-    .btn {
-      width: 100%;
-      padding: 0.9rem;
-      margin-top: 1rem;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
+    .original-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.95rem;
     }
 
     /* Footer */
@@ -442,31 +409,31 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero-products">
-    <h1>Productos Disponibles</h1>
-    <p>Equipos originales con garantía y soporte técnico personalizado.</p>
+  <section class="hero-offers">
+    <h1>🔥 Ofertas Especiales</h1>
+    <p>Descuentos exclusivos por tiempo limitado. ¡Aprovecha ahora!</p>
   </section>
 
-  <!-- Filtros -->
-  <div class="filters">
-    <input type="text" id="search" placeholder="Buscar producto..." />
-    <select id="categoryFilter">
-      <option value="">Todas las categorías</option>
-      <option value="laptops">Laptops</option>
-      <option value="phones">Teléfonos</option>
-      <option value="accessories">Accesorios</option>
-    </select>
-    <select id="priceFilter">
-      <option value="">Precio</option>
-      <option value="low">Menos de $500</option>
-      <option value="mid">$500 - $1000</option>
-      <option value="high">Más de $1000</option>
-    </select>
-  </div>
-
-  <!-- Productos -->
-  <div class="product-grid" id="products">
-    <!-- Se llenará con JS -->
+  <!-- Ofertas -->
+  <div class="offers-grid">
+    <div class="offer-card">
+      <img src="https://placehold.co/300x180/000/FFF?text=MacBook+Pro" alt="MacBook Pro" class="offer-img">
+      <div class="offer-info">
+        <div class="badge">-30%</div>
+        <h3>MacBook Pro 14"</h3>
+        <p class="price">$1,329 <span class="original-price">$1,899</span></p>
+        <p>Chip M3, 16GB RAM, 512GB SSD</p>
+      </div>
+    </div>
+    <div class="offer-card">
+      <img src="https://placehold.co/300x180/f00/FFF?text=iPhone+15" alt="iPhone 15" class="offer-img">
+      <div class="offer-info">
+        <div class="badge">-25%</div>
+        <h3>iPhone 15 Pro</h3>
+        <p class="price">$899 <span class="original-price">$1,199</span></p>
+        <p>Titanio, cámara profesional</p>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -485,25 +452,19 @@
   </footer>
 
   <!-- WhatsApp flotante -->
-  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20productos." 
+  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20ofertas." 
      target="_blank" 
      class="whatsapp-float">
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <!-- Script (igual que en products.html) -->
   <script>
-    const products = [
-      { id: 1, name: "MacBook Pro 14\"", price: 1899, img: "https://placehold.co/300x180/000/FFF?text=MacBook", category: "laptops" },
-      { id: 2, name: "iPhone 15 Pro", price: 1199, img: "https://placehold.co/300x180/f00/FFF?text=iPhone", category: "phones" },
-      { id: 3, name: "AirPods Pro", price: 249, img: "https://placehold.co/300x180/0f0/FFF?text=AirPods", category: "accessories" },
-      { id: 4, name: "Surface Laptop 5", price: 1299, img: "https://placehold.co/300x180/00f/FFF?text=Surface", category: "laptops" }
-    ];
-
+    // (Mismo script de products.html, con ajustes menores)
     const user = JSON.parse(localStorage.getItem("user"));
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Interfaz
     document.getElementById("cartCount").textContent = cart.length;
+
     const cartIcon = document.getElementById("cartIcon");
     if (user) {
       document.getElementById("loginLink").style.display = "none";
@@ -515,7 +476,6 @@
       cartIcon.classList.remove("visible");
     }
 
-    // Tema
     document.body.dataset.theme = localStorage.getItem("theme") || "light";
     document.getElementById("themeToggle").textContent = document.body.dataset.theme === "dark" ? "☀️" : "🌙";
     document.getElementById("themeToggle").addEventListener("click", () => {
@@ -525,59 +485,12 @@
       document.getElementById("themeToggle").textContent = newTheme === "dark" ? "☀️" : "🌙";
     });
 
-    // Idioma
     const langEs = document.getElementById("lang-es");
     const langEn = document.getElementById("lang-en");
     const lang = localStorage.getItem("language") || "es";
     langEs.classList.toggle("active", lang === "es");
     langEn.classList.toggle("active", lang === "en");
 
-    // Renderizar productos
-    function render() {
-      const query = document.getElementById("search").value.toLowerCase();
-      const category = document.getElementById("categoryFilter").value;
-      const price = document.getElementById("priceFilter").value;
-
-      const filtered = products.filter(p => {
-        const q = p.name.toLowerCase().includes(query);
-        const c = !category || p.category === category;
-        let pr = true;
-        if (price === "low") pr = p.price < 500;
-        else if (price === "mid") pr = p.price >= 500 && p.price <= 1000;
-        else if (price === "high") pr = p.price > 1000;
-        return q && c && pr;
-      });
-
-      const container = document.getElementById("products");
-      container.innerHTML = "";
-      filtered.forEach(p => {
-        container.innerHTML += `
-          <div class="product-card">
-            <img src="${p.img}" alt="${p.name}" class="product-img">
-            <div class="product-info">
-              <h3>${p.name}</h3>
-              <p class="price">$${p.price.toLocaleString()}</p>
-              <button class="btn" onclick="addToCart(${p.id})">Añadir al carrito</button>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function addToCart(id) {
-      const product = products.find(p => p.id === id);
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      document.getElementById("cartCount").textContent = cart.length;
-      alert(`${product.name} añadido al carrito`);
-    }
-
-    document.getElementById("search").addEventListener("input", render);
-    document.getElementById("categoryFilter").addEventListener("change", render);
-    document.getElementById("priceFilter").addEventListener("change", render);
-    render();
-
-    // Cerrar sesión
     document.getElementById("logoutBtn")?.addEventListener("click", () => {
       localStorage.removeItem("user");
       localStorage.removeItem("cart");
