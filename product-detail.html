@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalles del Producto - TechStore</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #fff;
+      --text: #000;
+      --border: #ddd;
+    }
+    [data-theme="dark"] {
+      --bg: #181818;
+      --text: #f5f5f5;
+      --border: #444;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .product-image {
+      flex: 1 1 400px;
+    }
+    .product-image img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product-info {
+      flex: 1 1 400px;
+    }
+    .product-info h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .product-info p.price {
+      font-size: 24px;
+      color: #007bff;
+      margin: 15px 0;
+    }
+    .product-info p.desc {
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+    button {
+      padding: 12px 24px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #222;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">TechStore</div>
+    <a href="cart.html">🛒 <span id="cartCount">0</span></a>
+  </header>
+
+  <div class="container" id="productDetail">
+    <div class="product-image">
+      <img id="detailImage" src="https://via.placeholder.com/400" alt="Producto">
+    </div>
+    <div class="product-info">
+      <h1 id="detailTitle">Cargando producto...</h1>
+      <p class="price" id="detailPrice">$0</p>
+      <p class="desc" id="detailDesc">Descripción del producto</p>
+      <button onclick="addToCart()">Añadir al carrito</button>
+    </div>
+  </div>
+
+  <script>
+    const products = {
+      1: {
+        name: "MacBook Pro 14\"",
+        price: "$1,899",
+        desc: "Potente laptop con chip M3, pantalla Retina XDR y hasta 22 horas de batería.",
+        img: "https://placehold.co/300x200/000000/FFFFFF?text=MacBook+Pro"
+      },
+      2: {
+        name: "Surface Laptop 5",
+        price: "$1,299",
+        desc: "Elegante laptop con Windows 11, pantalla táctil y diseño premium.",
+        img: "https://placehold.co/300x200/1E90FF/FFFFFF?text=Surface+Laptop"
+      },
+      3: {
+        name: "iPhone 15 Pro",
+        price: "$1,199",
+        desc: "Smartphone con cámara profesional, chip A17 y diseño de titanio.",
+        img: "https://placehold.co/300x200/FF6347/FFFFFF?text=iPhone+15"
+      },
+      4: {
+        name: "AirPods Pro",
+        price: "$249",
+        desc: "Audífonos inalámbricos con cancelación de ruido activa y sonido envolvente.",
+        img: "https://placehold.co/300x200/32CD32/FFFFFF?text=AirPods+Pro"
+      },
+      5: {
+        name: "Galaxy S24 Ultra",
+        price: "$1,299",
+        desc: "Android premium con S Pen, cámara de 200MP y pantalla Dynamic AMOLED.",
+        img: "https://placehold.co/300x200/4B0082/FFFFFF?text=Galaxy+S24"
+      },
+      6: {
+        name: "Smart Watch X",
+        price: "$199",
+        desc: "Reloj inteligente con monitoreo de salud, GPS y resistencia al agua.",
+        img: "https://placehold.co/300x200/FFD700/000000?text=Smart+Watch"
+      }
+    };
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cartCount").textContent = cart.length;
+
+    const productId = localStorage.getItem("selectedProduct");
+    const product = products[productId];
+
+    if (product) {
+      document.getElementById("detailTitle").textContent = product.name;
+      document.getElementById("detailPrice").textContent = product.price;
+      document.getElementById("detailDesc").textContent = product.desc;
+      document.getElementById("detailImage").src = product.img;
+    } else {
+      document.getElementById("productDetail").innerHTML = "<p>Producto no encontrado.</p>";
+    }
+
+    function addToCart() {
+      if (!product) return;
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      document.getElementById("cartCount").textContent = cart.length;
+      alert(`${product.name} añadido al carrito`);
+    }
+  </script>
+</body>
+</html>

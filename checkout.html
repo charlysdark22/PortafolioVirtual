@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página de pago de Charlie's Tecnología. Selecciona tu método de pago preferido, Transfermóvil o Enzona, para completar tu pedido." />
+  <title>Finalizar Pago - Charlie's Tecnología</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo" aria-label="Inicio de Charlie's Tecnología">
+      <span>CT</span> Charlie's Tecnología
+    </a>
+    <div class="actions">
+      <button class="action-icon" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="action-icon" id="languageToggle" title="Cambiar idioma" aria-label="Cambiar idioma">
+        <i class="fas fa-language"></i>
+      </button>
+      <div class="user-menu">
+        <button class="action-icon" id="userToggle" title="Cuenta" aria-label="Cuenta de usuario">
+          <i class="fas fa-user"></i>
+        </button>
+        <div class="dropdown">
+          <a href="login.html" id="loginLink"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+          <a href="register.html" id="registerLink"><i class="fas fa-user-plus"></i> Registrarse</a>
+          <a href="profile.html" id="profileLink" style="display: none;"><i class="fas fa-user-circle"></i> Mi perfil</a>
+          <a href="#" id="logoutBtn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+        </div>
+      </div>
+      <a href="cart.html" class="action-icon" title="Carrito" aria-label="Ver carrito">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <div class="hamburger" aria-label="Menú de navegación" role="button" tabindex="0" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html" id="homeLink">Inicio</a>
+    <a href="products.html" id="productsLink">Productos</a>
+    <a href="offers.html" id="offersLink">Ofertas</a>
+    <a href="support.html" id="supportLink">Soporte</a>
+    <a href="advanced-search.html" id="advancedSearchLink">Búsqueda Avanzada</a>
+  </nav>
+
+  <main class="checkout-page">
+    <section class="page-content">
+      <h2>Finalizar Compra</h2>
+      <div class="checkout-container">
+        <p>Selecciona tu método de pago preferido para completar tu pedido. A continuación encontrarás las instrucciones para cada uno.</p>
+
+        <div class="payment-methods">
+
+          <div class="payment-method">
+            <h3><i class="fas fa-mobile-alt"></i> Transfermóvil</h3>
+            <p>1. Abre tu aplicación **Transfermóvil**.</p>
+            <p>2. Selecciona la opción **"Operaciones"** > **"Transferir Efectivo"**.</p>
+            <p>3. Elige la tarjeta a la que deseas transferir según la moneda de tu compra:</p>
+            <div class="payment-details">
+              <p><strong>Número de Teléfono:</strong> +53 53932292</p>
+              <p><strong>Tarjeta CUP:</strong> 9238129975083223</p>
+              <p><strong>Tarjeta MLC:</strong> 9235129979365413</p>
+              <p><strong>Importe:</strong> <span id="checkoutAmount">$0.00</span></p>
+            </div>
+            <p>4. Confirma la operación y envía una captura de pantalla del comprobante a nuestro WhatsApp para validar el pago.</p>
+          </div>
+
+          <div class="payment-method">
+            <h3><i class="fas fa-qrcode"></i> Enzona</h3>
+            <p>1. Abre tu aplicación **Enzona** y selecciona la opción para escanear un código QR.</p>
+            <p>2. Escanea el código QR de nuestro comercio a continuación:</p>
+            <div class="qr-code-container">
+              <img src="https://i.imgur.com/r93aK5D.png" alt="Código QR de Enzona">
+            </div>
+            <p class="qr-scan-label">Escanea el código para pagar</p>
+            <p>3. Ingresa el importe total: <strong id="checkoutAmount2">$0.00</strong></p>
+            <p>4. Confirma el pago y envía una captura de pantalla a nuestro WhatsApp para recibir tu producto.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">
+          <span>CT</span> Charlie's Tecnología
+        </div>
+        <p style="color: #666; margin-top: 1rem; font-size: 0.95rem; line-height: 1.6;">
+          Tu tienda de tecnología de confianza en Cuba.
+        </p>
+        <div class="social-icons">
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4><span id="footerLinksTitle1">Enlaces Rápidos</span></h4>
+        <a href="index.html" id="homeLink2"><i class="fas fa-home"></i> Inicio</a>
+        <a href="products.html" id="productsLink2"><i class="fas fa-box"></i> Productos</a>
+        <a href="offers.html" id="offersLink2"><i class="fas fa-tags"></i> Ofertas</a>
+        <a href="support.html" id="supportLink2"><i class="fas fa-life-ring"></i> Soporte</a>
+        <a href="advanced-search.html" id="advancedSearchLink2">Búsqueda Avanzada</a>
+      </div>
+      <div class="footer-links">
+        <h4><span id="footerLinksTitle2">Atención al Cliente</span></h4>
+        <a href="support.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a>
+        <a href="support.html"><i class="fas fa-shield-alt"></i> Garantía</a>
+        <a href="support.html"><i class="fas fa-truck"></i> Envíos</a>
+        <a href="support.html"><i class="fas fa-undo"></i> Devoluciones</a>
+        <a href="support.html"><i class="fas fa-comments"></i> Contacto</a>
+      </div>
+      <div class="footer-links">
+        <h4><span id="footerLinksTitle3">Contacto</span></h4>
+        <div class="contact-info">
+          <i class="fas fa-phone"></i> +53 53932292<br>
+          <i class="fas fa-envelope"></i> carlosaguilardark22@gmail.com<br>
+          <i class="fas fa-map-marker-alt"></i> La Habana, Cuba<br>
+          <i class="fas fa-clock"></i> Lunes a Sábado, 9:00 AM - 8:00 PM
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="allRightsReserved">© 2024 Charlie's Tecnología. Todos los derechos reservados.</span>
+      <div class="footer-bottom-links">
+        <a href="#" id="privacyPolicy">Política de Privacidad</a>
+        <a href="#" id="termsOfUse">Términos de Uso</a>
+        <a href="#" id="cookies">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5353932292?text=Hola,%20Carlos,%20quiero%20información%20sobre%20sus%20productos."
+     target="_blank"
+     rel="noopener noreferrer"
+     class="whatsapp-float"
+     aria-label="Contactar por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <div class="chatbot-container">
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Abrir Chatbot">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    <div class="chatbot-window" id="chatbot-window">
+        <div class="chatbot-header">
+            <h3 id="chatbot-header-text">Asistente Virtual</h3>
+            <button class="chatbot-close" id="chatbot-close" aria-label="Cerrar Chatbot"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-body" id="chatbot-body">
+            <div class="chat-message bot">
+                <p>¡Hola! Soy tu asistente virtual. Estoy aquí para ayudarte. ¿En qué puedo asistirte?</p>
+            </div>
+        </div>
+        <div class="chatbot-footer">
+            <input type="text" id="user-input" placeholder="Escribe tu mensaje..." aria-label="Escribe tu mensaje para el asistente virtual">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        
+        const amountElements = document.querySelectorAll('#checkoutAmount, #checkoutAmount2');
+        amountElements.forEach(el => {
+            el.textContent = `$${total.toLocaleString()} CUP`;
+        });
+    });
+  </script>
+</body>
+</html>
