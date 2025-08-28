@@ -14,6 +14,10 @@
     <a href="index.html" class="logo" aria-label="Inicio de Charlie's Tecnología">
       <span>CT</span> Charlie's Tecnología
     </a>
+    <div class="search-bar">
+      <i class="fas fa-search" style="color: #888;" aria-hidden="true"></i>
+      <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" />
+    </div>
     <div class="actions">
       <button class="action-icon" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">
         <i class="fas fa-moon"></i>
@@ -54,21 +58,27 @@
     <section class="page-content">
       <h2>Finalizar Compra</h2>
       <div class="checkout-container">
-        <p>Selecciona tu método de pago preferido para completar tu pedido. A continuación encontrarás las instrucciones para cada uno.</p>
+        <p>Selecciona tu método de pago preferido y la moneda para completar tu pedido.</p>
+
+        <div class="payment-selection">
+          <label for="currency-select">Elige la moneda:</label>
+          <select id="currency-select" aria-label="Seleccionar moneda de pago">
+            <option value="cup">CUP</option>
+            <option value="mlc">MLC</option>
+          </select>
+        </div>
 
         <div class="payment-methods">
 
           <div class="payment-method">
             <h3><i class="fas fa-mobile-alt"></i> Transfermóvil</h3>
             <p>1. Abre tu aplicación **Transfermóvil**.</p>
-            <p>2. Selecciona la opción **"Operaciones"** > **"Transferir Efectivo"**.</p>
-            <p>3. Elige la tarjeta a la que deseas transferir según la moneda de tu compra:</p>
-            <div class="payment-details">
-              <p><strong>Número de Teléfono:</strong> +53 53932292</p>
-              <p><strong>Tarjeta CUP:</strong> 9238129975083223</p>
-              <p><strong>Tarjeta MLC:</strong> 9235129979365413</p>
-              <p><strong>Importe:</strong> <span id="checkoutAmount">$0.00</span></p>
-            </div>
+            <p>2. Selecciona **"Transferir"** y elige la tarjeta de destino.</p>
+            <figure class="qr-code-container">
+              <img src="70324573-6bfd-4bfd-803d-4fd3f9882487.jpeg" alt="Código QR de Transfermóvil">
+              <figcaption class="qr-scan-label">Escanea el código para pagar</figcaption>
+            </figure>
+            <p>3. Ingresa el importe total: <strong id="checkoutAmount">$0.00 CUP</strong></p>
             <p>4. Confirma la operación y envía una captura de pantalla del comprobante a nuestro WhatsApp para validar el pago.</p>
           </div>
 
@@ -76,15 +86,14 @@
             <h3><i class="fas fa-qrcode"></i> Enzona</h3>
             <p>1. Abre tu aplicación **Enzona** y selecciona la opción para escanear un código QR.</p>
             <p>2. Escanea el código QR de nuestro comercio a continuación:</p>
-            <div class="qr-code-container">
-              <img src="https://i.imgur.com/r93aK5D.png" alt="Código QR de Enzona">
-            </div>
-            <p class="qr-scan-label">Escanea el código para pagar</p>
-            <p>3. Ingresa el importe total: <strong id="checkoutAmount2">$0.00</strong></p>
+            <figure class="qr-code-container">
+              <img src="ez_53932292receive_code.png" alt="Código QR de Enzona">
+              <figcaption class="qr-scan-label">Escanea el código para pagar</figcaption>
+            </figure>
+            <p>3. Ingresa el importe total: <strong id="checkoutAmount2">$0.00 CUP</strong></p>
             <p>4. Confirma el pago y envía una captura de pantalla a nuestro WhatsApp para recibir tu producto.</p>
           </div>
         </div>
-
       </div>
     </section>
   </main>
@@ -171,16 +180,5 @@
   </div>
 
   <script src="script.js" defer></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        
-        const amountElements = document.querySelectorAll('#checkoutAmount, #checkoutAmount2');
-        amountElements.forEach(el => {
-            el.textContent = `$${total.toLocaleString()} CUP`;
-        });
-    });
-  </script>
 </body>
 </html>
