@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           alert('Correo o contraseña incorrectos.');
         }
+        updateHeaderView(); // Llama a esta función después de intentar el login
       },
       register: function(name, email, password) {
         if (this.users.find(u => u.email === email)) {
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       logout: function() {
         localStorage.removeItem('user');
         this.user = null;
+        updateHeaderView(); // Llama a esta función después de cerrar sesión
         window.location.href = 'index.html';
       }
     };
@@ -82,10 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
       themeToggle: document.getElementById('themeToggle'),
       themeIcon: document.getElementById('themeToggle')?.querySelector('i'),
       cartCount: document.getElementById('cartCount'),
+      authLinks: document.getElementById('auth-links'), // Nueva referencia
       loginLink: document.getElementById('loginLink'),
       registerLink: document.getElementById('registerLink'),
       profileLink: document.getElementById('profileLink'),
       logoutBtn: document.getElementById('logoutBtn'),
+      userMenu: document.getElementById('user-menu'), // Nueva referencia
+      userToggle: document.getElementById('userToggle'),
       productsContainer: document.getElementById('products'),
       featuredProductsContainer: document.getElementById('featured-products'),
       categoryCards: document.querySelectorAll('.category-card'),
@@ -126,7 +131,19 @@ document.addEventListener('DOMContentLoaded', () => {
         dom.themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
       }
     }
-  
+
+    // Función para mostrar/ocultar los enlaces de autenticación/usuario
+    function updateHeaderView() {
+      if (!dom.authLinks || !dom.userMenu) return;
+      if (App.user) {
+        dom.authLinks.style.display = 'none';
+        dom.userMenu.style.display = 'block';
+      } else {
+        dom.authLinks.style.display = 'flex'; // Usar flex para que los botones se muestren en fila
+        dom.userMenu.style.display = 'none';
+      }
+    }
+
     function renderCartItems() {
       if (!dom.cartItemsContainer) return;
   
@@ -273,6 +290,22 @@ document.addEventListener('DOMContentLoaded', () => {
         App.setTheme(newTheme);
         updateThemeIcon();
       });
+
+      // Evento para el botón de cuenta
+      dom.userToggle?.addEventListener('click', () => {
+          const userMenu = dom.userToggle.closest('.user-menu');
+          userMenu.classList.toggle('active');
+          const isExpanded = userMenu.classList.contains('active');
+          dom.userToggle.setAttribute('aria-expanded', isExpanded);
+      });
+      
+      // Cerrar el menú desplegable si se hace clic fuera
+      document.addEventListener('click', (event) => {
+          if (dom.userMenu && !dom.userMenu.contains(event.target)) {
+              dom.userMenu.classList.remove('active');
+              dom.userToggle?.setAttribute('aria-expanded', 'false');
+          }
+      });
   
       // Evento para el botón de cerrar sesión
       dom.logoutBtn?.addEventListener('click', (e) => {
@@ -383,6 +416,9 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
       updateThemeIcon();
       
+      // Llamada para configurar el encabezado al cargar
+      updateHeaderView(); 
+      
       const path = window.location.pathname;
   
       if (path.includes('products.html')) {
@@ -399,21 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
         filterProducts();
       } else if (path.includes('checkout.html')) {
         renderPaymentInfo(dom.currencySelect?.value || 'cup');
-      }
-  
-      const user = App.user;
-      if (dom.loginLink && dom.registerLink && dom.profileLink && dom.logoutBtn) {
-        if (user) {
-          dom.loginLink.style.display = 'none';
-          dom.registerLink.style.display = 'none';
-          dom.profileLink.style.display = 'block';
-          dom.logoutBtn.style.display = 'block';
-        } else {
-          dom.loginLink.style.display = 'block';
-          dom.registerLink.style.display = 'block';
-          dom.profileLink.style.display = 'none';
-          dom.logoutBtn.style.display = 'none';
-        }
       }
     }
   
